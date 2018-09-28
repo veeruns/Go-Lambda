@@ -136,6 +136,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp.Ssay("Aarya Please <emphasis level='strong'> eat the food </emphasis>")
 	case "hello":
 		resp = CreateResponse(true)
+		resp.ShouldEndSession = false
 		resp.Say("Hello there, Lambda appears to be working properly.")
 	case "chew":
 		resp = CreateResponse(false)
