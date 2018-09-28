@@ -1,69 +1,102 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
-	"log"
+	"strconv"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/davecgh/go-spew/spew"
-	"bytes"
-	"strconv"
 )
 
 type AlexaRequest struct {
 	Version string `json:"version"`
 	Request struct {
-		Type   string `json:"type"`
-		Time   string `json:"timestamp"`
-		Intent struct {
-			Name               string `json:"name"`
-			ConfirmationStatus string `json:"confirmationstatus"`
-			Slots struct {
-				Times struct {
-					Name string `json:name`
-					Value string `json:value`
-					ConfirmationStatus string `json:"confirmationstatus"`
-					} `json:times`
-			} `json:slots`
+		Type      string `json:"type"`
+		Time      string `json:"timestamp"`
+		Locale    string `json:"locale"`
+		RequestID string `json:"requestId"`
+		Intent    struct {
+			Name               string          `json:"name"`
+			ConfirmationStatus string          `json:"confirmationstatus"`
+			Slots              map[string]Slot `json:"slots"`
 		} `json:"intent"`
+		DialogState string `json:"dialogState"`
 	} `json:"request"`
 }
 
+type Slot struct {
+	Name               string      `json:"name"`
+	Value              string      `json:"value"`
+	ConfirmationStatus string      `json:"confirmationStatus"`
+	Resolutions        interface{} `json:"resolutions,omitempty"`
+}
+
 type AlexaResponse struct {
-	Version  string `json:"version"`
-	Response struct {
+	Version          string `json:"version"`
+	ShouldEndSession bool   `json:"shouldEndSession`
+	Response         struct {
 		OutputSpeech struct {
 			Type string `json:"type"`
 			Text string `json:"text,omitempty"`
 			SSML string `json:"ssml,omitempty"`
 		} `json:"outputSpeech,omitemtpty"`
+		Directives []interface{} `json:"directives,omitempty"`
 	} `json:"response"`
+}
+
+type Intent struct {
+	Name               string                `json:"name"`
+	ConfirmationStatus string                `json:"confirmationStatus,omitempty"`
+	Slots              map[string]IntentSlot `json:"slots"`
+}
+
+type IntentSlot struct {
+	Name               string `json:"name"`
+	ConfirmationStatus string `json:"confirmationStatus,omitempty"`
+	Value              string `json:"value"`
+	ID                 string `json:"id,omitempty"`
+}
+
+type DialogDirective struct {
+	Type          string  `json:"type"`
+	SlotToElicit  string  `json:"slotToElicit,omitempty"`
+	SlotToConfirm string  `json:"slotToConfirm,omitempty"`
+	UpdatedIntent *Intent `json:"updatedIntent,omitempty"`
 }
 
 func CreateResponse(flag bool) *AlexaResponse {
 	var resp AlexaResponse
 	resp.Version = "1.0"
-	if(flag){
+	if flag {
 
-	resp.Response.OutputSpeech.Type = "PlainText"
-	resp.Response.OutputSpeech.Text = "Hello.  Please override this default output."
+		resp.Response.OutputSpeech.Type = "PlainText"
+		resp.Response.OutputSpeech.Text = "Hello.  Please override this default output."
 
-}else{
-	resp.Response.OutputSpeech.Type="SSML"
+	} else {
+		resp.Response.OutputSpeech.Type = "SSML"
 
-	resp.Response.OutputSpeech.SSML="<speak> Hello, Please override this default SSML output. </speak>"
-}
+		resp.Response.OutputSpeech.SSML = "<speak> Hello, Please override this default SSML output. </speak>"
+	}
 	return &resp
 }
-
-
 
 func (resp *AlexaResponse) Say(text string) {
 	resp.Response.OutputSpeech.Text = text
 }
 
-func (resp *AlexaResponse) Ssay(text string){
+func (r *AlexaResponse) AddDialogDirective(dialogType, slotToElicit, slotToConfirm string, intent *Intent) {
+	d := DialogDirective{
+		Type:          dialogType,
+		SlotToElicit:  slotToElicit,
+		SlotToConfirm: slotToConfirm,
+		UpdatedIntent: intent,
+	}
+	r.Response.Directives = append(r.Response.Directives, d)
+}
+
+func (resp *AlexaResponse) Ssay(text string) {
 	var b bytes.Buffer
 	b.WriteString("<speak>")
 	b.WriteString(text)
@@ -71,14 +104,14 @@ func (resp *AlexaResponse) Ssay(text string){
 	resp.Response.OutputSpeech.SSML = b.String()
 }
 
-func (resp *AlexaResponse) NSsay(text string,number int){
+func (resp *AlexaResponse) NSsay(text string, number int) {
 	var b bytes.Buffer
 	b.WriteString("<speak>")
-	for i:=0;i < number;i++ {
-	b.WriteString("<p>")
-	b.WriteString(text)
-	b.WriteString("</p>")
-}
+	for i := 0; i < number; i++ {
+		b.WriteString("<p>")
+		b.WriteString(text)
+		b.WriteString("</p>")
+	}
 	b.WriteString("</speak>")
 	resp.Response.OutputSpeech.SSML = b.String()
 }
@@ -90,8 +123,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	fmt.Println("---- Done. ----")
 
 	// Example of accessing map value via index:
-	log.Printf("Request type is ", i.Request.Intent.Name)
-  fmt.Println("Times is %s\n",i.Request.Intent.Slots.Times.Value)
+	//log.Printf("Request type is %s\n ", i.Request.Intent.Name)
+	//fmt.Println("Times is %s\n", i.Request.Intent.Slots.Times.Value)
 	// Create a response object
 	var resp *AlexaResponse
 
@@ -105,15 +138,30 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(true)
 		resp.Say("Hello there, Lambda appears to be working properly.")
 	case "chew":
-		resp=CreateResponse(false)
-		number_of_time,_:=strconv.Atoi(i.Request.Intent.Slots.Times.Value)
-		resp.NSsay("Aarya Please <emphasis level='strong'> chew the food </emphasis> ", number_of_time)
-	case "AMAZON.HelpIntent":
-		resp=CreateResponse(true)
-		resp.Say("This app is easy to use, just say: ask the office how warm it is")
+		resp = CreateResponse(false)
 
+		numberOfTime, _ := strconv.Atoi(i.Request.Intent.Slots["times"].Value)
+		resp.NSsay("Aarya Please <emphasis level='strong'> chew the food </emphasis> ", numberOfTime)
+	case "AMAZON.HelpIntent":
+		resp = CreateResponse(true)
+		resp.Say("Helping aarya with some things")
+	case "quiz":
+		resp = CreateResponse(false)
+		switch i.Request.DialogState {
+		case "STARTED":
+			//resp.Ssay("What is the answer for 10 time 10")
+			resp.ShouldEndSession = false
+			resp.AddDialogDirective("Dialog.ElicitSlot", "Elicit.Slot.266725601483.181274039913", "", nil)
+		case "COMPLETED":
+			resp.Ssay("Completed")
+			//resp.AddDialogDirective(dialogType, slotToElicit, slotToConfirm, intent)
+		case "IN_PROGRESS":
+			resp.Ssay("In Progress")
+		default:
+			resp.Ssay("Some random default, it did not catch any of it")
+		}
 	default:
-		resp=CreateResponse(true)
+		resp = CreateResponse(true)
 		resp.Say("I'm sorry, the input does not look like something I understand.")
 	}
 
