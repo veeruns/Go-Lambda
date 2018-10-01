@@ -190,7 +190,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			b2.WriteString(`"}
 	}
 
-}}`)
+}`)
 
 			intent = b2.String()
 			updatedintent := Intent{}
