@@ -29,7 +29,7 @@ type AlexaRequest struct {
 
 type Slot struct {
 	Name               string      `json:"name"`
-	Value              string      `json:"value"`
+	Value              string      `json:"value,omitempty"`
 	ConfirmationStatus string      `json:"confirmationStatus"`
 	Resolutions        interface{} `json:"resolutions,omitempty"`
 }
@@ -189,12 +189,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 }`)
 
 			intent = b2.String()
-
-			fmt.Printf("Intent is %s\n", intent)
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
 
-			fmt.Printf("%v\n", updatedintent)
+			spew.Dump(updatedintent)
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
