@@ -182,15 +182,15 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			"value": "`)
 			b2.WriteString(strconv.Itoa(number1))
 			b2.WriteString(`"},
-			"multiplier : {
+		"multiplier" : {
 				"name" : "multiplier",
 				"confirmationStatus": "NONE",
-				 "value" : "}`)
+				 "value" : "`)
 			b2.WriteString(strconv.Itoa(number2))
 			b2.WriteString(`"}
 	}
 
-}`)
+}}`)
 
 			intent = b2.String()
 			updatedintent := Intent{}
@@ -209,26 +209,28 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			var b2 bytes.Buffer
 			b2.WriteString(`{
 
-					"name": "quiz",
-					"confirmationStatus": "NONE",
-					"slots": {
-						"Answer": {
-							"name": "Answer",
-							"confirmationStatus": "NONE",`)
-			b2.WriteString(`"Value" : "`)
-			b2.WriteString(i.Request.Intent.Slots["Answer"].Value)
-			b2.WriteString(`"			},`)
-			b2.WriteString(`"Question": {
-							"name": "Question",
-							"confirmationStatus": "NONE",
-							"value":"`)
+	"name": "quiz",
+	"confirmationStatus": "NONE",
+	"slots": {
+		"Answer": {
+			"name": "Answer",
+			"confirmationStatus": "NONE"
+		},
+		"Question": {
+			"name": "Question",
+			"confirmationStatus": "NONE",
+			"value": "`)
 			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(" multiplied by ")
+			b2.WriteString(`"},
+		"multiplier" : {
+				"name" : "multiplier",
+				"confirmationStatus": "NONE",
+				 "value" : "`)
 			b2.WriteString(strconv.Itoa(number2))
 			b2.WriteString(`"}
-					}
+	}
 
-				}`)
+}}`)
 			fmt.Println("Dumping the Answer Slots")
 			spew.Dump(i.Request.Intent.Slots)
 			fmt.Println("Done dumping Answer Slots")
