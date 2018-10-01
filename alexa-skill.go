@@ -200,7 +200,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			//resp.AddDialogDirective(dialogType, slotToElicit, slotToConfirm, intent)
 		case "IN_PROGRESS":
 			resp.Response.ShouldEndSession = "false"
-			var intent string
+			//	var intent string
 			/*	var b2 bytes.Buffer
 				b2.WriteString(`{
 
