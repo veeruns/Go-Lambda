@@ -181,7 +181,11 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			"confirmationStatus": "NONE",
 			"value": "`)
 			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(" multiplied by ")
+			b2.WriteString(`"},
+			"multiplier : {
+				"name" : "multiplier",
+				"confirmationStatus": "NONE",
+				 "value" : "}`)
 			b2.WriteString(strconv.Itoa(number2))
 			b2.WriteString(`"}
 	}
