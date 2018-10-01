@@ -231,7 +231,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			b2.WriteString(`"}
 	}
 
-}}`)
+}`)
 			fmt.Println("Dumping the Answer Slots")
 			spew.Dump(i.Request.Intent.Slots)
 			fmt.Println("Done dumping Answer Slots")
