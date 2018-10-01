@@ -225,7 +225,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 				intent = b2.String()
 				updatedintent := Intent{}
-				json.Unmarshal([]byte(intent), &updatedintent) */
+				json.Unmarshal([]byte(intent), &updatedintent) 
 			givenanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			if answerCalc == givenanswer {
 				resp.Ssay("Its correct")
