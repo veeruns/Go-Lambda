@@ -201,39 +201,39 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "IN_PROGRESS":
 			resp.Response.ShouldEndSession = "false"
 			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
+			/*	var b2 bytes.Buffer
+				b2.WriteString(`{
 
-				"name": "quiz",
-				"confirmationStatus": "NONE",
-				"slots": {
-					"Answer": {
-						"name": "Answer",
-						"confirmationStatus": "NONE"
-						"Value": "Done"
-					},`)
-			b2.WriteString(`"Question": {
-						"name": "Question",
-						"confirmationStatus": "NONE",
-						"value":"`)
-			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(" multiplied by ")
-			b2.WriteString(strconv.Itoa(number2))
-			b2.WriteString(`"}
-				}
+					"name": "quiz",
+					"confirmationStatus": "NONE",
+					"slots": {
+						"Answer": {
+							"name": "Answer",
+							"confirmationStatus": "NONE"
+							"Value": "Done"
+						},`)
+				b2.WriteString(`"Question": {
+							"name": "Question",
+							"confirmationStatus": "NONE",
+							"value":"`)
+				b2.WriteString(strconv.Itoa(number1))
+				b2.WriteString(" multiplied by ")
+				b2.WriteString(strconv.Itoa(number2))
+				b2.WriteString(`"}
+					}
 
-			}`)
+				}`)
 
-			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
+				intent = b2.String()
+				updatedintent := Intent{}
+				json.Unmarshal([]byte(intent), &updatedintent) */
 			givenanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			if answerCalc == givenanswer {
 				resp.Ssay("Its correct")
 			} else {
 				resp.Ssay("Sorry its wrong")
 			}
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
+		//	resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
