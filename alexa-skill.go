@@ -191,8 +191,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			intent = b2.String()
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
-
+			fmt.Println("Dumping updated intent")
 			spew.Dump(updatedintent)
+			fmt.Println("Done dumping updated intent")
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
