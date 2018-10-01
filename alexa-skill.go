@@ -200,8 +200,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			//resp.AddDialogDirective(dialogType, slotToElicit, slotToConfirm, intent)
 		case "IN_PROGRESS":
 			resp.Response.ShouldEndSession = "false"
-			//	var intent string
-			/*	var b2 bytes.Buffer
+				var intent string
+				var b2 bytes.Buffer
 				b2.WriteString(`{
 
 					"name": "quiz",
@@ -210,7 +210,6 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 						"Answer": {
 							"name": "Answer",
 							"confirmationStatus": "NONE"
-							"Value": "Done"
 						},`)
 				b2.WriteString(`"Question": {
 							"name": "Question",
@@ -233,7 +232,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			} else {
 				resp.Ssay("Sorry its wrong")
 			}
-		//	resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
+		s	resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
