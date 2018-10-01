@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"strconv"
 
@@ -34,15 +35,15 @@ type Slot struct {
 }
 
 type AlexaResponse struct {
-	Version          string `json:"version"`
-	ShouldEndSession bool   `json:"shouldEndSession`
-	Response         struct {
+	Version  string `json:"version"`
+	Response struct {
 		OutputSpeech struct {
 			Type string `json:"type"`
 			Text string `json:"text,omitempty"`
 			SSML string `json:"ssml,omitempty"`
 		} `json:"outputSpeech,omitemtpty"`
-		Directives []interface{} `json:"directives,omitempty"`
+		Directives       []interface{} `json:"directives,omitempty"`
+		ShouldEndSession string        `json:"shouldEndSession"`
 	} `json:"response"`
 }
 
@@ -69,6 +70,7 @@ type DialogDirective struct {
 func CreateResponse(flag bool) *AlexaResponse {
 	var resp AlexaResponse
 	resp.Version = "1.0"
+	resp.Response.ShouldEndSession = "true"
 	if flag {
 
 		resp.Response.OutputSpeech.Type = "PlainText"
@@ -136,7 +138,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp.Ssay("Aarya Please <emphasis level='strong'> eat the food </emphasis>")
 	case "hello":
 		resp = CreateResponse(true)
-		resp.ShouldEndSession = false
+		resp.Response.ShouldEndSession = "true"
 		resp.Say("Hello there, Lambda appears to be working properly.")
 	case "chew":
 		resp = CreateResponse(false)
@@ -147,17 +149,94 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
 	case "quiz":
+		var number1, number2 int
+		number1 = 5
+		number2 = 6
+		//	var answerCalc int
+		//		answerCalc = number1 * number2
 		resp = CreateResponse(false)
 		switch i.Request.DialogState {
 		case "STARTED":
-			//resp.Ssay("What is the answer for 10 time 10")
-			resp.ShouldEndSession = false
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Elicit.Slot.266725601483.181274039913", "", nil)
+			var b bytes.Buffer
+			b.WriteString("What is the answer to ")
+			b.WriteString(strconv.Itoa(number1))
+			b.WriteString(" multiplied by ")
+			b.WriteString(strconv.Itoa(number2))
+			b.WriteString(" ")
+			resp.Ssay(b.String())
+			resp.Response.ShouldEndSession = "false"
+			var intent string
+			var b2 bytes.Buffer
+			b2.WriteString(`{
+
+	"name": "quiz",
+	"confirmationStatus": "NONE",
+	"slots": {
+		"Answer": {
+			"name": "Answer",
+			"confirmationStatus": "NONE"
+		},
+		"Question": {
+			"name": "Question",
+			"confirmationStatus": "NONE",
+			"value": "`)
+			b2.WriteString(strconv.Itoa(number1))
+			b2.WriteString(" multiplied by ")
+			b2.WriteString(strconv.Itoa(number2))
+			b2.WriteString(`"}
+	}
+
+}`)
+
+			intent = b2.String()
+
+			fmt.Printf("Intent is %s\n", intent)
+			updatedintent := Intent{}
+			json.Unmarshal([]byte(intent), &updatedintent)
+
+			fmt.Printf("%v\n", updatedintent)
+			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 		case "COMPLETED":
+			//	resp.Response.ShouldEndSession = "true"
 			resp.Ssay("Completed")
 			//resp.AddDialogDirective(dialogType, slotToElicit, slotToConfirm, intent)
 		case "IN_PROGRESS":
-			resp.Ssay("In Progress")
+			resp.Response.ShouldEndSession = "false"
+			/*   			var intent string
+						var b2 bytes.Buffer
+						b2.WriteString(`{
+
+				"name": "quiz",
+				"confirmationStatus": "NONE",
+				"slots": {
+					"Answer": {
+						"name": "Answer",
+						"confirmationStatus": "NONE"
+						"Value": "Done"
+					},`)
+						b2.WriteString(`"Question": {
+						"name": "Question",
+						"confirmationStatus": "NONE",
+						"value":"`)
+						b2.WriteString(strconv.Itoa(number1))
+						b2.WriteString(" multiplied by ")
+						b2.WriteString(strconv.Itoa(number2))
+						b2.WriteString(`"}
+				}
+
+			}`)
+
+						intent = b2.String()
+						updatedintent := Intent{}
+						json.Unmarshal([]byte(intent), &updatedintent)
+						given_answer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+						if answerCalc == given_answer {
+							resp.Ssay("Its correct")
+						} else {
+							resp.Ssay("Sorry its wrong")
+						}
+						resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)*/
+			resp.Ssay("In progress worked")
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
