@@ -209,8 +209,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 					"slots": {
 						"Answer": {
 							"name": "Answer",
-							"confirmationStatus": "NONE"
-						},`)
+							"confirmationStatus": "NONE",`)
+			b2.WriteString(`Value : "`)
+			b2.WriteString(i.Request.Intent.Slots["Answer"].Value)
+			b2.WriteString(`"			},`)
 			b2.WriteString(`"Question": {
 							"name": "Question",
 							"confirmationStatus": "NONE",
