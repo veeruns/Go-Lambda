@@ -224,6 +224,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 					}
 
 				}`)
+			spew.Dump(b2.String())
 
 			intent = b2.String()
 			updatedintent := Intent{}
