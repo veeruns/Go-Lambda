@@ -152,8 +152,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		var number1, number2 int
 		number1 = 5
 		number2 = 6
-		var answerCalc int
-		answerCalc = number1 * number2
+		//	var answerCalc int
+		//		answerCalc = number1 * number2
 		resp = CreateResponse(false)
 		switch i.Request.DialogState {
 		case "STARTED":
@@ -197,44 +197,46 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Printf("%v\n", updatedintent)
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 		case "COMPLETED":
+			//	resp.Response.ShouldEndSession = "true"
 			resp.Ssay("Completed")
 			//resp.AddDialogDirective(dialogType, slotToElicit, slotToConfirm, intent)
 		case "IN_PROGRESS":
-
 			resp.Response.ShouldEndSession = "false"
-			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
+			/*   			var intent string
+						var b2 bytes.Buffer
+						b2.WriteString(`{
 
-	"name": "quiz",
-	"confirmationStatus": "NONE",
-	"slots": {
-		"Answer": {
-			"name": "Answer",
-			"confirmationStatus": "NONE"
-		},`)
-			b2.WriteString(`"Question": {
-			"name": "Question",
-			"confirmationStatus": "NONE",
-			"value":"`)
-			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(" multiplied by ")
-			b2.WriteString(strconv.Itoa(number2))
-			b2.WriteString(`"}
-	}
+				"name": "quiz",
+				"confirmationStatus": "NONE",
+				"slots": {
+					"Answer": {
+						"name": "Answer",
+						"confirmationStatus": "NONE"
+						"Value": "Done"
+					},`)
+						b2.WriteString(`"Question": {
+						"name": "Question",
+						"confirmationStatus": "NONE",
+						"value":"`)
+						b2.WriteString(strconv.Itoa(number1))
+						b2.WriteString(" multiplied by ")
+						b2.WriteString(strconv.Itoa(number2))
+						b2.WriteString(`"}
+				}
 
-}`)
+			}`)
 
-			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
-			given_answer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			if answerCalc == given_answer {
-				resp.Ssay("Its correct")
-			} else {
-				resp.Ssay("Sorry its wrong")
-			}
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
+						intent = b2.String()
+						updatedintent := Intent{}
+						json.Unmarshal([]byte(intent), &updatedintent)
+						given_answer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+						if answerCalc == given_answer {
+							resp.Ssay("Its correct")
+						} else {
+							resp.Ssay("Sorry its wrong")
+						}
+						resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)*/
+			resp.Ssay("In progress worked")
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
