@@ -152,8 +152,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		var number1, number2 int
 		number1 = 5
 		number2 = 6
-		//	var answerCalc int
-		//		answerCalc = number1 * number2
+		var answerCalc int
+		answerCalc = number1 * number2
 		resp = CreateResponse(false)
 		switch i.Request.DialogState {
 		case "STARTED":
