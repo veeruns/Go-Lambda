@@ -214,8 +214,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	"slots": {
 		"Answer": {
 			"name": "Answer",
-			"confirmationStatus": "NONE"
-		},
+			"confirmationStatus": "NONE"`)
+
+			b2.WriteString(`},
 		"Question": {
 			"name": "Question",
 			"confirmationStatus": "NONE",
