@@ -216,7 +216,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			var b2 bytes.Buffer
 			b2.WriteString(`{
 				"name": "quiz",
-				"confirmationStatus": "NONE",
+				"confirmationStatus": "CONFIRMED",
 				"slots": {
 					"Answer": {
 						"name": "Answer",
@@ -236,6 +236,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				var asays string
 				asays = fmt.Sprintf("The answer you have given is %d", qanswer)
 				resp.Ssay(asays)
+				resp.Response.ShouldEndSession = "false"
 				resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
 			}
 
