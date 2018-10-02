@@ -174,7 +174,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp.Say("Helping aarya with some things")
 
 	case "quiz":
-		var answer int
+		var quizanswer int
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
@@ -185,7 +185,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "COMPLETED":
 			resp.Response.ShouldEndSession = "true"
 			//	resp.Ssay("Completed")
-			if answer == 54 {
+			if quizanswer == 54 {
 				resp.Ssay("Correct Answer")
 			} else {
 				resp.Ssay("Wrong Answer")
@@ -193,7 +193,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "IN_PROGRESS":
 
 			answer2, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			answer = answer2
+			quizanswer = answer2
 			resp.Response.ShouldEndSession = "false"
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
