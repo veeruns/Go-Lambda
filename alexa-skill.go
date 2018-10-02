@@ -178,7 +178,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 
-			answer = i.Request.Intent.Slots["Answer"].Value
+			answer = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
