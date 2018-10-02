@@ -96,7 +96,7 @@ func (resp *AlexaResponse) AddDialogDirective(dialogType, slotToElicit, slotToCo
 		SlotToConfirm: slotToConfirm,
 		UpdatedIntent: intent,
 	}
-	resp.Response.Directives = append(r.Response.Directives, d)
+	resp.Response.Directives = append(resp.Response.Directives, d)
 }
 
 // Ssay functions says something in SSML
