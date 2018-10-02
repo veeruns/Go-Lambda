@@ -87,7 +87,7 @@ func (resp *AlexaResponse) Say(text string) {
 	resp.Response.OutputSpeech.Text = text
 }
 
-// AddDialogDirective adds a Dialog Directive to response
+//AddDialogDirective adds a Dialog Directive to response
 func (r *AlexaResponse) AddDialogDirective(dialogType, slotToElicit, slotToConfirm string, intent *Intent) {
 	d := DialogDirective{
 		Type:          dialogType,
