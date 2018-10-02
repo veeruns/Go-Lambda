@@ -59,7 +59,7 @@ type IntentSlot struct {
 	ID                 string `json:"id,omitempty"`
 }
 
-//DialogDirective
+//DialogDirective is the structure that has DialogDirective
 type DialogDirective struct {
 	Type          string  `json:"type"`
 	SlotToElicit  string  `json:"slotToElicit,omitempty"`
