@@ -193,6 +193,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "IN_PROGRESS":
 
 			answer2, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			answer = answer2
 			resp.Response.ShouldEndSession = "false"
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
