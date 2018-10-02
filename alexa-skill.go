@@ -95,6 +95,8 @@ func (resp *AlexaResponse) Say(text string) {
 	resp.Response.OutputSpeech.Text = text
 }
 
+//func
+
 //AddDialogDirective adds a Dialog Directive to response
 func (resp *AlexaResponse) AddDialogDirective(dialogType, slotToElicit, slotToConfirm string, intent *Intent) {
 	d := DialogDirective{
@@ -159,16 +161,24 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "AMAZON.HelpIntent":
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
+		var answer int
 	case "quiz":
 
 		switch i.Request.DialogState {
 		case "STARTED":
-
+			resp.Response.ShouldEndSession = false
+			resp.Ssay("What is the answer to 9 times 6")
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
 			resp.Ssay("Completed")
-
+			if answer == 54 {
+				resp.Ssay("Correct Answer")
+			} else {
+				resp.Ssay("Wrong Answer")
+			}
 		case "IN_PROGRESS":
+
+			answer = i.Request.Intent.Slots["Answer"].Value
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
