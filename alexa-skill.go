@@ -161,9 +161,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "AMAZON.HelpIntent":
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
-		var answer int
-	case "quiz":
 
+	case "quiz":
+		var answer int
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
