@@ -105,6 +105,7 @@ func (resp *AlexaResponse) Ssay(text string) {
 	resp.Response.OutputSpeech.SSML = b.String()
 }
 
+//NSsay function repeats something N times
 func (resp *AlexaResponse) NSsay(text string, number int) {
 	var b bytes.Buffer
 	b.WriteString("<speak>")
