@@ -203,7 +203,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "COMPLETED":
 			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			resp.Response.ShouldEndSession = "true"
-			//	resp.Ssay("Completed")
+			resp.Ssay("Completed")
 			if quizanswer == 54 {
 				resp.Ssay("Correct Answer")
 			} else {
