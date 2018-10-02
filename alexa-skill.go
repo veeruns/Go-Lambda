@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"strconv"
 
@@ -149,103 +148,15 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
 	case "quiz":
-		var number1, number2 int
-		number1 = 5
-		number2 = 6
-		var answerCalc int
-		answerCalc = number1 * number2
-		resp = CreateResponse(false)
+
 		switch i.Request.DialogState {
 		case "STARTED":
-			var b bytes.Buffer
-			b.WriteString("What is the answer to ")
-			b.WriteString(strconv.Itoa(number1))
-			b.WriteString(" multiplied by ")
-			b.WriteString(strconv.Itoa(number2))
-			b.WriteString(" ")
-			resp.Ssay(b.String())
-			resp.Response.ShouldEndSession = "false"
-			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
 
-	"name": "quiz",
-	"confirmationStatus": "NONE",
-	"slots": {
-		"Answer": {
-			"name": "Answer",
-			"confirmationStatus": "NONE"
-		},
-		"Question": {
-			"name": "Question",
-			"confirmationStatus": "CONFIRMED",
-			"value": "`)
-			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(`"},
-		"multiplier" : {
-				"name" : "multiplier",
-				"confirmationStatus": "CONFIRMED",
-				 "value" : "`)
-			b2.WriteString(strconv.Itoa(number2))
-			b2.WriteString(`"}
-	}
-
-}`)
-
-			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
-			fmt.Println("Dumping updated intent")
-			spew.Dump(updatedintent)
-			fmt.Println("Done dumping updated intent")
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
 			resp.Ssay("Completed")
-			//resp.AddDialogDirective(dialogType, slotToElicit, slotToConfirm, intent)
+
 		case "IN_PROGRESS":
-			resp.Response.ShouldEndSession = "false"
-			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
-
-	"name": "quiz",
-	"confirmationStatus": "NONE",
-	"slots": {
-		"Answer": {
-			"name": "Answer",
-			"confirmationStatus": "NONE"`)
-
-			b2.WriteString(`},
-		"Question": {
-			"name": "Question",
-			"confirmationStatus": "CONFIRMED",
-			"value": "`)
-			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(`"},
-		"multiplier" : {
-				"name" : "multiplier",
-				"confirmationStatus": "CONFIRMED",
-				 "value" : "`)
-			b2.WriteString(strconv.Itoa(number2))
-			b2.WriteString(`"}
-	}
-
-}`)
-			fmt.Println("Dumping the Answer Slots")
-			spew.Dump(i.Request.Intent.Slots)
-			fmt.Println("Done dumping Answer Slots")
-
-			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
-			givenanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			if answerCalc == givenanswer {
-				resp.Ssay("Its correct")
-			} else {
-				resp.Ssay("Sorry its wrong")
-			}
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Question", "", &updatedintent)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
