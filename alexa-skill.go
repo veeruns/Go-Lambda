@@ -178,7 +178,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
-			resp.Ssay("What is the answer to 9 times 6")
+			resp.Ssay(CreateQuestion(9, 6))
+			updatedintent := Intent{}
+			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
