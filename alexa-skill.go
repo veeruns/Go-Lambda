@@ -10,6 +10,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
+//Alexa Request Structure
 type AlexaRequest struct {
 	Version string `json:"version"`
 	Request struct {
