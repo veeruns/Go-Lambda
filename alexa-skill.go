@@ -210,6 +210,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
+			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			if qanswer != 0 {
+				resp.AddDialogDirective("Dialog.Delegate", "", "", "")
+			}
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
