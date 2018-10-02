@@ -66,7 +66,7 @@ type DialogDirective struct {
 	UpdatedIntent *Intent `json:"updatedIntent,omitempty"`
 }
 
-//Creates a response with flag to create either an SSML or plaintext outputSpeech
+//CreatesResponse with flag to create either an SSML or plaintext outputSpeech
 func CreateResponse(flag bool) *AlexaResponse {
 	var resp AlexaResponse
 	resp.Version = "1.0"
