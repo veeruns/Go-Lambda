@@ -237,7 +237,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				asays = fmt.Sprintf("The answer you have given is %d", qanswer)
 				resp.Ssay(asays)
 				resp.Response.ShouldEndSession = "false"
-				resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
+				resp.AddDialogDirective("Dialog.ConfirmIntent", "", "", nil)
 			}
 
 		default:
