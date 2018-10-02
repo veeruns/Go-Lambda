@@ -190,19 +190,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		"Answer": {
 			"name": "Answer",
 			"confirmationStatus": "NONE"
-		},
-		"Question": {
-			"name": "Question",
-			"confirmationStatus": "CONFIRMED",
-			"value": "`)
-			b2.WriteString(strconv.Itoa(number1))
-			b2.WriteString(`"},
-		"multiplier" : {
-				"name" : "multiplier",
-				"confirmationStatus": "CONFIRMED",
-				 "value" : "`)
-			b2.WriteString(strconv.Itoa(number2))
-			b2.WriteString(`"}
+		}	
 	}
 }`)
 
