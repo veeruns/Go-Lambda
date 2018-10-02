@@ -210,8 +210,28 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 
-			answer2, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			quizanswer = answer2
+			quizanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			var intent string
+			var b2 bytes.Buffer
+			b2.WriteString(`{
+	"name": "quiz",
+	"confirmationStatus": "NONE",
+	"slots": {
+		"Answer": {
+			"name": "Answer",
+			"value": "`)
+			b2.WriteString(strconv.Itoa(quizanswer))
+			b2.WriteString(`",
+			"confirmationStatus": "CONFIRMED"
+		}
+	}
+}`)
+
+			intent = b2.String()
+			updatedintent := Intent{}
+			json.Unmarshal([]byte(intent), &updatedintent)
+			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
+
 			resp.Response.ShouldEndSession = "false"
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
