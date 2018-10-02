@@ -46,6 +46,7 @@ type AlexaResponse struct {
 	} `json:"response"`
 }
 
+//Intent Structure
 type Intent struct {
 	Name               string                `json:"name"`
 	ConfirmationStatus string                `json:"confirmationStatus,omitempty"`
