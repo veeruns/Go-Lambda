@@ -83,6 +83,7 @@ func CreateResponse(flag bool) *AlexaResponse {
 	return &resp
 }
 
+//Say functions just output plaintext speech
 func (resp *AlexaResponse) Say(text string) {
 	resp.Response.OutputSpeech.Text = text
 }
