@@ -166,7 +166,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 		switch i.Request.DialogState {
 		case "STARTED":
-			resp.Response.ShouldEndSession = false
+			resp.Response.ShouldEndSession = "false"
 			resp.Ssay("What is the answer to 9 times 6")
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
