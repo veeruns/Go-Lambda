@@ -233,9 +233,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 
 			if qanswer != 0 {
-				vat asays string
-				asays=fmt.Sprintf("The answer you have given is %s", qanswer)
-				resp.Ssay()
+				var asays string
+				asays=fmt.Sprintf("The answer you have given is %s", qanswer))
+				resp.Ssay(asays)
 				resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
 			}
 
