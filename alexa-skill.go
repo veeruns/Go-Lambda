@@ -130,6 +130,17 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	resp.Response.OutputSpeech.SSML = b.String()
 }
 
+//CreateQuestion functions
+func CreateQuestion(multiplicand, multiplier int) string {
+	var b bytes.Buffer
+	b.WriteString("What is the answer to ")
+	b.WriteString(strconv.Itoa(multiplicand))
+	b.WriteString(" multiplied by ")
+	b.WriteString(strconv.Itoa(multiplier))
+	b.WriteString(" ")
+	return b.String()
+}
+
 //HandleRequest function is the one which handles the request from alexa and gives response back
 func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	// Use Spew to output the request for debugging purposes:
@@ -168,6 +179,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
 			resp.Ssay("What is the answer to 9 times 6")
+
 		case "COMPLETED":
 			//	resp.Response.ShouldEndSession = "true"
 			resp.Ssay("Completed")
@@ -178,7 +190,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 
-			answer = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			answer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
