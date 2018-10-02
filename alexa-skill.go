@@ -184,7 +184,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 		case "COMPLETED":
 			resp.Response.ShouldEndSession = "true"
-			resp.Ssay("Completed")
+			//	resp.Ssay("Completed")
 			if answer == 54 {
 				resp.Ssay("Correct Answer")
 			} else {
