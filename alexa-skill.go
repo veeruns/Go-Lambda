@@ -117,6 +117,7 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	resp.Response.OutputSpeech.SSML = b.String()
 }
 
+//HandleRequest function is the one which handles the request from alexa and gives response back
 func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	// Use Spew to output the request for debugging purposes:
 	fmt.Println("---- Dumping Input Map: ----")
