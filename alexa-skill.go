@@ -201,6 +201,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 
 		case "COMPLETED":
+			quizanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			resp.Response.ShouldEndSession = "true"
 			//	resp.Ssay("Completed")
 			if quizanswer == 54 {
@@ -210,29 +211,6 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 
-			quizanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
-	"name": "quiz",
-	"confirmationStatus": "NONE",
-	"slots": {
-		"Answer": {
-			"name": "Answer",
-			"value": "`)
-			b2.WriteString(strconv.Itoa(quizanswer))
-			b2.WriteString(`",
-			"confirmationStatus": "CONFIRMED"
-		}
-	}
-}`)
-
-			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
-
-			resp.Response.ShouldEndSession = "false"
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
