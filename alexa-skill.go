@@ -97,6 +97,7 @@ func (r *AlexaResponse) AddDialogDirective(dialogType, slotToElicit, slotToConfi
 	r.Response.Directives = append(r.Response.Directives, d)
 }
 
+// Ssay functions says something in SSML
 func (resp *AlexaResponse) Ssay(text string) {
 	var b bytes.Buffer
 	b.WriteString("<speak>")
