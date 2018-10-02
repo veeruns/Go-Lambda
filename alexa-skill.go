@@ -33,6 +33,7 @@ type Slot struct {
 	Resolutions        interface{} `json:"resolutions,omitempty"`
 }
 
+//AlexaResponse Structure
 type AlexaResponse struct {
 	Version  string `json:"version"`
 	Response struct {
