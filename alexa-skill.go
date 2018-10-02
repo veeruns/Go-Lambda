@@ -52,6 +52,7 @@ type Intent struct {
 	Slots              map[string]IntentSlot `json:"slots"`
 }
 
+//IntentSlot is the Alexa IntentSlots
 type IntentSlot struct {
 	Name               string `json:"name"`
 	ConfirmationStatus string `json:"confirmationStatus,omitempty"`
