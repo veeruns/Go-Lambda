@@ -176,10 +176,11 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 	case "quiz":
 		var quizanswer int
+		resp = CreateResponse(false)
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
-			resp.Ssay("What is the answer to 9 * 6")
+			resp.Ssay(CreateQuestion(9, 6))
 
 			var intent string
 			var b2 bytes.Buffer
