@@ -210,9 +210,30 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
+
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			var intent string
+			var b2 bytes.Buffer
+			b2.WriteString(`{
+				"name": "quiz",
+				"confirmationStatus": "NONE",
+				"slots": {
+					"Answer": {
+						"name": "Answer",
+						"value": "`)
+			b2.WriteString(strconv.Itoa(qanswer))
+			b2.WriteString(`",
+						"confirmationStatus": "CONFIRMED"
+					}
+				}
+			}`)
+			intent = b2.String()
+			updatedintent := Intent{}
+			json.Unmarshal([]byte(intent), &updatedintent)
+			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
+
 			if qanswer != 0 {
-				resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
+				resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
 			}
 
 		default:
