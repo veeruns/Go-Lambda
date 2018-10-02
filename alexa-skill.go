@@ -26,6 +26,7 @@ type AlexaRequest struct {
 	} `json:"request"`
 }
 
+//Slot Structure
 type Slot struct {
 	Name               string      `json:"name"`
 	Value              string      `json:"value,omitempty"`
