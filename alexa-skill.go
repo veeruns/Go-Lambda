@@ -201,7 +201,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 
 		case "COMPLETED":
-			quizanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			resp.Response.ShouldEndSession = "true"
 			//	resp.Ssay("Completed")
 			if quizanswer == 54 {
