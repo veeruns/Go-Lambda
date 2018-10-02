@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"strconv"
 
@@ -179,7 +180,35 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
 			resp.Ssay(CreateQuestion(9, 6))
+
+			var intent string
+			var b2 bytes.Buffer
+			b2.WriteString(`{
+	"name": "quiz",
+	"confirmationStatus": "NONE",
+	"slots": {
+		"Answer": {
+			"name": "Answer",
+			"confirmationStatus": "NONE"
+		},
+		"Question": {
+			"name": "Question",
+			"confirmationStatus": "CONFIRMED",
+			"value": "`)
+			b2.WriteString(strconv.Itoa(number1))
+			b2.WriteString(`"},
+		"multiplier" : {
+				"name" : "multiplier",
+				"confirmationStatus": "CONFIRMED",
+				 "value" : "`)
+			b2.WriteString(strconv.Itoa(number2))
+			b2.WriteString(`"}
+	}
+}`)
+
+			intent = b2.String()
 			updatedintent := Intent{}
+			json.Unmarshal([]byte(intent), &updatedintent)
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 
 		case "COMPLETED":
