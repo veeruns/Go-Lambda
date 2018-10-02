@@ -212,7 +212,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "IN_PROGRESS":
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			if qanswer != 0 {
-				resp.AddDialogDirective("Dialog.Delegate", "", "", "")
+				resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 			}
 
 		default:
