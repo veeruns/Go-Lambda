@@ -179,7 +179,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
-			resp.Ssay(CreateQuestion(9, 6))
+			resp.Ssay("What is the answer to 9 * 6")
 
 			var intent string
 			var b2 bytes.Buffer
@@ -190,7 +190,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		"Answer": {
 			"name": "Answer",
 			"confirmationStatus": "NONE"
-		}	
+		}
 	}
 }`)
 
