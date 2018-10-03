@@ -99,16 +99,16 @@ func (resp *AlexaResponse) Say(text string) {
 }
 
 //EndResponse
-func (resp *AlexaResponse) EndResponse(){
+func (resp *AlexaResponse) EndResponse() {
 	clear(resp)
-	resp.Version="1.0"
+	resp.Version = "1.0"
 	//resp.Response.ShouldEndSession="false"
 	var dtype string
 	dtype = "Dialog.Delegate"
-	d: = DialogDirective{
-		Type:  dtype,
+	d := DialogDirective{
+		Type: dtype,
 	}
-	resp.Response.Directives=append(resp.Response.Directives,d)
+	resp.Response.Directives = append(resp.Response.Directives, d)
 }
 
 //AddDialogDirective adds a Dialog Directive to response
