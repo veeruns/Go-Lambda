@@ -103,8 +103,10 @@ func (resp *AlexaResponse) EndResponse(){
 	clear(resp)
 	resp.Version="1.0"
 	//resp.Response.ShouldEndSession="false"
+	var dtype string
+	dtype = "Dialog.Delegate"
 	d: = DialogDirective{
-		Type:  "Dialog.Delegate"
+		Type:  dtype
 	}
 	resp.Response.Directives=append(resp.Response.Directives,d)
 }
