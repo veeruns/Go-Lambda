@@ -228,39 +228,39 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
-			resp.Response.ShouldEndSession = "false"
-			resp.Ssay("Ok lets try this out")
+		//	resp.Response.ShouldEndSession = "false"
+		//resp.Ssay("Ok lets try this out")
 
-			/*qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
-				"name": "quiz",
-				"confirmationStatus": "CONFIRMED",
-				"slots": {
-					"Answer": {
-						"name": "Answer",
-						"value": "`)
-			b2.WriteString(strconv.Itoa(qanswer))
-			b2.WriteString(`",
-						"confirmationStatus": "CONFIRMED"
-					}
+		/*qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+		var intent string
+		var b2 bytes.Buffer
+		b2.WriteString(`{
+			"name": "quiz",
+			"confirmationStatus": "CONFIRMED",
+			"slots": {
+				"Answer": {
+					"name": "Answer",
+					"value": "`)
+		b2.WriteString(strconv.Itoa(qanswer))
+		b2.WriteString(`",
+					"confirmationStatus": "CONFIRMED"
 				}
-			}`)
-			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
-			/*resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
-			resp.Response.ShouldEndSession = "false"
-			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
-			//clear(resp.Response.OutputSpeech)
-			resp.Response.OutputSpeech.SSML = ""
-			resp.Response.OutputSpeech.Text = ""
-			resp.Response.OutputSpeech.Type = ""
-			resp.EndResponse()
-			fmt.Println("Response after fixing it")
-			spew.Dump(resp)
-			fmt.Println("Done Response after fixing it")*/
+			}
+		}`)
+		intent = b2.String()
+		updatedintent := Intent{}
+		json.Unmarshal([]byte(intent), &updatedintent)
+		/*resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
+		resp.Response.ShouldEndSession = "false"
+		resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
+		//clear(resp.Response.OutputSpeech)
+		resp.Response.OutputSpeech.SSML = ""
+		resp.Response.OutputSpeech.Text = ""
+		resp.Response.OutputSpeech.Type = ""
+		resp.EndResponse()
+		fmt.Println("Response after fixing it")
+		spew.Dump(resp)
+		fmt.Println("Done Response after fixing it")*/
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
