@@ -164,7 +164,7 @@ func CreateQuestion(multiplicand, multiplier int) string {
 func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	// Use Spew to output the request for debugging purposes:
 	fmt.Println("---- Dumping Input Map: ----")
-	spew.Dump(i.Request)
+	spew.Dump(i)
 	fmt.Println("---- Done. ----")
 
 	// Example of accessing map value via index:
