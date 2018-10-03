@@ -98,7 +98,16 @@ func (resp *AlexaResponse) Say(text string) {
 	resp.Response.OutputSpeech.Text = text
 }
 
-//func
+//EndResponse
+func (resp *AlexaResponse) EndResponse(){
+	clear(resp)
+	resp.Version="1.0"
+	//resp.Response.ShouldEndSession="false"
+	d:=DialogDirective{
+		Type: "Dialog.Delegate"
+	}
+	resp.Response.Directives=append(resp.Response.Directives,d)
+}
 
 //AddDialogDirective adds a Dialog Directive to response
 func (resp *AlexaResponse) AddDialogDirective(dialogType, slotToElicit, slotToConfirm string, intent *Intent) {
@@ -237,13 +246,14 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			intent = b2.String()
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
-			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
+			/*resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
 			resp.Response.ShouldEndSession = "false"
 			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 			//clear(resp.Response.OutputSpeech)
 			resp.Response.OutputSpeech.SSML = ""
 			resp.Response.OutputSpeech.Text = ""
-			resp.Response.OutputSpeech.Type = ""
+			resp.Response.OutputSpeech.Type = ""*/
+			resp.EndResponse()
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
 			fmt.Println("Done Response after fixing it")
@@ -254,9 +264,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(true)
 		resp.Say("I'm sorry, the input does not look like something I understand.")
 	}
-	fmt.Println("Response after handler")
-	spew.Dump(resp)
-	fmt.Println("Done Response after handler")
+
 	return *resp, nil
 }
 
