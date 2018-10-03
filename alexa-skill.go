@@ -239,7 +239,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
-			clear(&resp)
+			clear(resp)
 			resp.Version = "1.0"
 			resp.Response.ShouldEndSession = "false"
 			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
