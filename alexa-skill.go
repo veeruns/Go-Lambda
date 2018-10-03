@@ -246,8 +246,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.Response.ShouldEndSession = "false"
 			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 			fmt.Println("Response after fixing it")
-			pretty_print, _ := json.MarshalIndent(resp, "", "   ")
-			fmt.Println(pretty_print)
+			spew.Dump(resp)
 			fmt.Println("Done Response after fixing it")
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
