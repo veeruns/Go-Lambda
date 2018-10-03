@@ -102,12 +102,11 @@ func (resp *AlexaResponse) Say(text string) {
 func (resp *AlexaResponse) EndResponse() {
 	clear(resp)
 	resp.Version = "1.0"
-	resp.Response.ShouldEndSession="false"
+	resp.Response.ShouldEndSession = "false"
 	var dtype string
 	dtype = "Dialog.Delegate"
 	d := DialogDirective{
 		Type: dtype,
-
 	}
 	resp.Response.Directives = append(resp.Response.Directives, d)
 }
@@ -256,7 +255,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			//clear(resp.Response.OutputSpeech)
 			resp.Response.OutputSpeech.SSML = ""
 			resp.Response.OutputSpeech.Text = ""
-			resp.Response.OutputSpeech.Type = ""*/
+			resp.Response.OutputSpeech.Type = ""
 			resp.EndResponse()
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
