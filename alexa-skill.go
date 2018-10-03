@@ -238,8 +238,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay(asays)
 				resp.Response.ShouldEndSession = "False"
 
-				resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 			}
+			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
