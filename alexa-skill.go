@@ -152,9 +152,9 @@ func CreateQuestion(multiplicand, multiplier int) string {
 //HandleRequest function is the one which handles the request from alexa and gives response back
 func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	// Use Spew to output the request for debugging purposes:
-	fmt.Println("---- Dumping Input Map: ----")
-	spew.Dump(i)
-	fmt.Println("---- Done. ----")
+	//	fmt.Println("---- Dumping Input Map: ----")
+	//spew.Dump(i)
+	//fmt.Println("---- Done. ----")
 
 	// Example of accessing map value via index:
 	//log.Printf("Request type is %s\n ", i.Request.Intent.Name)
@@ -240,7 +240,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
 			resp.Response.ShouldEndSession = "false"
 			resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
-			clear(resp.Response.OutputSpeech)
+			//clear(resp.Response.OutputSpeech)
+			resp.Response.OutputSpeech.SSML = ""
+			resp.Response.OutputSpeech.Text = ""
+			resp.Response.OutputSpeech.Type = ""
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
 			fmt.Println("Done Response after fixing it")
