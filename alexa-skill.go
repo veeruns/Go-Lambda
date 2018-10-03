@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"reflect"
+
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/davecgh/go-spew/spew"
 )
@@ -119,6 +121,12 @@ func (resp *AlexaResponse) Ssay(text string) {
 }
 
 //NSsay function repeats something N times
+
+func clear(v interface{}) {
+	p := reflect.ValueOf(v).Elem()
+	p.Set(reflect.Zero(p.Type()))
+}
+
 func (resp *AlexaResponse) NSsay(text string, number int) {
 	var b bytes.Buffer
 	b.WriteString("<speak>")
@@ -236,7 +244,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				//var asays string
 				//asays = fmt.Sprintf("The answer you have given is %d", qanswer)
 				//resp.Ssay(asays)
-				resp={}
+				clear(&resp)
+				resp.Version = "1.0"
 				resp.Response.ShouldEndSession = "False"
 
 			}
