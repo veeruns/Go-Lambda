@@ -240,15 +240,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			json.Unmarshal([]byte(intent), &updatedintent)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 
-			if qanswer != 0 {
-				//var asays string
-				//asays = fmt.Sprintf("The answer you have given is %d", qanswer)
-				//resp.Ssay(asays)
-				clear(&resp)
-				resp.Version = "1.0"
-				resp.Response.ShouldEndSession = "False"
+			resp.Version = "1.0"
+			resp.Response.ShouldEndSession = "false"
 
-			}
 			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 
 		default:
