@@ -228,6 +228,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
+			resp.Response.ShouldEndSession = "false"
 			resp.Ssay("Ok lets try this out")
 
 			/*qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
