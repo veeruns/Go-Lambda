@@ -120,13 +120,12 @@ func (resp *AlexaResponse) Ssay(text string) {
 	resp.Response.OutputSpeech.SSML = b.String()
 }
 
-//NSsay function repeats something N times
-
 func clear(v interface{}) {
 	p := reflect.ValueOf(v).Elem()
 	p.Set(reflect.Zero(p.Type()))
 }
 
+//NSsay function repeats something N times
 func (resp *AlexaResponse) NSsay(text string, number int) {
 	var b bytes.Buffer
 	b.WriteString("<speak>")
