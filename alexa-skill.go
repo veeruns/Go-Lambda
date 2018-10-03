@@ -120,8 +120,6 @@ func (resp *AlexaResponse) Ssay(text string) {
 	resp.Response.OutputSpeech.SSML = b.String()
 }
 
-func
-
 func clear(v interface{}) {
 	p := reflect.ValueOf(v).Elem()
 	p.Set(reflect.Zero(p.Type()))
@@ -248,7 +246,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.Response.ShouldEndSession = "false"
 			resp.AddDialogDirective("Dialog.Delegate", "", "", nil)
 			fmt.Println("Response after fixing it")
-			pretty_print,_ := json.MarshalIndent(resp, "", "   ")
+			pretty_print, _ := json.MarshalIndent(resp, "", "   ")
 			fmt.Println(pretty_print)
 			fmt.Println("Done Response after fixing it")
 		default:
