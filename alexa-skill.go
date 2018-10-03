@@ -240,7 +240,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			json.Unmarshal([]byte(intent), &updatedintent)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
 			clear(resp)
-			fmt.Println("Have we cleared the response\n")
+			fmt.Println("Have we cleared the response")
 			spew.Dump(resp)
 			fmt.Println("Done clearing response")
 			resp.Version = "1.0"
