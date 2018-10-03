@@ -240,6 +240,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
 			resp.Response.ShouldEndSession = "false"
 			resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
+			resp.Response.OutputSpeech={}
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
 			fmt.Println("Done Response after fixing it")
