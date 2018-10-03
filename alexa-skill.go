@@ -43,7 +43,7 @@ type AlexaResponse struct {
 	Version  string `json:"version"`
 	Response struct {
 		OutputSpeech struct {
-			Type string `json:"type"`
+			Type string `json:"type,omitempty"`
 			Text string `json:"text,omitempty"`
 			SSML string `json:"ssml,omitempty"`
 		} `json:"outputSpeech,omitemtpty"`
@@ -102,11 +102,12 @@ func (resp *AlexaResponse) Say(text string) {
 func (resp *AlexaResponse) EndResponse() {
 	clear(resp)
 	resp.Version = "1.0"
-	//resp.Response.ShouldEndSession="false"
+	resp.Response.ShouldEndSession="false"
 	var dtype string
 	dtype = "Dialog.Delegate"
 	d := DialogDirective{
 		Type: dtype,
+
 	}
 	resp.Response.Directives = append(resp.Response.Directives, d)
 }
@@ -228,8 +229,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
+			resp.Ssay("Ok lets try this out")
 
-			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			/*qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
 			var b2 bytes.Buffer
 			b2.WriteString(`{
@@ -258,7 +260,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.EndResponse()
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
-			fmt.Println("Done Response after fixing it")
+			fmt.Println("Done Response after fixing it")*/
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
