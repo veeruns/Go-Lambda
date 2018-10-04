@@ -152,7 +152,7 @@ func (resp *AlexaResponse) Ssay(text string) {
 	op = b.String()
 	speech = OutputSpeech{
 		Type: "SSML",
-		SSML: op,
+		SSML: string(op),
 	}
 
 	resp.Response.OutputSpeech = &speech
@@ -179,7 +179,7 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	op = b.String()
 	speech = OutputSpeech{
 		Type: "SSML",
-		SSML: strin(op),
+		SSML: op,
 	}
 	resp.Response.OutputSpeech = &speech
 }
