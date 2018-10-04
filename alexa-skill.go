@@ -16,7 +16,7 @@ import (
 //AlexaRequest Structure
 type AlexaRequest struct {
 	Version string   `json:"version"`
-	session *session `json:"session"`
+	session *Session `json:"session"`
 	Request struct {
 		Type      string `json:"type"`
 		Time      string `json:"timestamp"`
@@ -31,6 +31,7 @@ type AlexaRequest struct {
 	} `json:"request"`
 }
 
+//Session structure
 type Session struct {
 	New        bool   `json:"new"`
 	SessionID  string `json:"sessionId"`
