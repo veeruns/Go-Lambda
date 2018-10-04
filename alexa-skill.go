@@ -38,18 +38,24 @@ type Slot struct {
 	Resolutions        interface{} `json:"resolutions,omitempty"`
 }
 
+//OutputSpeech structure
+type OutputSpeech struct {
+	Type string `json:"type,omitempty"`
+	Text string `json:"text,omitempty"`
+	SSML string `json:"ssml,omitempty"`
+}
+
+//Response structure
+type Response struct {
+	OutputSpeech     *OutputSpeech `json:",omitempty"`
+	Directives       []interface{} `json:"directives,omitempty"`
+	ShouldEndSession string        `json:"shouldEndSession,omitempty"`
+}
+
 //AlexaResponse Structure
 type AlexaResponse struct {
-	Version  string `json:"version"`
-	Response struct {
-		OutputSpeech struct {
-			Type string `json:"type,omitempty"`
-			Text string `json:"text,omitempty"`
-			SSML string `json:"ssml,omitempty"`
-		} `json:"outputSpeech,omitemtpty"`
-		Directives       []interface{} `json:"directives,omitempty"`
-		ShouldEndSession string        `json:"shouldEndSession"`
-	} `json:"response"`
+	Version  string   `json:"version"`
+	Response Response `json:"response,omitempty"`
 }
 
 //Intent Structure
@@ -79,26 +85,38 @@ type DialogDirective struct {
 func CreateResponse(flag bool) *AlexaResponse {
 	var resp AlexaResponse
 	resp.Version = "1.0"
+	var speech OutputSpeech
+
 	resp.Response.ShouldEndSession = "true"
 	if flag {
-
-		resp.Response.OutputSpeech.Type = "PlainText"
-		resp.Response.OutputSpeech.Text = "Hello.  Please override this default output."
+		speech = OutputSpeech{
+			Type: "PlainText",
+			Text: "Please over ride",
+		}
+		resp.Response.OutputSpeech = &speech
 
 	} else {
-		resp.Response.OutputSpeech.Type = "SSML"
 
-		resp.Response.OutputSpeech.SSML = "<speak> Hello, Please override this default SSML output. </speak>"
+		speech = OutputSpeech{
+			Type: "SSML",
+			SSML: "<speak>Please over ride </speak>",
+		}
+		resp.Response.OutputSpeech = &speech
 	}
 	return &resp
 }
 
 //Say functions just output plaintext speech
 func (resp *AlexaResponse) Say(text string) {
-	resp.Response.OutputSpeech.Text = text
+	var speech OutputSpeech
+	speech = OutputSpeech{
+		Type: "PlainText",
+		Text: text,
+	}
+	resp.Response.OutputSpeech = &speech
 }
 
-//EndResponse
+//EndResponse function clears everything
 func (resp *AlexaResponse) EndResponse() {
 	clear(resp)
 	resp.Version = "1.0"
@@ -128,7 +146,15 @@ func (resp *AlexaResponse) Ssay(text string) {
 	b.WriteString("<speak>")
 	b.WriteString(text)
 	b.WriteString("</speak>")
-	resp.Response.OutputSpeech.SSML = b.String()
+	var speech OutputSpeech
+	var op string
+	op = b.String()
+	speech = OutputSpeech{
+		Type: "SSML",
+		SSML: op,
+	}
+
+	resp.Response.OutputSpeech = &speech
 }
 
 func clear(v interface{}) {
@@ -146,7 +172,15 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 		b.WriteString("</p>")
 	}
 	b.WriteString("</speak>")
-	resp.Response.OutputSpeech.SSML = b.String()
+
+	var speech OutputSpeech
+	var op string
+	op = b.String()
+	speech = OutputSpeech{
+		Type: "SSML",
+		SSML: op,
+	}
+	resp.Response.OutputSpeech = &speech
 }
 
 //CreateQuestion functions
