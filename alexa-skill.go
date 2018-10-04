@@ -236,7 +236,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			var b2 bytes.Buffer
 			b2.WriteString(`{
 			"name": "quiz",
-			"confirmationStatus": "CONFIRMED",
+			"confirmationStatus": "NONE",
 			"slots": {
 				"Answer": {
 					"name": "Answer",
