@@ -176,14 +176,13 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	}
 	b.WriteString("</speak>")
 
-	var speech OutputSpeech
 	var op string
 	op = b.String()
-	speech = OutputSpeech{
+
+	resp.Response.OutputSpeech = &OutputSpeech{
 		Type: "SSML",
 		SSML: op,
 	}
-	resp.Response.OutputSpeech = &speech
 }
 
 //CreateQuestion functions
