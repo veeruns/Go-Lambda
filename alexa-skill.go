@@ -93,6 +93,7 @@ func CreateResponse(flag bool) *AlexaResponse {
 			Type: "PlainText",
 			Text: "Please over ride",
 		}
+
 		resp.Response.OutputSpeech = &speech
 
 	} else {
@@ -237,20 +238,22 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			var intent string
 			var b2 bytes.Buffer
 			b2.WriteString(`{
-	"name": "quiz",
-	"confirmationStatus": "NONE",
-	"slots": {
-		"Answer": {
-			"name": "Answer",
-			"confirmationStatus": "NONE"
-		}
-	}
-}`)
+					"name": "quiz",
+						"confirmationStatus": "NONE",
+							"slots": {
+									"Answer": {
+											"name": "Answer",
+												"confirmationStatus": "NONE"
+											}
+										}
+										}`)
 
 			intent = b2.String()
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
+			json_resp, _ := json.Marshal(resp)
+			fmt.Printf("When dialog started the resp is %s\n", json_resp)
 
 		case "COMPLETED":
 			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
