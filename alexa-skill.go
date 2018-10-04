@@ -47,7 +47,7 @@ type OutputSpeech struct {
 
 //Response structure
 type Response struct {
-	OutputSpeech     *OutputSpeech `json:",omitempty"`
+	OutputSpeech     *OutputSpeech `json:"outputspeech,omitempty"`
 	Directives       []interface{} `json:"directives,omitempty"`
 	ShouldEndSession string        `json:"shouldEndSession,omitempty"`
 }
