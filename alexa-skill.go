@@ -229,38 +229,38 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 			resp.Response.ShouldEndSession = "false"
-		resp.Ssay("Lets try out Confirm Intent ")
+			resp.Ssay("Lets try out Confirm Intent ")
 
-	qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-		var intent string
-		var b2 bytes.Buffer
-		b2.WriteString(`{
+			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			var intent string
+			var b2 bytes.Buffer
+			b2.WriteString(`{
 			"name": "quiz",
 			"confirmationStatus": "CONFIRMED",
 			"slots": {
 				"Answer": {
 					"name": "Answer",
 					"value": "`)
-		b2.WriteString(strconv.Itoa(qanswer))
-		b2.WriteString(`",
+			b2.WriteString(strconv.Itoa(qanswer))
+			b2.WriteString(`",
 					"confirmationStatus": "CONFIRMED"
 				}
 			}
 		}`)
-		intent = b2.String()
-		updatedintent := Intent{}
-		json.Unmarshal([]byte(intent), &updatedintent)
-		//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
-		resp.Response.ShouldEndSession = "false"
-		resp.AddDialogDirective("Dialog.ConfirmIntent", "", "", &updatedintent)
-		/*clear(resp.Response.OutputSpeech)
-		resp.Response.OutputSpeech.SSML = ""
-		resp.Response.OutputSpeech.Text = ""
-		resp.Response.OutputSpeech.Type = ""
-		resp.EndResponse()*/
-		fmt.Println("Response after fixing it")
-		spew.Dump(resp)
-		fmt.Println("Done Response after fixing it")*/
+			intent = b2.String()
+			updatedintent := Intent{}
+			json.Unmarshal([]byte(intent), &updatedintent)
+			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
+			resp.Response.ShouldEndSession = "false"
+			resp.AddDialogDirective("Dialog.ConfirmIntent", "", "", &updatedintent)
+			/*clear(resp.Response.OutputSpeech)
+			resp.Response.OutputSpeech.SSML = ""
+			resp.Response.OutputSpeech.Text = ""
+			resp.Response.OutputSpeech.Type = ""
+			resp.EndResponse()*/
+			fmt.Println("Response after fixing it")
+			spew.Dump(resp)
+			fmt.Println("Done Response after fixing it")
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
