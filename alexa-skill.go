@@ -261,7 +261,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			clear(resp)
 			json.Unmarshal([]byte(intent), resp)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
-
+			pop, _ := json.Marshal(resp)
+			fmt.Printf(" Response POP POP is %s\n", pop)
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
 			fmt.Println("Done Response after fixing it")
