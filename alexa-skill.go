@@ -114,6 +114,8 @@ func (resp *AlexaResponse) Say(text string) {
 		Type: "PlainText",
 		Text: text,
 	}
+	sm, _ := json.Marshal(resp)
+	fmt.Printf("In Say the response is %s\n", sm)
 	resp.Response.OutputSpeech = &speech
 }
 
