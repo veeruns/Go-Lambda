@@ -248,17 +248,19 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		}`)
 			intent = b2.String()
-			updatedintent := Intent{}
-			json.Unmarshal([]byte(intent), &updatedintent)
+			intent = `{
+	"version": "1.0",
+	"response": {
+		"directives": [{
+			"type": "Dialog.Delegate"
+		}],
+		"shouldEndSession": "False"
+	}
+}`
+			//updatedintent := Al{}
+			json.Unmarshal([]byte(intent), resp)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
 
-			clear(resp)
-			resp.Version = "1.0"
-			resp.Response.ShouldEndSession = "False"
-			resp.Response.OutputSpeech.SSML = ""
-			resp.Response.OutputSpeech.Text = ""
-			resp.AddDialogDirective("Dialog.Delegate", "", "", &updatedintent)
-			//resp.EndResponse()
 			fmt.Println("Response after fixing it")
 			spew.Dump(resp)
 			fmt.Println("Done Response after fixing it")
