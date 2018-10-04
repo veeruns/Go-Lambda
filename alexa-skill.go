@@ -15,7 +15,8 @@ import (
 
 //AlexaRequest Structure
 type AlexaRequest struct {
-	Version string `json:"version"`
+	Version string   `json:"version"`
+	session *session `json:"session"`
 	Request struct {
 		Type      string `json:"type"`
 		Time      string `json:"timestamp"`
@@ -28,6 +29,21 @@ type AlexaRequest struct {
 		} `json:"intent"`
 		DialogState string `json:"dialogState"`
 	} `json:"request"`
+}
+
+type Session struct {
+	New        bool   `json:"new"`
+	SessionID  string `json:"sessionId"`
+	Attributes struct {
+		String map[string]interface{} `json:"string"`
+	} `json:"attributes"`
+	User struct {
+		UserID      string `json:"userId"`
+		AccessToken string `json:"accessToken"`
+	} `json:"user"`
+	Application struct {
+		ApplicationID string `json:"applicationId"`
+	} `json:"application"`
 }
 
 //Slot Structure
