@@ -253,10 +253,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
-			questionnumber, _ = strconv.Atoi(i.Session.Attributes["questionumber"])
-			if questionnumber == 0 {
-				questionnumber++
-			}
+			questionnumber = 1
 			resp.SessionAttributes["questionnumber"] = questionnumber
 			var QuestionToAsk string
 			QuestionToAsk = CreateQuestion(9, 6)
@@ -292,7 +289,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
-
+			datanum, _ = strconv.Atoi(i.Session.Attributes["questionnumber"])
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
 			var b2 bytes.Buffer
