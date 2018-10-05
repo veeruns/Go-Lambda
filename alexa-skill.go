@@ -311,7 +311,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Println("DATANNUM OP")
 			spew.Dump(datanum)
 			fmt.Println("DATANUM OP DONE")
-			questionnumber,_ strconv.Atoi(datanum["questionnumber"])
+			questionnumber, _ = strconv.Atoi(datanum["questionnumber"])
 			for _, v := range datanum {
 				switch val := v.(type) {
 				case string:
