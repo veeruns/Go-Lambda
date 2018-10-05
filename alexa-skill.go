@@ -253,7 +253,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
-			questionnumber, _ = strconv.Atoi(i.Session.Attributes["questionnumber"])
+			questionnumber, _ = strconv.Atoi(i.Session.Attributes.questionumber
 			if questionnumber == 0 {
 				questionnumber++
 			}
