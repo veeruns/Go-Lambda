@@ -295,6 +295,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				switch val := v.(type) {
 				case string:
 					questionnumber, _ = strconv.Atoi(val)
+				default:
+					fmt.Printf("There is default case")
 				}
 
 			}
