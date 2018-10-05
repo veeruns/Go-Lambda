@@ -351,27 +351,45 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			ResponseAlexa.WriteString("</p>")
 
 			if questionnumber < 2 {
+				resp.Ssay(ResponseAlexa.String())
 
-			}
+				var intent string
+				var b2 bytes.Buffer
+				b2.WriteString(`{
+						"name": "quiz",
+							"confirmationStatus": "NONE",
+								"slots": {
+										"Answer": {
+												"name": "Answer",
+													"confirmationStatus": "NONE"
+												}
+											}
+											}`)
 
-			var intent string
-			var b2 bytes.Buffer
-			b2.WriteString(`{
+				intent = b2.String()
+				updatedintent := Intent{}
+				json.Unmarshal([]byte(intent), &updatedintent)
+				resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
+			} else {
+
+				var intent string
+				var b2 bytes.Buffer
+				b2.WriteString(`{
 			"name": "quiz",
 			"confirmationStatus": "NONE",
 			"slots": {
 				"Answer": {
 					"name": "Answer",
 					"value": "`)
-			b2.WriteString(strconv.Itoa(qanswer))
-			b2.WriteString(`",
+				b2.WriteString(strconv.Itoa(qanswer))
+				b2.WriteString(`",
 					"confirmationStatus": "CONFIRMED"
 				}
 			}
 		}`)
-			// empty dialog.delegate to move it to completion
-			intent = b2.String()
-			intent = `{
+				// empty dialog.delegate to move it to completion
+				intent = b2.String()
+				intent = `{
 	"version": "1.0",
 	"response": {
 		"directives": [{
@@ -380,9 +398,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		"shouldEndSession": "False"
 	}
 }`
-			//updatedintent := Al{}
-			clear(resp)
-			json.Unmarshal([]byte(intent), resp)
+				//updatedintent := Al{}
+				clear(resp)
+				json.Unmarshal([]byte(intent), resp)
+			}
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
 			pop, _ := json.Marshal(resp)
 			fmt.Printf("POP POP is %s\n", pop)
