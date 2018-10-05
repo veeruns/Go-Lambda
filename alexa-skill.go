@@ -270,8 +270,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			questionnumber = 1
 			resp.SessionAttributes = make(map[string]interface{})
 			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
+
 			var QuestionToAsk string
 			multiplier, multiplicant := CreatePairs()
+			resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(multiplier * multiplicant)
 			QuestionToAsk = CreateQuestion(multiplier, multiplicant)
 			resp.Ssay(QuestionToAsk)
 
