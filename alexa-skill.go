@@ -271,7 +271,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.SessionAttributes = make(map[string]interface{})
 			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 			var QuestionToAsk string
-			QuestionToAsk = CreateQuestion(9, 6)
+			multiplier, multiplicant := CreatePairs()
+			QuestionToAsk = CreateQuestion(multiplier, multiplicant)
 			resp.Ssay(QuestionToAsk)
 
 			var intent string
