@@ -318,10 +318,13 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				correctanswers++
 			}
 			var builder bytes.Buffer
-			builder.WriteString("<p>Thank you for playing quiz game</p>")
+			builder.WriteString("<p>Aarya, Thank you for playing quiz game</p>")
 			builder.WriteString("<p> You have answered ")
 			builder.WriteString(strconv.Itoa(correctanswers))
 			builder.WriteString(" questions correctly</p>")
+			if correctanswers > 4 {
+				builder.WriteString("<p> Very good job </p>")
+			}
 			resp.Ssay(builder.String())
 		case "IN_PROGRESS":
 			datanum := i.Session.Attributes
