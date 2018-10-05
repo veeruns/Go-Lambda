@@ -299,8 +299,19 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 		case "COMPLETED":
 			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			var correctanswers int
 			resp.Response.ShouldEndSession = "true"
-			resp.Ssay("Completed")
+			for k, v := range datanum {
+				switch val := v.(type) {
+				case string:
+					if k == "CorrectAnswers" {
+						correctanswers, _ = strconv.Atoi(val)
+					}
+				default:
+					fmt.Printf("There is default case")
+				}
+			}
+			resp.Ssay("<p>Thank you for playing quiz game")
 			if quizanswer == 54 {
 				resp.Ssay("Correct Answer")
 			} else {
