@@ -292,7 +292,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
-			datanum := i.Session.Attributes.String
+			datanum := i.Session.Attributes
 			fmt.Println("DATANNUM OP")
 			spew.Dump(datanum)
 			fmt.Println("DATANUM OP DONE")
