@@ -71,8 +71,9 @@ type Response struct {
 
 //AlexaResponse Structure
 type AlexaResponse struct {
-	Version  string   `json:"version"`
-	Response Response `json:"response,omitempty"`
+	Version           string   `json:"version"`
+	SessionAttributes *Session `json:"sessionAttributes,omitempty"`
+	Response          Response `json:"response,omitempty"`
 }
 
 //Intent Structure
@@ -244,7 +245,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "AMAZON.HelpIntent":
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
-
+		/* Need to clean up quiz, general way dialog works */
 	case "quiz":
 		var quizanswer int
 		resp = CreateResponse(false)
@@ -325,6 +326,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
+	case "mathquiz":
+		resp = CreateResponse(false)
+
 	default:
 		resp = CreateResponse(true)
 		resp.Say("I'm sorry, the input does not look like something I understand.")
