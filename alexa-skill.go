@@ -297,6 +297,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				}
 
 			}
+			questionnumber++
+			resp.SessionAttributes.questionnumber = questionnumber
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
 			var b2 bytes.Buffer
