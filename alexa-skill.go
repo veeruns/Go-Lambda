@@ -314,7 +314,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				}
 			}
 			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-
+			if quizanswer == previousanswer {
+				correctanswers++
+			}
 			var builder bytes.Buffer
 			builder.WriteString("<p>Thank you for playing quiz game</p>")
 			builder.WriteString("<p> You have answered ")
