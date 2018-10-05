@@ -290,19 +290,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
-			datanum := i.Session.Attributes
+			datanum := i.Session.Attributes.String
 
-			for _, v := range datanum {
-				switch val := v.(type) {
-				case string:
-					var err error
-					questionnumber, err = strconv.Atoi(val)
-					fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, err.Error())
-				default:
-					fmt.Printf("There is default case")
-				}
-
-			}
 			fmt.Printf("Question number is %d\n", questionnumber)
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
