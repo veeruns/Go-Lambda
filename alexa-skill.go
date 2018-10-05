@@ -331,7 +331,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp.SessionAttributes = make(map[string]interface{})
 		for n, v := range i.Session.Attributes.String {
 			fmt.Println("Setting ", n, "to", v)
-			responseEnv.SessionAttributes[n] = v
+			resp.SessionAttributes[n] = v
 		}
 
 	default:
