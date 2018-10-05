@@ -289,7 +289,14 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				resp.Ssay("Wrong Answer")
 			}
 		case "IN_PROGRESS":
-			datanum, _ = strconv.Atoi(i.Session.Attributes["questionnumber"])
+			datanum := i.Session.Attributes.String
+			for k, v := range datanum {
+				switch val := v.(type) {
+				case string:
+					questionnumber, _ = strconv.Atoi(val)
+				}
+
+			}
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
 			var b2 bytes.Buffer
