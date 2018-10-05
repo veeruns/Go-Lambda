@@ -363,11 +363,12 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 			m1, m2 := CreatePairs()
 			qtoa := CreateQuestion(m1, m2)
+			resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(m1 * m2)
 			ResponseAlexa.WriteString("<p> Next Question </p><p>")
 			ResponseAlexa.WriteString(qtoa)
 			ResponseAlexa.WriteString("</p>")
 
-			if questionnumber < 6 {
+			if questionnumber < 5 {
 				resp.Ssay(ResponseAlexa.String())
 				resp.Response.ShouldEndSession = "false"
 				var intent string
