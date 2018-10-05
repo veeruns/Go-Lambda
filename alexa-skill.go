@@ -254,6 +254,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
 			questionnumber = 1
+			resp.SessionAttributes = make(map[string]interface{})
 			resp.SessionAttributes["questionnumber"] = questionnumber
 			var QuestionToAsk string
 			QuestionToAsk = CreateQuestion(9, 6)
