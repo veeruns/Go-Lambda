@@ -291,7 +291,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 			datanum := i.Session.Attributes.String
-			questionnumber = strconv.Atoi(datanum.(string))
+			questionnumber, _ = strconv.Atoi(datanum.(string))
 			for _, v := range datanum {
 				switch val := v.(type) {
 				case string:
