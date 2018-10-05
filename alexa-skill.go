@@ -248,7 +248,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		var quizanswer int
 		resp = CreateResponse(false)
 		var questionnumber int
-		datanum := i.Session.Attributes.String
+		datanum := i.Session.Attributes
 		fmt.Println("DATANNUM OP")
 		spew.Dump(datanum)
 		fmt.Println("DATANUM OP DONE")
