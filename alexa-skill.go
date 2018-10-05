@@ -250,6 +250,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		var quizanswer int
 		resp = CreateResponse(false)
 		var questionnumber int
+		datanum := i.Session.Attributes.String
+		fmt.Println("DATANNUM OP")
+		spew.Dump(datanum)
+		fmt.Println("DATANUM OP DONE")
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
