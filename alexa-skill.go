@@ -314,7 +314,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			var builder bytes.Buffer
 			builder.WriteString("<p>Thank you for playing quiz game</p>")
 			builder.WriteString("<p> You have answered ")
-			builder.WriteString(strconv.itoa(correctanswers))
+			builder.WriteString(strconv.Itoa(correctanswers))
 			builder.WriteString("<p>")
 			resp.Ssay(builder.String())
 		case "IN_PROGRESS":
