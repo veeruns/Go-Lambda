@@ -333,6 +333,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Println("Setting ", n, "to", v)
 			resp.SessionAttributes[n] = v
 		}
+		watchdump, _ := json.Marshal(resp)
+		fmt.Printf("Marshal dump %s\n", watchdump)
 
 	default:
 		resp = CreateResponse(true)
