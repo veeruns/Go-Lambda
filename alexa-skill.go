@@ -291,12 +291,13 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 			datanum := i.Session.Attributes.String
-			for _, v := range datanum {
+
+			for k, v := range datanum {
 				switch val := v.(type) {
 				case string:
 					var err error
 					questionnumber, err = strconv.Atoi(val)
-					fmt.printf("Did you get questionnumber %d %s ", questionnumber, err.Error())
+					fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, err.Error())
 				default:
 					fmt.Printf("There is default case")
 				}
@@ -342,8 +343,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			clear(resp)
 			json.Unmarshal([]byte(intent), resp)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
-		//	pop, _ := json.Marshal(resp)
-
+			pop, _ := json.Marshal(resp)
+			fmt.Printf("POP POP is %s\n", pop)
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
