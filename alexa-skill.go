@@ -311,12 +311,12 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 					fmt.Printf("There is default case")
 				}
 			}
-			resp.Ssay("<p>Thank you for playing quiz game")
-			if quizanswer == 54 {
-				resp.Ssay("Correct Answer")
-			} else {
-				resp.Ssay("Wrong Answer")
-			}
+			var builder bytes.Buffer
+			builder.WriteString("<p>Thank you for playing quiz game</p>")
+			builder.WriteString("<p> You have answered ")
+			builder.WriteString(strconv.itoa(correctanswers))
+			builder.WriteString("<p>")
+			resp.Ssay(builder.String())
 		case "IN_PROGRESS":
 			datanum := i.Session.Attributes
 			var previousanswer, correctanswers int
