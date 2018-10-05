@@ -255,7 +255,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.Response.ShouldEndSession = "false"
 			questionnumber = 1
 			resp.SessionAttributes = make(map[string]interface{})
-			resp.SessionAttributes["questionnumber"] = strconv.Quote(strconv.Itoa(questionnumber))
+			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 			var QuestionToAsk string
 			QuestionToAsk = CreateQuestion(9, 6)
 			resp.Ssay(QuestionToAsk)
@@ -307,7 +307,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				fmt.Printf(" Attributes are  %s and %s", n, v)
 
 			}
-			resp.SessionAttributes["questionnumber"] = strconv.Quote(strconv.Itoa(questionnumber))
+			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
