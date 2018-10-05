@@ -299,9 +299,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			for _, v := range datanum {
 				switch val := v.(type) {
 				case string:
-					var err error
-					questionnumber, err = strconv.Atoi(val)
-					fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, err.Error())
+
+					questionnumber, _ = strconv.Atoi(val)
+					fmt.Printf("Did you get questionnumber %d\n", questionnumber)
 				default:
 					fmt.Printf("There is default case")
 				}
@@ -355,7 +355,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "mathquiz":
 		resp = CreateResponse(false)
 		resp.SessionAttributes = make(map[string]interface{})
-		for n, v := range i.Session.Attributes.String {
+		for n, v := range i.Session.Attributes {
 			fmt.Println("Setting ", n, "to", v)
 			resp.SessionAttributes[n] = v
 		}
