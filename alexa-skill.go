@@ -6,8 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"time"
 
 	"reflect"
+
+	"math/rand"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/davecgh/go-spew/spew"
@@ -201,6 +204,15 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	}
 }
 
+//CreatePairs creates a pair of multiplier and mutliplicand less than 16
+func CreatePairs() (int, int) {
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	multiplier := r1.Intn(16)
+	multiplicant := r1.Intn(16)
+	return multiplier, multiplicant
+}
+
 //CreateQuestion functions
 func CreateQuestion(multiplicand, multiplier int) string {
 	var b bytes.Buffer
@@ -307,7 +319,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				}
 
 			}
-			fmt.Printf("Question number is %d\n", questionnumber)
+			if questionnumber == 1 {
+
+			}
+
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
 			for n, v := range i.Session.Attributes {
