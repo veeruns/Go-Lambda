@@ -249,10 +249,15 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "quiz":
 		var quizanswer int
 		resp = CreateResponse(false)
+		var questionnumber int
 		switch i.Request.DialogState {
 		case "STARTED":
 			resp.Response.ShouldEndSession = "false"
-
+			questionnumber = strconv.Atoi(i.Session.Attributes["questionnumber"])
+			if questionnumber == 0 {
+				questionnumber++
+			}
+			resp.SessionAttributes["questionnumber"] = questionnumber
 			var QuestionToAsk string
 			QuestionToAsk = CreateQuestion(9, 6)
 			resp.Ssay(QuestionToAsk)
@@ -304,6 +309,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				}
 			}
 		}`)
+			// empty dialog.delegate to move it to completion
 			intent = b2.String()
 			intent = `{
 	"version": "1.0",
