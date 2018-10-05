@@ -308,29 +308,51 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 			datanum := i.Session.Attributes
+			var previousanswer, correctanswers int
 			fmt.Println("DATANNUM OP")
 			spew.Dump(datanum)
 			fmt.Println("DATANUM OP DONE")
 			for k, v := range datanum {
 				switch val := v.(type) {
 				case string:
-					questionnumber, _ = strconv.Atoi(val)
-					fmt.Printf("Did you get questionnumber %d %v\n", questionnumber, k)
+					if k == "questionnumber" {
+						questionnumber, _ = strconv.Atoi(val)
+						fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, k)
+					} else if k == "PreviousAnswer" {
+						previousanswer, _ = strconv.Atoi(val)
+					} else if k == "CorrectAnswers" {
+						correctanswers, _ := strconv.Atoi(val)
+					}
 				default:
 					fmt.Printf("There is default case")
 				}
 
 			}
-			if questionnumber == 1 {
-
-			}
-
+			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
 
 			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
+			var ResponseAlexa bytes.Buffer
 
-			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+			if qanswer == previousanswer {
+				ResponseAlexa.WriteString("<p>That is the correct Answer</p>")
+
+			} else {
+				ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
+				ResponseAlexa.WriteString(strconv.Itoa(previousanswer))
+				ResponseAlexa.WriteString("</p>")
+			}
+			m1, m2 := CreatePairs()
+			qtoa := CreateQuestion(m1, m2)
+			ResponseAlexa.WriteString("<p> Next Question </p><p>")
+			ResponseAlexa.WriteString(qtoa)
+			ResponseAlexa.WriteString("</p>")
+
+			if questionnumber < 2 {
+
+			}
+
 			var intent string
 			var b2 bytes.Buffer
 			b2.WriteString(`{
