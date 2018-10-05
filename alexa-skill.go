@@ -310,7 +310,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Printf("Question number is %d\n", questionnumber)
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
-			for n, v := range i.Session.Attributes.String {
+			for n, v := range i.Session.Attributes {
 				fmt.Printf(" Attributes are  %s and %s", n, v)
 
 			}
