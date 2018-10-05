@@ -337,7 +337,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 			if qanswer == previousanswer {
 				ResponseAlexa.WriteString("<p>That is the correct Answer</p>")
-
+				correctanswers++
+				resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswer)
 			} else {
 				ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
 				ResponseAlexa.WriteString(strconv.Itoa(previousanswer))
