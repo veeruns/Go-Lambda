@@ -208,8 +208,10 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 func CreatePairs() (int, int) {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
-	multiplier := r1.Intn(16)
-	multiplicant := r1.Intn(16)
+	max := 16
+	min := 1
+	multiplier := r1.Intn(max-min) + min
+	multiplicant := r1.Intn(max-min) + min
 	return multiplier, multiplicant
 }
 
