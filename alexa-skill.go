@@ -368,7 +368,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			ResponseAlexa.WriteString(qtoa)
 			ResponseAlexa.WriteString("</p>")
 
-			if questionnumber < 5 {
+			if questionnumber < 6 {
 				resp.Ssay(ResponseAlexa.String())
 				resp.Response.ShouldEndSession = "false"
 				var intent string
