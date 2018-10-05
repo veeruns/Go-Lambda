@@ -321,7 +321,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 					} else if k == "PreviousAnswer" {
 						previousanswer, _ = strconv.Atoi(val)
 					} else if k == "CorrectAnswers" {
-						correctanswers, _ := strconv.Atoi(val)
+						correctanswers, _ = strconv.Atoi(val)
 					}
 				default:
 					fmt.Printf("There is default case")
@@ -338,7 +338,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			if qanswer == previousanswer {
 				ResponseAlexa.WriteString("<p>That is the correct Answer</p>")
 				correctanswers++
-				resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswer)
+				resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswers)
 			} else {
 				ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
 				ResponseAlexa.WriteString(strconv.Itoa(previousanswer))
