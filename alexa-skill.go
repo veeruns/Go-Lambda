@@ -311,6 +311,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Println("DATANNUM OP")
 			spew.Dump(datanum)
 			fmt.Println("DATANUM OP DONE")
+			questionnumber,_ strconv.Atoi(datanum["questionnumber"])
 			for _, v := range datanum {
 				switch val := v.(type) {
 				case string:
@@ -328,10 +329,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
-			for n, v := range i.Session.Attributes {
-				fmt.Printf(" Attributes are  %s and %s", n, v)
 
-			}
 			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
