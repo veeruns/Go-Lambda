@@ -338,7 +338,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			clear(resp)
 			json.Unmarshal([]byte(intent), resp)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
-			pop, _ := json.Marshal(resp)
+		//	pop, _ := json.Marshal(resp)
 
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
