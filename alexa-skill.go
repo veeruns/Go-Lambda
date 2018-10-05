@@ -71,9 +71,9 @@ type Response struct {
 
 //AlexaResponse Structure
 type AlexaResponse struct {
-	Version           string   `json:"version"`
-	SessionAttributes *Session `json:"sessionAttributes,omitempty"`
-	Response          Response `json:"response,omitempty"`
+	Version           string                 `json:"version"`
+	SessionAttributes map[string]interface{} `json:"sessionAttributes,omitempty"`
+	Response          Response               `json:"response,omitempty"`
 }
 
 //Intent Structure
@@ -328,6 +328,11 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		}
 	case "mathquiz":
 		resp = CreateResponse(false)
+		resp.SessionAttributes = make(map[string]interface{})
+		for n, v := range i.Session.Attributes.String {
+			fmt.Println("Setting ", n, "to", v)
+			responseEnv.SessionAttributes[n] = v
+		}
 
 	default:
 		resp = CreateResponse(true)
