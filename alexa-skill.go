@@ -255,7 +255,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.Response.ShouldEndSession = "false"
 			questionnumber = 1
 			resp.SessionAttributes = make(map[string]interface{})
-			resp.SessionAttributes["questionnumber"] = questionnumber
+			resp.SessionAttributes["questionnumber"] = strconv.Quote(strconv.Itoa(questionnumber))
 			var QuestionToAsk string
 			QuestionToAsk = CreateQuestion(9, 6)
 			resp.Ssay(QuestionToAsk)
