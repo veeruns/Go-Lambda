@@ -298,7 +298,13 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 			}
 			questionnumber++
-			resp.SessionAttributes.questionnumber = questionnumber
+			resp.SessionAttributes = make(map[string]interface{})
+			for n, v := range i.Session.Attributes.String {
+				fmt.Printf(" Attributes are  %s and %s", n, v)
+
+			}
+			resp.SessionAttributes["questionnumber"] = questionnumber
+
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
 			var b2 bytes.Buffer
