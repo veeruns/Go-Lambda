@@ -298,6 +298,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				}
 
 			}
+			fmt.Printf("Question number is %d\n", questionnumber)
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
 			for n, v := range i.Session.Attributes.String {
@@ -338,10 +339,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			json.Unmarshal([]byte(intent), resp)
 			//resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", )
 			pop, _ := json.Marshal(resp)
-			fmt.Printf(" Response POP POP is %s\n", pop)
-			fmt.Println("Response after fixing it")
-			spew.Dump(resp)
-			fmt.Println("Done Response after fixing it")
+
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
