@@ -33,12 +33,10 @@ type AlexaRequest struct {
 
 //Session structure
 type Session struct {
-	New        bool   `json:"new"`
-	SessionID  string `json:"sessionId"`
-	Attributes struct {
-		String map[string]interface{} `json:"string"`
-	} `json:"attributes"`
-	User struct {
+	New        bool                   `json:"new"`
+	SessionID  string                 `json:"sessionId"`
+	Attributes map[string]interface{} `json:"attributes"`
+	User       struct {
 		UserID      string `json:"userId"`
 		AccessToken string `json:"accessToken"`
 	} `json:"user"`
