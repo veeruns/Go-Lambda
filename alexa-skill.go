@@ -298,19 +298,23 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Printf("When dialog started the resp is %s\n", json_resp)
 
 		case "COMPLETED":
-			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-			var correctanswers int
+			var previousanswer, correctanswers int
+
 			resp.Response.ShouldEndSession = "true"
 			for k, v := range datanum {
 				switch val := v.(type) {
 				case string:
 					if k == "CorrectAnswers" {
 						correctanswers, _ = strconv.Atoi(val)
+					} else if k == "PreviousAnswer" {
+						previousanswer, _ = strconv.Atoi(val)
 					}
 				default:
 					fmt.Printf("There is default case")
 				}
 			}
+			quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+
 			var builder bytes.Buffer
 			builder.WriteString("<p>Thank you for playing quiz game</p>")
 			builder.WriteString("<p> You have answered ")
