@@ -307,7 +307,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				fmt.Printf(" Attributes are  %s and %s", n, v)
 
 			}
-			resp.SessionAttributes["questionnumber"] = questionnumber
+			resp.SessionAttributes["questionnumber"] = strconv.Quote(strconv.itoa(questionnumber))
 
 			qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
 			var intent string
