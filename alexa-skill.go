@@ -291,7 +291,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			}
 		case "IN_PROGRESS":
 			datanum := i.Session.Attributes.String
-
+			questionnumber = datanum["questionnumber"]
 			fmt.Printf("Question number is %d\n", questionnumber)
 			questionnumber++
 			resp.SessionAttributes = make(map[string]interface{})
