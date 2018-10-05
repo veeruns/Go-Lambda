@@ -311,11 +311,11 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			fmt.Println("DATANNUM OP")
 			spew.Dump(datanum)
 			fmt.Println("DATANUM OP DONE")
-			for _, v := range datanum {
+			for k, v := range datanum {
 				switch val := v.(type) {
 				case string:
 					questionnumber, _ = strconv.Atoi(val)
-					fmt.Printf("Did you get questionnumber %d %v\n", questionnumber, v)
+					fmt.Printf("Did you get questionnumber %d %v\n", questionnumber, k)
 				default:
 					fmt.Printf("There is default case")
 				}
