@@ -355,12 +355,13 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			if qanswer == previousanswer {
 				ResponseAlexa.WriteString("<p>That is the correct Answer</p>")
 				correctanswers++
-				resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswers)
+
 			} else {
 				ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
 				ResponseAlexa.WriteString(strconv.Itoa(previousanswer))
 				ResponseAlexa.WriteString("</p>")
 			}
+			resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswers)
 			m1, m2 := CreatePairs()
 			qtoa := CreateQuestion(m1, m2)
 			resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(m1 * m2)
