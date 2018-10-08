@@ -74,7 +74,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 				if k == "CorrectAnswers" {
 					correctanswers, _ = strconv.Atoi(val)
 				} else if k == "PreviousAnswer" {
-					previousanswer, _ = val
+					previousanswer = val
 				}
 			default:
 				fmt.Printf("There is default case")
