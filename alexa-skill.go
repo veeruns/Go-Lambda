@@ -410,7 +410,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 				}
 			}
 		}`)
-				// empty dialog.delegate to move it to completion
+				// empty dialog.delegate to move it from IN_PROGRESS to COMPLETED
 				intent = b2.String()
 				intent = `{
 	"version": "1.0",
