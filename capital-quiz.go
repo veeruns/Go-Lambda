@@ -80,7 +80,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 				fmt.Printf("There is default case")
 			}
 		}
-		quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+		quizanswer, _ = i.Request.Intent.Slots["Answer"].Value
 		if strings.Compare(quizanswer, previousanswer) == 0 {
 			correctanswers++
 		}
