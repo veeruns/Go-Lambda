@@ -116,14 +116,14 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			}
 
 		}
-		qanswer, _ := strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
+		qanswer := i.Request.Intent.Slots["Answer"].Value
 		questionnumber++
 		resp.SessionAttributes = make(map[string]interface{})
 
 		resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 		var ResponseAlexa bytes.Buffer
 
-		if strings.Compare(quizanswer, previousanswer) == 0 {
+		if strings.Compare(qanswer, previousanswer) == 0 {
 			correctanswers++
 		} else {
 			ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
