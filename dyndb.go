@@ -20,7 +20,7 @@ type CapitalIndexInfo struct {
     City string `json:"City"`
 }
 
-func getItemIdx(index int)(*CapitalInfo,error){
+func getItemIdx(index int)(*CapitalIndexInfo,error){
   input := &dynamodb.GetItemInput{
     TableName: aws.String("CapitalsIndex"),
     Key: map[string]*dynamodb.AttributeValue{
@@ -42,7 +42,7 @@ if result.Item == nil {
 // to parse this straight into the fields of a struct. Note:
 // UnmarshalListOfMaps also exists if you are working with multiple
 // items.
-cty := new(CapitalInfo)
+cty := new(CapitalIndexInfo)
 err = dynamodbattribute.UnmarshalMap(result.Item, cty)
 if err != nil {
     return nil, err
