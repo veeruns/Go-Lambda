@@ -5,8 +5,7 @@ import (
    "github.com/aws/aws-sdk-go/service/dynamodb"
    "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
-//US east 1 is where the data for capitals is
-var db = dynamodb.New(session.New(),aws.NewConfig().WithRegion("us-east-1"))
+
 
 //CapitalInfo structure
 type CapitalInfo struct {
@@ -19,6 +18,8 @@ type CapitalIndexInfo struct {
     Country string `json:"Country"`
     City string `json:"City"`
 }
+//US east 1 is where the data for capitals is
+var db = dynamodb.New(session.New(),aws.NewConfig().WithRegion("us-east-1"))
 
 func getItemIdx(index int)(*CapitalIndexInfo,error){
   input := &dynamodb.GetItemInput{
@@ -52,6 +53,7 @@ return cty, nil
 
   }
 }
+
 func getItem(country string) (*CapitalInfo, error) {
     // Prepare the input for the query.
     input := &dynamodb.GetItemInput{
