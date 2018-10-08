@@ -41,5 +41,6 @@ func main() {
         os.Exit(1)
     }
     svc := dynamodb.New(sess)
+    capitalinfos := Readfile()
     
 }
