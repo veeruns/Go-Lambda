@@ -42,5 +42,32 @@ func main() {
     }
     svc := dynamodb.New(sess)
     capitalinfos := Readfile()
-    
+
+    for _, item := range capitalinfos {
+     av, err := dynamodbattribute.MarshalMap(item)
+
+     if err != nil {
+         fmt.Println("Got error marshalling map:")
+         fmt.Println(err.Error())
+         os.Exit(1)
+     }
+
+     // Create item in table Movies
+     input := &dynamodb.PutItemInput{
+         Item: av,
+         TableName: aws.String("Capitals"),
+     }
+
+     _, err = svc.PutItem(input)
+
+     if err != nil {
+         fmt.Println("Got error calling PutItem:")
+         fmt.Println(err.Error())
+         os.Exit(1)
+     }
+
+     fmt.Println("Successfully added '",item.Country,"' (",item.Capital,") to Movies table")
+ }
+}
+
 }
