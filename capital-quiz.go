@@ -131,6 +131,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			ResponseAlexa.WriteString("</p>")
 		}
 		resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswers)
+		var QuestionToAsk string
 		s1 := rand.NewSource(time.Now().UnixNano())
 		r1 := rand.New(s1)
 		max := 243
@@ -138,6 +139,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		randindex := r1.Intn(max-min) + min
 		cinfo, _ := getItemIdx(randindex)
 		resp.SessionAttributes["PreviousAnswer"] = cinfo.City
+
 		QuestionToAsk = CapitalQuestion(cinfo.Country)
 		//	resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(m1 * m2)
 		ResponseAlexa.WriteString("<p> Next Question </p><p>")
