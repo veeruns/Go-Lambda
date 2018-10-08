@@ -11,6 +11,14 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
+func CapitalQuestion(country string) string {
+	var b bytes.Buffer
+	b.WriteString("What is the capital of ")
+	b.WriteString(country)
+	b.WriteString("?")
+	return b.String()
+}
+
 func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 
 	var quizanswer int
@@ -32,7 +40,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		randindex := r1.Intn(max-min) + min
 		cinfo, _ := getItemIdx(randindex)
 		resp.SessionAttributes["PreviousAnswer"] = cinfo.City
-		QuestionToAsk = CreateQuestion(multiplier, multiplicant)
+		QuestionToAsk = CapitalQuestion(cinfo.Country)
 		resp.Ssay(QuestionToAsk)
 
 		var intent string
