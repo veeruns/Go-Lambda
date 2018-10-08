@@ -27,7 +27,7 @@ func getItemIdx(index int) (*CapitalIndexInfo, error) {
 		TableName: aws.String("CapitalsIndex"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"Index": {
-				N: aws.Int(index),
+				N: aws.String(index),
 			},
 		},
 	}
