@@ -43,10 +43,11 @@ func main() {
     }
     svc := dynamodb.New(sess)
     capitalinfos := Readfile()
-
+    var index int
     for _, item := range capitalinfos {
+      index++
      av, err := dynamodbattribute.MarshalMap(item)
-
+     item.Index=index
      if err != nil {
          fmt.Println("Got error marshalling map:")
          fmt.Println(err.Error())
@@ -56,7 +57,7 @@ func main() {
      // Create item in table Movies
      input := &dynamodb.PutItemInput{
          Item: av,
-         TableName: aws.String("Capitals"),
+         TableName: aws.String("CapitalsIndex"),
      }
 
      _, err = svc.PutItem(input)
