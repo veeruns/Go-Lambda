@@ -22,7 +22,7 @@ func CapitalQuestion(country string) string {
 
 func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 
-	var qanswer int
+	//	var qanswer int
 	resp = CreateResponse(false)
 	var questionnumber int
 	datanum := i.Session.Attributes
@@ -117,6 +117,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 
 		}
 		qanswer := i.Request.Intent.Slots["Answer"].Value
+		fmt.Println("Answered is ", qanswer)
 		questionnumber++
 		resp.SessionAttributes = make(map[string]interface{})
 
@@ -124,6 +125,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		var ResponseAlexa bytes.Buffer
 
 		if strings.Compare(qanswer, previousanswer) == 0 {
+			fmt.Println("The answer given ")
 			correctanswers++
 		} else {
 			ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
