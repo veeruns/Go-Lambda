@@ -14,6 +14,7 @@ import (
 
 
 type CapitalInfo struct {
+    Index int `json:"Index"`
     Country string `json:"Country"`
     City string `json:"City"`
 }
