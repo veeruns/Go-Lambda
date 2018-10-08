@@ -65,8 +65,8 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		fmt.Printf("When dialog started the resp is %s\n", jsonresp)
 
 	case "COMPLETED":
-		var previousanswer, correctanswers int
-
+		var correctanswers int
+		var previousanswer string
 		resp.Response.ShouldEndSession = Correct
 		for k, v := range datanum {
 			switch val := v.(type) {
