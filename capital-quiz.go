@@ -127,7 +127,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			correctanswers++
 		} else {
 			ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
-			ResponseAlexa.WriteString(strconv.Itoa(previousanswer))
+			ResponseAlexa.WriteString(previousanswer)
 			ResponseAlexa.WriteString("</p>")
 		}
 		resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswers)
