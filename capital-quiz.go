@@ -95,7 +95,8 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		resp.Ssay(builder.String())
 	case "IN_PROGRESS":
 		datanum := i.Session.Attributes
-		var previousanswer, correctanswers int
+		var previousanswer string
+		var correctanswers int
 		fmt.Println("DATANNUM OP")
 		spew.Dump(datanum)
 		fmt.Println("DATANUM OP DONE")
@@ -106,7 +107,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 					questionnumber, _ = strconv.Atoi(val)
 					//	fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, k)
 				} else if k == "PreviousAnswer" {
-					previousanswer, _ = val
+					previousanswer = val
 				} else if k == "CorrectAnswers" {
 					correctanswers, _ = strconv.Atoi(val)
 				}
