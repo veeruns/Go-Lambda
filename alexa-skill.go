@@ -434,7 +434,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "capitals":
 		resp = CreateResponse(false)
 		countryname := i.Request.Intent.Slots["Question"].Value
-		capitalname, err := getIQtem(countryname)
+		capitalname, err := getItem(countryname)
 		var b bytes.Buffer
 		if err != nil {
 			b.WriteString(err.Error())
