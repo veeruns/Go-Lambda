@@ -45,7 +45,7 @@ func main() {
     capitalinfos := Readfile()
     var index int
     for _, item := range capitalinfos {
-      index++
+      index=index+1
      av, err := dynamodbattribute.MarshalMap(item)
      item.Index=index
      if err != nil {
@@ -68,6 +68,6 @@ func main() {
          os.Exit(1)
      }
 
-     fmt.Println("Successfully added '",item.Country,"' (",item.City,") to Capitals table")
+     fmt.Println("Successfully added '",item.Country,"' (",item.City,") to With index ", index ,"  Capitals table")
  }
 }
