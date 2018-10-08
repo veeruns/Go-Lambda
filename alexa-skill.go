@@ -16,6 +16,9 @@ import (
 )
 
 //AlexaRequest Structure
+const Correct = "true"
+const Wrong = "false"
+
 type AlexaRequest struct {
 	Version string   `json:"version"`
 	Session *Session `json:"session"`
@@ -105,7 +108,7 @@ func CreateResponse(flag bool) *AlexaResponse {
 	resp.Version = "1.0"
 	var speech OutputSpeech
 
-	resp.Response.ShouldEndSession = "true"
+	resp.Response.ShouldEndSession = Correct
 	if flag {
 		speech = OutputSpeech{
 			Type: "PlainText",
