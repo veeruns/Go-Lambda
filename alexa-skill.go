@@ -147,7 +147,7 @@ func (resp *AlexaResponse) Say(text string) {
 func (resp *AlexaResponse) EndResponse() {
 	clear(resp)
 	resp.Version = "1.0"
-	resp.Response.ShouldEndSession = "false"
+	resp.Response.ShouldEndSession = Wrong
 	var dtype string
 	dtype = "Dialog.Delegate"
 	d := DialogDirective{
@@ -273,7 +273,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		fmt.Println("DATANUM OP DONE")
 		switch i.Request.DialogState {
 		case "STARTED":
-			resp.Response.ShouldEndSession = "false"
+			resp.Response.ShouldEndSession = Wrong
 			questionnumber = 1
 			resp.SessionAttributes = make(map[string]interface{})
 			resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
@@ -381,7 +381,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 			if questionnumber < 6 {
 				resp.Ssay(ResponseAlexa.String())
-				resp.Response.ShouldEndSession = "false"
+				resp.Response.ShouldEndSession = Wrong
 				var intent string
 				var b2 bytes.Buffer
 				b2.WriteString(`{
