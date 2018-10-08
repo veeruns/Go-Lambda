@@ -434,6 +434,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		}
 		resp.Ssay(b.String())
 	case "capitalquiz":
+		resp = CreateResponse(true)
 		capitalquiz(resp, i)
 	default:
 		resp = CreateResponse(true)
