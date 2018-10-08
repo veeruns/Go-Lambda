@@ -9,7 +9,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
-func capitalquiz(resp *AlexaResponse, i AlexaRequest) {
+func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 
 	var quizanswer int
 	resp = CreateResponse(false)
@@ -166,4 +166,6 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) {
 	default:
 		resp.Ssay("Some random default, it did not catch any of it")
 	}
+
+	return resp
 }
