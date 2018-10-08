@@ -435,7 +435,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp.Ssay(b.String())
 	case "capitalquiz":
 		resp = CreateResponse(true)
-		capitalquiz(resp, i)
+		resp = capitalquiz(resp, i)
 	default:
 		resp = CreateResponse(true)
 		resp.Say("I'm sorry, the input does not look like something I understand.")
