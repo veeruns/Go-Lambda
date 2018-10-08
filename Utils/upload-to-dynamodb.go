@@ -46,7 +46,7 @@ func main() {
     var index int
     for _, item := range capitalinfos {
       index=index+1
-      item.Index=item.Index+index
+      item.Index=index
      av, err := dynamodbattribute.MarshalMap(item)
 
      if err != nil {
