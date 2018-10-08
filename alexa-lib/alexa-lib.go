@@ -1,8 +1,7 @@
-package alexa-lib
+package alexalib
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"strconv"
@@ -10,9 +9,6 @@ import (
 
 	"math/rand"
 	"reflect"
-
-	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/davecgh/go-spew/spew"
 )
 
 //Correct is the new name for true
