@@ -15,7 +15,7 @@ import (
 
 type CapitalInfo struct {
     Country string `json:"Country"`
-    Capital string `json:"Capital"`
+    City string `json:"City"`
 }
 
 
