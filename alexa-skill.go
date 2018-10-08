@@ -8,9 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"reflect"
-
 	"math/rand"
+	"reflect"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/davecgh/go-spew/spew"
@@ -432,16 +431,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		default:
 			resp.Ssay("Some random default, it did not catch any of it")
 		}
-	case "mathquiz":
+	case "capitals":
 		resp = CreateResponse(false)
-		resp.SessionAttributes = make(map[string]interface{})
-		for n, v := range i.Session.Attributes {
-			fmt.Println("Setting ", n, "to", v)
-			resp.SessionAttributes[n] = v
-		}
-		watchdump, _ := json.Marshal(resp)
-		fmt.Printf("Marshal dump %s\n", watchdump)
-
+		countryname := i.Request.Intent.Slots["Question"].Value
+		capitalname := getItem(countryname)
 	default:
 		resp = CreateResponse(true)
 		resp.Say("I'm sorry, the input does not look like something I understand.")
