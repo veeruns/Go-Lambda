@@ -1,4 +1,4 @@
-package alexa-skill
+package alexa-lib
 
 import (
 	"bytes"
