@@ -7,7 +7,7 @@ import (
 )
 //US east 1 is where the data for capitals is
 var db = dynamodb.New(session.New(),aws.NewConfig().WithRegion("us-east-1"))
-//CapitalInfo Strucuture ... not generic
+//CapitalInfo Strucuture  for loading capital json
 type CapitalInfo struct {
     Country string `json:"Country"`
     City string `json:"City"`
