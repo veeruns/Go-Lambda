@@ -52,7 +52,11 @@ if err != nil {
 return cty, nil
 
   }
-}
+
+
+
+
+
 
 func getItem(country string) (*CapitalInfo, error) {
     // Prepare the input for the query.
