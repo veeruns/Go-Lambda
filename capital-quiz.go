@@ -9,7 +9,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
-func capitalquiz() {
+func capitalquiz(resp *AlexaResponse, i AlexaRequest) {
 
 	var quizanswer int
 	resp = CreateResponse(false)
