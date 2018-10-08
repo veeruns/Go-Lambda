@@ -47,7 +47,7 @@ func main() {
     for _, item := range capitalinfos {
       index=index+1
      av, err := dynamodbattribute.MarshalMap(item)
-     item.Index=index
+     item.Index=item.Index+index
      if err != nil {
          fmt.Println("Got error marshalling map:")
          fmt.Println(err.Error())
