@@ -435,7 +435,12 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(false)
 		countryname := i.Request.Intent.Slots["Question"].Value
 		capitalname, _ := getItem(countryname)
-
+		var b bytes.Buffer
+		b.WriteString("Capital of ")
+		b.WriteString(countryname)
+		b.WriteString("is ")
+		b.WriteString(capitalname)
+		resp.Ssay(b.String())
 	default:
 		resp = CreateResponse(true)
 		resp.Say("I'm sorry, the input does not look like something I understand.")
