@@ -68,6 +68,6 @@ func main() {
          os.Exit(1)
      }
 
-     fmt.Println("Successfully added '",item.Country,"' (",item.City,") to With index ", index ,"  Capitals table")
+     fmt.Println("Successfully added '",item.Country,"' (",item.City,") to With index ", item.Index ,"  Capitals table")
  }
 }
