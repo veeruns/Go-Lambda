@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"strconv"
+	"time"
 
 	"github.com/davecgh/go-spew/spew"
 )
@@ -15,9 +17,6 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 	resp = CreateResponse(false)
 	var questionnumber int
 	datanum := i.Session.Attributes
-	fmt.Println("DATANNUM OP")
-	spew.Dump(datanum)
-	fmt.Println("DATANUM OP DONE")
 	switch i.Request.DialogState {
 	case "STARTED":
 		resp.Response.ShouldEndSession = Wrong
@@ -26,7 +25,12 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 
 		var QuestionToAsk string
-		multiplier, multiplicant := CreatePairs()
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		max := 243
+		min := 1
+		randindex := r1.Intn(max-min) + min
+		cinfo := getItemIdx(randindex)
 		resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(multiplier * multiplicant)
 		QuestionToAsk = CreateQuestion(multiplier, multiplicant)
 		resp.Ssay(QuestionToAsk)
