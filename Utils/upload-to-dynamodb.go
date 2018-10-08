@@ -66,6 +66,6 @@ func main() {
          os.Exit(1)
      }
 
-     fmt.Println("Successfully added '",item.Country,"' (",item.Capital,") to Capitals table")
+     fmt.Println("Successfully added '",item.Country,"' (",item.City,") to Capitals table")
  }
 }
