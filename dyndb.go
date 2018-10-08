@@ -1,8 +1,6 @@
 package main
 
 import (
-	"strconv"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -29,7 +27,7 @@ func getItemIdx(index int) (*CapitalIndexInfo, error) {
 		TableName: aws.String("CapitalsIndex"),
 		Key: map[string]*dynamodb.AttributeValue{
 			"Index": {
-				N: aws.String(strconv.Itoa(index)),
+				N: index,
 			},
 		},
 	}
