@@ -14,6 +14,44 @@ type CapitalInfo struct {
     City string `json:"City"`
 }
 
+type CapitalIndexInfo struct {
+    Index int `json:"Index"`
+    Country string `json:"Country"`
+    City string `json:"City"`
+}
+
+func getItemIdx(index int)(*CapitalInfo,error){
+  input := &dynamodb.GetItemInput{
+    TableName: aws.String("CapitalsIndex"),
+    Key: map[string]*dynamodb.AttributeValue{
+        "Index": {
+            N: aws.String(index),
+        },
+    },
+}
+result, err := db.GetItem(input)
+if err != nil {
+    return nil, err
+}
+if result.Item == nil {
+    return nil, nil
+}
+
+// The result.Item object returned has the underlying type
+// map[string]*AttributeValue. We can use the UnmarshalMap helper
+// to parse this straight into the fields of a struct. Note:
+// UnmarshalListOfMaps also exists if you are working with multiple
+// items.
+cty := new(CapitalInfo)
+err = dynamodbattribute.UnmarshalMap(result.Item, cty)
+if err != nil {
+    return nil, err
+}
+
+return cty, nil
+
+  }
+}
 func getItem(country string) (*CapitalInfo, error) {
     // Prepare the input for the query.
     input := &dynamodb.GetItemInput{
