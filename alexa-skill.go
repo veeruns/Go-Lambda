@@ -295,8 +295,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
 			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
-			json_resp, _ := json.Marshal(resp)
-			fmt.Printf("When dialog started the resp is %s\n", json_resp)
+			jsonresp, _ := json.Marshal(resp)
+			fmt.Printf("When dialog started the resp is %s\n", jsonresp)
 
 		case "COMPLETED":
 			var previousanswer, correctanswers int
@@ -304,7 +304,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			resp.Response.ShouldEndSession = "true"
 			for k, v := range datanum {
 				switch val := v.(type) {
-				case string:
+				case string
 					if k == "CorrectAnswers" {
 						correctanswers, _ = strconv.Atoi(val)
 					} else if k == "PreviousAnswer" {
