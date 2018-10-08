@@ -439,7 +439,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		b.WriteString("Capital of ")
 		b.WriteString(countryname)
 		b.WriteString("is ")
-		b.WriteString(capitalname)
+		b.WriteString(capitalname.City)
 		resp.Ssay(b.String())
 	default:
 		resp = CreateResponse(true)
