@@ -15,10 +15,13 @@ import (
 	"github.com/davecgh/go-spew/spew"
 )
 
-//AlexaRequest Structure
+//Correct is the new name for true
 const Correct = "true"
+
+//Wrong is the  new name for false
 const Wrong = "false"
 
+//AlexaRequest Structure
 type AlexaRequest struct {
 	Version string   `json:"version"`
 	Session *Session `json:"session"`
