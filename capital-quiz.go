@@ -34,7 +34,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		var intent string
 		var b2 bytes.Buffer
 		b2.WriteString(`{
-        "name": "quiz",
+        "name": "capitalquiz",
           "confirmationStatus": "NONE",
             "slots": {
                 "Answer": {
@@ -132,7 +132,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			var intent string
 			var b2 bytes.Buffer
 			b2.WriteString(`{
-          "name": "quiz",
+          "name": "capitalquiz",
             "confirmationStatus": "NONE",
               "slots": {
                   "Answer": {
