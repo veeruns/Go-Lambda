@@ -396,22 +396,22 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			} else {
 
 				var intent string
-				var b2 bytes.Buffer
-				b2.WriteString(`{
-			"name": "quiz",
-			"confirmationStatus": "NONE",
-			"slots": {
-				"Answer": {
-					"name": "Answer",
-					"value": "`)
-				b2.WriteString(strconv.Itoa(qanswer))
-				b2.WriteString(`",
-					"confirmationStatus": "CONFIRMED"
-				}
-			}
-		}`)
-				// empty dialog.delegate to move it from IN_PROGRESS to COMPLETED
-				intent = b2.String()
+				/*				var b2 bytes.Buffer
+										b2.WriteString(`{
+									"name": "quiz",
+									"confirmationStatus": "NONE",
+									"slots": {
+										"Answer": {
+											"name": "Answer",
+											"value": "`)
+										b2.WriteString(strconv.Itoa(qanswer))
+										b2.WriteString(`",
+											"confirmationStatus": "CONFIRMED"
+										}
+									}
+								}`)
+										// empty dialog.delegate to move it from IN_PROGRESS to COMPLETED
+										intent = b2.String()*/
 				intent = `{
 	"version": "1.0",
 	"response": {
