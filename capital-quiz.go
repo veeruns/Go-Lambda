@@ -31,7 +31,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		min := 1
 		randindex := r1.Intn(max-min) + min
 		cinfo, _ := getItemIdx(randindex)
-		resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(multiplier * multiplicant)
+		resp.SessionAttributes["PreviousAnswer"] = cinfo.City
 		QuestionToAsk = CreateQuestion(multiplier, multiplicant)
 		resp.Ssay(QuestionToAsk)
 
