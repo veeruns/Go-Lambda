@@ -69,5 +69,3 @@ func main() {
      fmt.Println("Successfully added '",item.Country,"' (",item.Capital,") to Capitals table")
  }
 }
-
-}
