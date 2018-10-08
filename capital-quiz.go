@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
@@ -66,21 +67,21 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 	case "COMPLETED":
 		var previousanswer, correctanswers int
 
-		resp.Response.ShouldEndSession = "true"
+		resp.Response.ShouldEndSession = Correct
 		for k, v := range datanum {
 			switch val := v.(type) {
 			case string:
 				if k == "CorrectAnswers" {
 					correctanswers, _ = strconv.Atoi(val)
 				} else if k == "PreviousAnswer" {
-					previousanswer, _ = strconv.Atoi(val)
+					previousanswer, _ = val
 				}
 			default:
 				fmt.Printf("There is default case")
 			}
 		}
 		quizanswer, _ = strconv.Atoi(i.Request.Intent.Slots["Answer"].Value)
-		if quizanswer == previousanswer {
+		if strings.Compare(quizanswer, previousanswer) == 0 {
 			correctanswers++
 		}
 		var builder bytes.Buffer
@@ -103,9 +104,9 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			case string:
 				if k == "questionnumber" {
 					questionnumber, _ = strconv.Atoi(val)
-					fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, k)
+					//	fmt.Printf("Did you get questionnumber %d %s\n", questionnumber, k)
 				} else if k == "PreviousAnswer" {
-					previousanswer, _ = strconv.Atoi(val)
+					previousanswer, _ = val
 				} else if k == "CorrectAnswers" {
 					correctanswers, _ = strconv.Atoi(val)
 				}
@@ -121,21 +122,25 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		resp.SessionAttributes["questionnumber"] = strconv.Itoa(questionnumber)
 		var ResponseAlexa bytes.Buffer
 
-		if qanswer == previousanswer {
-			ResponseAlexa.WriteString("<p>That is the correct Answer</p>")
+		if strings.Compare(quizanswer, previousanswer) == 0 {
 			correctanswers++
-
 		} else {
 			ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
 			ResponseAlexa.WriteString(strconv.Itoa(previousanswer))
 			ResponseAlexa.WriteString("</p>")
 		}
 		resp.SessionAttributes["CorrectAnswers"] = strconv.Itoa(correctanswers)
-		m1, m2 := CreatePairs()
-		qtoa := CreateQuestion(m1, m2)
-		resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(m1 * m2)
+		s1 := rand.NewSource(time.Now().UnixNano())
+		r1 := rand.New(s1)
+		max := 243
+		min := 1
+		randindex := r1.Intn(max-min) + min
+		cinfo, _ := getItemIdx(randindex)
+		resp.SessionAttributes["PreviousAnswer"] = cinfo.City
+		QuestionToAsk = CapitalQuestion(cinfo.Country)
+		//	resp.SessionAttributes["PreviousAnswer"] = strconv.Itoa(m1 * m2)
 		ResponseAlexa.WriteString("<p> Next Question </p><p>")
-		ResponseAlexa.WriteString(qtoa)
+		ResponseAlexa.WriteString(QuestionToAsk)
 		ResponseAlexa.WriteString("</p>")
 
 		if questionnumber < 6 {
