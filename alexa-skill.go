@@ -434,12 +434,16 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "capitals":
 		resp = CreateResponse(false)
 		countryname := i.Request.Intent.Slots["Question"].Value
-		capitalname, _ := getItem(countryname)
+		capitalname, err := getIQtem(countryname)
 		var b bytes.Buffer
-		b.WriteString("Capital of ")
-		b.WriteString(countryname)
-		b.WriteString("is ")
-		b.WriteString(capitalname.City)
+		if err != nil {
+			b.WriteString(err.Error())
+		} else {
+			b.WriteString("Capital of ")
+			b.WriteString(countryname)
+			b.WriteString(" is ")
+			b.WriteString(capitalname.City)
+		}
 		resp.Ssay(b.String())
 	default:
 		resp = CreateResponse(true)
