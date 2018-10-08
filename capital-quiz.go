@@ -22,7 +22,7 @@ func CapitalQuestion(country string) string {
 
 func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 
-	var quizanswer int
+	var qanswer int
 	resp = CreateResponse(false)
 	var questionnumber int
 	datanum := i.Session.Attributes
