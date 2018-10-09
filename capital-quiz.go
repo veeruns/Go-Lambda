@@ -50,8 +50,8 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
         "name": "capitalquiz",
           "confirmationStatus": "NONE",
             "slots": {
-                "Answer": {
-                    "name": "Answer",
+                "CapitalAnswer": {
+                    "name": "CapitalAnswer",
                       "confirmationStatus": "NONE"
                     }
                   }
@@ -80,7 +80,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 				fmt.Printf("There is default case")
 			}
 		}
-		quizanswer := i.Request.Intent.Slots["Answer"].Value
+		quizanswer := i.Request.Intent.Slots["CapitalAnswer"].Value
 		if strings.Compare(quizanswer, previousanswer) == 0 {
 			correctanswers++
 		}
@@ -116,7 +116,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			}
 
 		}
-		qanswer := i.Request.Intent.Slots["Answer"].Value
+		qanswer := i.Request.Intent.Slots["CapitalAnswer"].Value
 		fmt.Println("Answered is ", qanswer)
 		questionnumber++
 		resp.SessionAttributes = make(map[string]interface{})
@@ -157,8 +157,8 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
           "name": "capitalquiz",
             "confirmationStatus": "NONE",
               "slots": {
-                  "Answer": {
-                      "name": "Answer",
+                  "CapitalAnswer": {
+                      "name": "CapitalAnswer",
                         "confirmationStatus": "NONE"
                       }
                     }
