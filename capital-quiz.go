@@ -125,7 +125,9 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		var ResponseAlexa bytes.Buffer
 
 		if strings.Compare(qanswer, previousanswer) == 0 {
-			fmt.Println("The answer given ")
+			ResponseAlexa.WriteString("<p> You have answered ")
+			ResponseAlexa.WriteString(qanswer)
+			ResponseAlexa.WriteString(" </p> <p> That is the correct Answer </p>")
 			correctanswers++
 		} else {
 			ResponseAlexa.WriteString("<p>That is not the correct Answer, The correct answer is ")
