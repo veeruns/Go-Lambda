@@ -60,7 +60,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 		intent = b2.String()
 		updatedintent := Intent{}
 		json.Unmarshal([]byte(intent), &updatedintent)
-		resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
+		resp.AddDialogDirective("Dialog.ElicitSlot", "CapitalAnswer", "", &updatedintent)
 		jsonresp, _ := json.Marshal(resp)
 		fmt.Printf("When dialog started the resp is %s\n", jsonresp)
 
@@ -167,7 +167,7 @@ func capitalquiz(resp *AlexaResponse, i AlexaRequest) *AlexaResponse {
 			intent = b2.String()
 			updatedintent := Intent{}
 			json.Unmarshal([]byte(intent), &updatedintent)
-			resp.AddDialogDirective("Dialog.ElicitSlot", "Answer", "", &updatedintent)
+			resp.AddDialogDirective("Dialog.ElicitSlot", "CapitalAnswer", "", &updatedintent)
 		} else {
 
 			var intent string
