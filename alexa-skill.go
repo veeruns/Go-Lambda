@@ -330,7 +330,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 			builder.WriteString(strconv.Itoa(correctanswers))
 			builder.WriteString(" questions correctly</p>")
 			if correctanswers > 4 {
-				builder.WriteString("<p> Very good job </p>")
+				builder.WriteString("<audio src='soundbank://soundlibrary/human/amzn_sfx_crowd_applause_05'/>")
 			}
 			resp.Ssay(builder.String())
 		case "IN_PROGRESS":
