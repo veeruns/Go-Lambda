@@ -24,8 +24,8 @@ func filetostring(filename string) (string, error) {
 	var err error
 	output, err = ioutil.ReadFile(filename)
 	if err != nil {
-		return _, err
+		return nil, err
 	} else {
-		return string(output), _
+		return string(output), nil
 	}
 }
