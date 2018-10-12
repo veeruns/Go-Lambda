@@ -13,8 +13,9 @@ func main() {
 		if ferr == nil {
 			fmt.Printf("README Doc is reading works\n")
 		} else {
+
+			fmt.Printf("Error is %s\n", ferr.Error())
 		}
-		fmt.Printf(ferr.Error())
 	} else {
 		err := syscall.Setuid(65534)
 		if err != nil {
