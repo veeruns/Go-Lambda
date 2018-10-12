@@ -15,18 +15,19 @@ func main() {
 		} else {
 		}
 		fmt.Printf(ferr.Error())
-	}
-	err := syscall.Setuid(65534)
-	if err != nil {
-		fmt.Printf(err.Error())
-		_, nerr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
-		if nerr == nil {
-			fmt.Printf("Something wrong it should not happen")
-		} else {
-			fmt.Printf("This is correct %s\n", nerr.Error())
-		}
 	} else {
+		err := syscall.Setuid(65534)
+		if err != nil {
+			fmt.Printf(err.Error())
+			_, nerr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
+			if nerr == nil {
+				fmt.Printf("Something wrong it should not happen")
+			} else {
+				fmt.Printf("This is correct %s\n", nerr.Error())
+			}
+		} else {
 
+		}
 	}
 
 }
