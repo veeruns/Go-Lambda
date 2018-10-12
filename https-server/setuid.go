@@ -9,9 +9,9 @@ import (
 func main() {
 	if syscall.Getuid() == 0 {
 		fmt.Printf("You are running as root, Dropping your privileges")
-		toprint, ferr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
+		_, ferr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
 		if ferr == nil {
-			fmt.Printf("README Doc is %s\n", toprint)
+			fmt.Printf("README Doc is reading works\n")
 		} else {
 		}
 		fmt.Printf(ferr.Error())
