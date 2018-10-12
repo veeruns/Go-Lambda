@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"os"
 	"syscall"
 )
 
@@ -20,7 +19,7 @@ func main() {
 	}
 	err := syscall.Setuid(65534)
 	if err != nil {
-		fmt.Printf("OS error %s , %d\n", err.Error(), os.Errno(err))
+		fmt.Printf("OS error %s \n", err.Error())
 		_, nerr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
 		if nerr == nil {
 			fmt.Printf("Something wrong it should not happen")
