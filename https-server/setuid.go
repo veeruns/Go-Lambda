@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"ioutil"
+	"io/ioutil"
 	"syscall"
 )
 
