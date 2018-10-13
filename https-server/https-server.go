@@ -40,7 +40,8 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	} else {
 		w.Header().Set("Content-Type", "text/plain")
 		w.Write([]byte("This is an example server.\n"))
-		resp, err := http.NewRequest("POST", "http://192.168.7.45:8060/keypress/powerOff", bytes.NewBuffer())
+		var buf bytes.Buffer
+		resp, err := http.NewRequest("POST", "http://192.168.7.45:8060/keypress/powerOff", &buf)
 		if err != nil {
 			fmt.Printf("Did not work as expected %s\n", err.Error())
 		}
