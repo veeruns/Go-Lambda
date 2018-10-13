@@ -1,4 +1,4 @@
-package https-server
+package httpsServer
 import (
   "net/http"
   "fmt"
