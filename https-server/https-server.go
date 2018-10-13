@@ -46,7 +46,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/roku", RokuServer)
-	caCert, err := ioutil.ReadFile("/etc")
+	caCert, err := ioutil.ReadFile("ssl/certs/letsencryptca.pem")
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 	if err != nil {
@@ -64,7 +64,7 @@ func main() {
 		TLSConfig: cfg,
 	}
 
-	log.Fatal(srv.ListenAndServeTLS("server.crt", "server.key"))
+	log.Fatal(srv.ListenAndServeTLS("/etc/letsencrypt/live/veeruns.raghavanonline.com/cert.pem", "/etc/letsencrypt/live/veeruns.raghavanonline.com/privkey.pem"))
 }
 
 func logMiddleware(next http.Handler) http.Handler {
