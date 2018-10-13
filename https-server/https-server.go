@@ -39,12 +39,13 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(w, "You do not have access to this server")
 	} else {
 		w.Header().Set("Content-Type", "text/plain")
-		w.Write([]byte("This is an example server.\n"))
+
 		var buf bytes.Buffer
 		_, err := http.NewRequest("POST", "http://192.168.7.45:8060/keypress/powerOff", &buf)
 		if err != nil {
 			fmt.Printf("Did not work as expected %s\n", err.Error())
 		}
+		w.Write([]byte("This is an example server.\n"))
 	}
 	// fmt.Fprintf(w, "This is an example server.\n")
 	// io.WriteString(w, "This is an example server.\n")
