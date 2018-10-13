@@ -46,7 +46,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/roku", RokuServer)
-	caCert, err := ioutil.ReadFile("ssl/certs/letsencryptca.pem")
+	caCert, err := ioutil.ReadFile("ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 	if err != nil {
