@@ -33,7 +33,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 			fmt.Printf("SAN names listed %s\n", dnsname)
 		}
 	}
-	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, "home.veeru.acceptedservice") != 0 {
+	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, "client-auth.raghavanonline.com") != 0 {
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Fprintf(w, "You do not have access to this server")
 	} else {
