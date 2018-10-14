@@ -239,6 +239,7 @@ func CallEndPoint() string {
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
 	}
+	defer resp.Body.Close()
 	op, _ := ioutil.ReadAll(resp.Body)
 	return string(op)
 }
