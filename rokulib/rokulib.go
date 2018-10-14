@@ -52,7 +52,7 @@ func PowerOn(hostname string) bool {
 	}
 }
 
-func asynchttp(url string) *HttpResponse {
+func asynchttp(url string) string {
 
 	var resps *HttpResponse
 	var buff bytes.Buffer
@@ -63,7 +63,7 @@ func asynchttp(url string) *HttpResponse {
 		ch <- &HttpResponse{url, resp, err}
 	}(url)
 
-	//	return resps
+	return "stuffed"
 }
 
 func getresponses() *HttpResponse {
