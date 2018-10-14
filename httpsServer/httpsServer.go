@@ -38,7 +38,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	}
 	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, "client-auth.raghavanonline.com") != 0 {
 		w.WriteHeader(http.StatusForbidden)
-		fmt.Fprintf(w, "You do not have access to this server")
+		fmt.Fprintf(w, "meh")
 	} else {
 		w.Header().Set("Content-Type", "text/plain")
 
@@ -49,7 +49,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		if works {
 			fmt.Printf("It worked")
 		}
-		w.Write([]byte("This is an example server.\n"))
+		w.Write([]byte("TurnedOffTV\n"))
 	}
 	// fmt.Fprintf(w, "This is an example server.\n")
 	// io.WriteString(w, "This is an example server.\n")
