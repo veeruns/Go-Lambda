@@ -303,9 +303,6 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(true)
 		say := CallEndPoint()
 		fmt.Printf("Output from Endpoint is %s\n", say)
-		if say == "" {
-			say = "Its done"
-		}
 		resp.Say("I think its done")
 	case "quiz":
 		var quizanswer int
