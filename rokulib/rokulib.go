@@ -12,7 +12,7 @@ func PowerOff(hostname string) bool {
 	var url bytes.Buffer
 	url.WriteString("http://")
 	url.WriteString(hostname)
-	url.WriteString("/keypress/poweron")
+	url.WriteString("/keypress/poweroff")
 	resp, err := http.Post(url.String(), "", &buff)
 	if err != nil {
 		fmt.Printf("That did not work as intended %s\n", err.Error())
