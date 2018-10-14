@@ -243,8 +243,12 @@ func CallEndPoint() string {
 	if resp.StatusCode != 200 {
 		return "OhOh Wrong Status code"
 	} else {
+		var b bytes.Buffer
+		b.WriteString("We are good ")
+		b.WriteString(resp.StatusCode)
+		b.WriteString(" That is the resp code")
 		fmt.Printf("We do not have an issue %d\n", resp.StatusCode)
-		return "DoneDeal"
+		return b.String()
 	}
 
 }
