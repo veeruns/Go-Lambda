@@ -40,7 +40,7 @@ func PowerOn(hostname string) bool {
 
 	resp, err := http.Post(url.String(), "", &buff)
 	if err != nil {
-		fmt.Printf("That did not work as intended %s\n", err.Error())
+		fmt.Printf("That did not work as intended %s, code %d\n", err.Error(), resp.StatusCode)
 		return false
 	} else {
 		//	fmt.Printf("The return string is %s\n", resp.Body)
