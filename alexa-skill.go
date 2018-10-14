@@ -300,6 +300,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "switchofftv":
 		resp = CreateResponse(true)
 		say := CallEndPoint()
+		fmt.Printf("Output from Endpoint is %s\n", say)
 		if say == "" {
 			say = "Its done"
 		}
