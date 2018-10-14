@@ -27,8 +27,9 @@ func PowerOff(hostname string) bool {
 	results := asynchttp(url.String())
 	if results == "stuffed" {
 		fmt.Printf("stuffed into channel\n")
-		return true
+
 	}
+	return true
 }
 
 func PowerOn(hostname string) bool {
