@@ -245,7 +245,7 @@ func CallEndPoint() string {
 	} else {
 		var b bytes.Buffer
 		b.WriteString("We are good ")
-		b.WriteString(resp.StatusCode)
+		b.WriteString(strconv.Itoa(resp.StatusCode))
 		b.WriteString(" That is the resp code")
 		fmt.Printf("We do not have an issue %d\n", resp.StatusCode)
 		return b.String()
