@@ -15,7 +15,7 @@ type HttpResponse struct {
 
 //PowerOff Roku box
 func PowerOff(hostname string) bool {
-	var buff bytes.Buffer
+	//	var buff bytes.Buffer
 	var url bytes.Buffer
 	url.WriteString("http://")
 	url.WriteString(hostname)
