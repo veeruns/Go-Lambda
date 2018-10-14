@@ -241,7 +241,7 @@ func CallEndPoint() string {
 		return "OhOh"
 	}
 	if resp.StatusCode != 200 {
-		return "OhOh"
+		return "OhOh Wrong Status code"
 	} else {
 		fmt.Printf("We do not have an issue %d\n", resp.StatusCode)
 		return "DoneDeal"
