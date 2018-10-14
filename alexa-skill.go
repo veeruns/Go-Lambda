@@ -241,6 +241,7 @@ func CallEndPoint() string {
 	}
 	defer resp.Body.Close()
 	op, _ := ioutil.ReadAll(resp.Body)
+	fmt.Printf("Return data from server is %s\n", string(op))
 	return string(op)
 }
 
