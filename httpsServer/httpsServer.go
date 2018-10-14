@@ -7,6 +7,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -49,7 +50,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		if works {
 			fmt.Printf("It worked")
 		}
-		fmt.Fprintf(w, "SwitchedOffTv")
+		io.WriteString(w, "SwitchedOffTv")
 	}
 	// fmt.Fprintf(w, "This is an example server.\n")
 	// io.WriteString(w, "This is an example server.\n")
