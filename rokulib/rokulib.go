@@ -25,13 +25,8 @@ func PowerOff(hostname string) bool {
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweroff")
 	results := asynchttp(url.String())
-
-	if results.err != nil {
-		fmt.Printf("That did not work as intended %s\n", results.err.Error())
-		return false
-	} else {
-		fmt.Printf("The return string is %s\n", results.resp.Status)
-		return true
+	if results == "stuffed" {
+		fmt.Printf("stuffed into channel\n")
 	}
 }
 
