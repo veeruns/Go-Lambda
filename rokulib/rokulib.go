@@ -63,9 +63,7 @@ func asynchttp(url string) *HttpResponse {
 		case r := <-ch:
 			fmt.Printf("%s was fetched\n", r.url)
 			resps = r
-			if len(resps) == 1 {
-				return resps
-			}
+			return resps
 		case <-time.After(50 * time.Millisecond):
 			fmt.Printf(".")
 		}
