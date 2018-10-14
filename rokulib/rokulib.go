@@ -51,7 +51,7 @@ func PowerOn(hostname string) bool {
 
 func asynchttp(url string) string {
 
-	var resps *HttpResponse
+	//var resps *HttpResponse
 	var buff bytes.Buffer
 	go func(url string) {
 		fmt.Printf("Fetching Roku URL %s\n", url)
@@ -63,7 +63,7 @@ func asynchttp(url string) string {
 	return "stuffed"
 }
 
-func getresponses() *HttpResponse {
+func GetResponses() *HttpResponse {
 	var resps *HttpResponse
 	for {
 		select {
