@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var HttpResponse struct {
+type HttpResponse struct {
 	url  string
 	resp *http.Response
 	err  error
