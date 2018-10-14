@@ -306,7 +306,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		if say == "" {
 			say = "Its done"
 		}
-		resp.Say(say)
+		resp.Say("I think its done")
 	case "quiz":
 		var quizanswer int
 		resp = CreateResponse(false)
