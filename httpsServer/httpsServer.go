@@ -51,6 +51,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 			fmt.Printf("It worked")
 		}
 		io.WriteString(w, "SwitchedOffTv")
+		rokulib.GetResponses()
 	}
 	// fmt.Fprintf(w, "This is an example server.\n")
 	// io.WriteString(w, "This is an example server.\n")
