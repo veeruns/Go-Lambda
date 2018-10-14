@@ -49,7 +49,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		if works {
 			fmt.Printf("It worked")
 		}
-		w.Write([]byte("TurnedOffTV\n"))
+		fmt.Fprintf(w, "SwitchedOffTv")
 	}
 	// fmt.Fprintf(w, "This is an example server.\n")
 	// io.WriteString(w, "This is an example server.\n")
