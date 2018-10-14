@@ -13,6 +13,8 @@ type HttpResponse struct {
 	err  error
 }
 
+ch := make(chan *HttpResponse, 1)
+
 //PowerOff Roku box
 func PowerOff(hostname string) bool {
 	//	var buff bytes.Buffer
@@ -49,7 +51,7 @@ func PowerOn(hostname string) bool {
 }
 
 func asynchttp(url string) *HttpResponse {
-	ch := make(chan *HttpResponse, 1)
+
 	var resps *HttpResponse
 	var buff bytes.Buffer
 	go func(url string) {
@@ -58,7 +60,14 @@ func asynchttp(url string) *HttpResponse {
 		resp.Body.Close()
 		ch <- &HttpResponse{url, resp, err}
 	}(url)
-	for {
+
+
+	//	return resps
+}
+
+func getresponses() *HttpResponse {
+  var resps *HttpResponse
+  for {
 		select {
 		case r := <-ch:
 			fmt.Printf("%s was fetched\n", r.url)
@@ -68,6 +77,4 @@ func asynchttp(url string) *HttpResponse {
 			fmt.Printf(".")
 		}
 	}
-
-	//	return resps
 }
