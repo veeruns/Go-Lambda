@@ -62,7 +62,7 @@ func asynchttp(url string) *HttpResponse {
 		select {
 		case r := <-ch:
 			fmt.Printf("%s was fetched\n", r.url)
-			resps = append(resps, r)
+			resps = r
 			if len(resps) == 1 {
 				return resps
 			}
