@@ -23,7 +23,7 @@ func PowerOff(hostname string) bool {
 	results := asynchttp(url.String())
 
 	if results.err != nil {
-		fmt.Printf("That did not work as intended %s\n", err.Error())
+		fmt.Printf("That did not work as intended %s\n", results.err.Error())
 		return false
 	} else {
 		fmt.Printf("The return string is %s\n", results.resp.Status)
