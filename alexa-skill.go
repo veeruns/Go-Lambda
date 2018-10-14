@@ -239,7 +239,8 @@ func CallEndPoint() string {
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
 	}
-	return string(ioutil.ReadAll(resp.Body))
+	op, _ := ioutil.ReadAll(resp.Body)
+	return string(op)
 }
 
 //CreatePairs creates a pair of multiplier and mutliplicand less than 16
