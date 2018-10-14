@@ -43,8 +43,7 @@ func PowerOn(hostname string) bool {
 		fmt.Printf("That did not work as intended %s\n", err.Error())
 		return false
 	} else {
-
-		fmt.Printf("The return string is %s\n", resp.Body)
+		//	fmt.Printf("The return string is %s\n", resp.Body)
 		return true
 	}
 }
