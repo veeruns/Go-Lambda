@@ -214,6 +214,7 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	}
 }
 
+//CallEndPoint functions calls "The" endpoint
 func CallEndPoint() {
 	cert, err := tls.LoadX509KeyPair("ssl/certs/cert.pem", "ssl/keys/key.pem")
 	if err != nil {
