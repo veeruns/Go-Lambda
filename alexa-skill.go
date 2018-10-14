@@ -11,6 +11,11 @@ import (
 	"math/rand"
 	"reflect"
 
+	"crypto/tls"
+	"crypto/x509"
+	"io/ioutil"
+	"net/http"
+
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/davecgh/go-spew/spew"
 )
@@ -209,6 +214,33 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 	}
 }
 
+func CallEndPoint() {
+	cert, err := tls.LoadX509KeyPair("ssl/certs/cert.pem", "ssl/keys/key.pem")
+	if err != nil {
+		fmt.Printf("It did not work %s\n", err.Error())
+	}
+	caCert, err := ioutil.ReadFile("ssl/certs/cacert.pem")
+	if err != nil {
+		fmt.Printf("Could not load CA cert %s\n", err.Error())
+	}
+	caCertPool := x509.NewCertPool()
+	caCertPool.AppendCertsFromPEM(caCert)
+
+	// Setup HTTPS client
+	tlsConfig := &tls.Config{
+		Certificates: []tls.Certificate{cert},
+		RootCAs:      caCertPool,
+	}
+	tlsConfig.BuildNameToCertificate()
+	transport := &http.Transport{TLSClientConfig: tlsConfig}
+	client := &http.Client{Transport: transport}
+	resp, err := client.Get("https://veeruns.raghavanonline.com:8080/roku")
+	if err != nil {
+		fmt.Printf("HTTP failed %s\n", err.Error())
+	}
+	defer resp.Body.Close()
+}
+
 //CreatePairs creates a pair of multiplier and mutliplicand less than 16
 func CreatePairs() (int, int) {
 	s1 := rand.NewSource(time.Now().UnixNano())
@@ -263,6 +295,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
 		/* Need to clean up quiz, general way dialog works */
+	case "switchofftv":
+		resp = CreateResponse(true)
+
 	case "quiz":
 		var quizanswer int
 		resp = CreateResponse(false)
