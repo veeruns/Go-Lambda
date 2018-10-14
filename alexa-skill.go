@@ -235,12 +235,16 @@ func CallEndPoint() string {
 	tlsConfig.BuildNameToCertificate()
 	transport := &http.Transport{TLSClientConfig: tlsConfig}
 	client := &http.Client{Transport: transport}
-	resp, err = client.Get("https://veeruns.raghavanonline.com:8080/roku")
+	resp, err := client.Get("https://veeruns.raghavanonline.com:8080/roku")
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
 		return "OhOh"
 	}
-
+	if resp.StatusCode != 200 {
+		return "OhOh"
+	} else {
+		fmt.Printf("We have an issue %d\n", resp.StatusCode)
+	}
 	return "DoneDeal"
 
 }
