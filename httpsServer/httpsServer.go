@@ -44,7 +44,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 
 		var works bool
 		works = rokulib.PowerOff("192.168.7.45:8060")
-
+		fmt.Printf(" Rokulib returned %v\n", works)
 		//"http://192.168.7.45:8060/keypress/powerOff",
 		if works {
 			fmt.Printf("It worked")
