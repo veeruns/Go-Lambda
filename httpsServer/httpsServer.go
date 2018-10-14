@@ -11,6 +11,8 @@ import (
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/veeruns/Go-Lambda/rokulib"
 )
 
 type Server struct {
@@ -41,13 +43,11 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Content-Type", "text/plain")
 
 		var works bool
-		works = PowerOn("192.168.7.45:8060")
+		works = rokulib.PowerOn("192.168.7.45:8060")
 
 		//"http://192.168.7.45:8060/keypress/powerOff",
-		if err2 != nil {
-			fmt.Printf("Did not work as expected %s\n", err2.Error())
-		} else {
-			fmt.Printf("%s\n", resp.Body)
+		if works {
+			fmt.Printf("It worked")
 		}
 		w.Write([]byte("This is an example server.\n"))
 	}
