@@ -29,7 +29,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
 		fmt.Fprintf(w, "Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
-		fmt.Fprintf(w, " %+v\n", req.TLS.PeerCertificates[0].Verify)
+		fmt.Fprintf(w, " %s\n", req.TLS.PeerCertificates[0].Verify)
 	}
 	for _, certname := range req.TLS.PeerCertificates {
 		for _, dnsname := range certname.DNSNames {
