@@ -215,7 +215,7 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 }
 
 //CallEndPoint functions calls "The" endpoint
-func CallEndPoint() {
+func CallEndPoint() string {
 	cert, err := tls.LoadX509KeyPair("ssl/certs/cert.pem", "ssl/keys/key.pem")
 	if err != nil {
 		fmt.Printf("It did not work %s\n", err.Error())
@@ -239,7 +239,7 @@ func CallEndPoint() {
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
 	}
-	defer resp.Body.Close()
+	return string(ioutil.ReadAll(resp.Body))
 }
 
 //CreatePairs creates a pair of multiplier and mutliplicand less than 16
@@ -298,7 +298,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		/* Need to clean up quiz, general way dialog works */
 	case "switchofftv":
 		resp = CreateResponse(true)
-
+		say := CallEndPoint()
+		resp.Say(say)
 	case "quiz":
 		var quizanswer int
 		resp = CreateResponse(false)
