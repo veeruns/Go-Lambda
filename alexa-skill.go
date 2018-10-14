@@ -235,7 +235,7 @@ func CallEndPoint() string {
 	tlsConfig.BuildNameToCertificate()
 	transport := &http.Transport{TLSClientConfig: tlsConfig}
 	client := &http.Client{Transport: transport}
-	_, err := client.Get("https://veeruns.raghavanonline.com:8080/roku")
+	_, err = client.Get("https://veeruns.raghavanonline.com:8080/roku")
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
 		return "OhOh"
