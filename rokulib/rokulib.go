@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+//PowerOff Roku box
 func PowerOff(hostname string) bool {
 	var buff bytes.Buffer
 	var url bytes.Buffer
