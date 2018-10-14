@@ -69,5 +69,5 @@ func asynchttp(url string) *HttpResponse {
 		}
 	}
 
-	return resps
+	//	return resps
 }
