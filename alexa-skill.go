@@ -235,14 +235,14 @@ func CallEndPoint() string {
 	tlsConfig.BuildNameToCertificate()
 	transport := &http.Transport{TLSClientConfig: tlsConfig}
 	client := &http.Client{Transport: transport}
-	resp, err := client.Get("https://veeruns.raghavanonline.com:8080/roku")
+	_, err := client.Get("https://veeruns.raghavanonline.com:8080/roku")
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
+		return "OhOh"
 	}
-	defer resp.Body.Close()
-	op, _ := ioutil.ReadAll(resp.Body)
-	fmt.Printf("Return data from server is %s\n", string(op))
-	return string(op)
+
+	return "DoneDeal"
+
 }
 
 //CreatePairs creates a pair of multiplier and mutliplicand less than 16
