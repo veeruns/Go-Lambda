@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<apps>
+	<app id="31012" type="menu" version="1.9.26">Movie Store and TV Store</app>
+	<app id="12" subtype="ndka" type="appl" version="4.2.90618035">Netflix</app>
+	<app id="13" subtype="ndka" type="appl" version="10.3.2018092809">Amazon Prime Video</app>
+	<app id="2285" subtype="rsga" type="appl" version="6.10.3">Hulu</app>
+	<app id="46041" subtype="ndka" type="appl" version="5.9.121">Sling TV </app>
+	<app id="8838" subtype="rsga" type="appl" version="2.5.4">SHOWTIME</app>
+	<app id="151908" subtype="rsga" type="appl" version="1.5.9">The Roku Channel</app>
+	<app id="61322" subtype="rsga" type="appl" version="4.5.36">HBO NOW</app>
+	<app id="8378" subtype="rsga" type="appl" version="4.5.36">HBO GO</app>
+	<app id="4070" subtype="rsga" type="appl" version="4.1.6">TED</app>
+	<app id="8629" subtype="sdka" type="appl" version="1.2.3">WSJ Live</app>
+	<app id="13535" subtype="rsga" type="appl" version="5.3.10">Plex</app>
+	<app id="23333" subtype="rsga" type="appl" version="2.5.4">PBS KIDS Video</app>
+	<app id="837" subtype="ndka" type="appl" version="1.0.70500264">YouTube</app>
+	<app id="98845" subtype="rsga" type="appl" version="3.14.1">Tentkotta New</app>
+	<app id="42328" subtype="sdka" type="appl" version="3.7.1">Tentkotta</app>
+	<app id="166137" subtype="rsga" type="appl" version="2.1.3">Hotstar</app>
+	<app id="22072" subtype="sdka" type="appl" version="1.3.1">Bollyverse</app>
+	<app id="140474" subtype="rsga" type="appl" version="2.8.55">DIRECTV NOW</app>
+</apps>
