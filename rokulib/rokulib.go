@@ -57,12 +57,12 @@ func PowerOn(hostname string) bool {
 }
 
 func workerpool() {
-	for _ := range signal {
+	for {
 		fmt.Println("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-signal:
 			var resp *http.Response
-			fmt.Printf("[Rokulib] Recieved to post %s\n", msg)
+			fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
 			var buff bytes.Buffer
 			resp, err := http.Post(msg, "", &buff)
 			if err != nil {
