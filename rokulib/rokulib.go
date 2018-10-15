@@ -36,8 +36,7 @@ func PowerOff(hostname string) bool {
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweroff")
-	somedata.url = url.String()
-	datachan <- &somedata
+	signal <- url.String()
 	return true
 }
 
@@ -75,18 +74,20 @@ func asynchttp() string {
 }
 
 func workerpool() {
-	for j := range datachan {
-		fmt.Println("Started reading from data channel")
+	for j := range signal {
+		fmt.Println("[Rokulib] Started reading from data channel")
+    select {
+    case msg := <-signal:
+        var resp *http.Response
+        fmt.Printf("[Rokulib] Recieved to post %s\n",msg)
+        var buff bytes.Buffer
+        resp, err := http.Post(msg, "", &buff)
+        fmt.Printf("[Rokulib] Response code from Roku %d\n",resp.StatusCode)
+
+    case default:
+        fmt.Printf("[Rokulib] Nothing recieved yet")
+
+    }
 	}
-	var resps *HttpResponse
-	for {
-		select {
-		case r := <-datachan:
-			fmt.Printf("%s was fetched\n", r.url)
-			resps = r
-			return resps
-		case <-time.After(50 * time.Millisecond):
-			fmt.Printf(".")
-		}
-	}
+	var resps *HttpResponse	
 }
