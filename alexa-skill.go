@@ -315,12 +315,12 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		/* Need to clean up quiz, general way dialog works */
 
 	case "rokucontrol":
-		resp = CreateResponse(true)
+		resp = CreateResponse(false)
 		functocall := i.Request.Intent.Slots["func"].Value
 		fmt.Printf("The request intent value is %s\n", functocall)
 		say := CallEndPoint(functocall)
 		fmt.Printf("Output from Endpoint is %s\n", say)
-		resp.Say("The request has been send")
+		resp.Ssay("The request has been send to the device")
 
 	case "quiz":
 		var quizanswer int
