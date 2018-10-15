@@ -2,8 +2,11 @@ package rokulib
 
 import (
 	"bytes"
+	"encoding/xml"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -12,6 +15,17 @@ type HTTPResponse struct {
 	url  string
 	resp *http.Response
 	err  error
+}
+
+type app struct {
+	id          int    `xml:"id,attr"`
+	version     string `xml:"version,attr"`
+	channeltype string `xml:"type,attr"`
+	app         string `xml:app`
+}
+
+type apps struct {
+	app []app `xml:app`
 }
 
 //var datachan chan *HttpResponse
@@ -23,8 +37,10 @@ var signal chan string
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
 	signal = make(chan string)
+	readchannels()
 	//start workerpool
 	go workerpool()
+
 }
 
 //PowerOff function sends poweroff to roku
@@ -49,6 +65,17 @@ func PowerOn(hostname string) bool {
 	return true
 }
 
+func LaunchChannel(hostname string, channelid int) bool {
+	var url bytes.Buffer
+	url.WriteString("http://")
+	url.WriteString(hostname)
+	url.WriteString("/launch/")
+	url.WriteString(channelid)
+	signal <- url.String()
+	return true
+
+}
+
 func workerpool() {
 	for {
 		fmt.Println("[Rokulib] Started reading from data channel")
@@ -59,7 +86,6 @@ func workerpool() {
 			var buff bytes.Buffer
 			resp, err := http.Post(msg, "", &buff)
 			//time.Sleep(time.Millisecond * 2500)
-
 			if err != nil {
 				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
 			} else {
@@ -71,4 +97,17 @@ func workerpool() {
 		}
 	}
 	//	var resps *HttpResponse
+}
+
+func readchannels() {
+	xmlFile, err := os.Open("/etc/httpsServer/channel-list.xml")
+	if err != nil {
+		fmt.Println("Opening file error : ", err)
+	}
+	defer xmlFile.Close()
+	xmlData, _ := ioutil.ReadAll(xmlFile)
+	var A apps
+	xml.Unmarshal(xmlData, &A)
+	fmt.Println(xmlData)
+
 }
