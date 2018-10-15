@@ -26,6 +26,7 @@ func NewServer(addr string) *Server {
 	return &Server{addr: addr}
 }
 
+//RokuServer is the handler for https
 func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var functocall string
 	//var channeltocall string
