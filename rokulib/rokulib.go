@@ -14,13 +14,23 @@ type HttpResponse struct {
 }
 
 var datachan chan *HttpResponse
+var signal chan string
 
 //ch := make(chan *HttpResponse, 1)
 
 //PowerOff Roku box
+//InitLib initializes channel
+func InitLib() {
+	datachan := make(chan *HttpResponse, 1)
+	signal := make(chan string)
+	//start workerpool
+	go workerpool()
+}
+
+//PowerOff function sends poweroff to roku
 func PowerOff(hostname string) bool {
 	//	var buff bytes.Buffer
-	datachan := make(chan *HttpResponse, 1)
+
 	var somedata HttpResponse
 	var url bytes.Buffer
 	url.WriteString("http://")
@@ -64,7 +74,10 @@ func asynchttp() string {
 	return "stuffed"
 }
 
-func getresponses() *HttpResponse {
+func workerpool() {
+	for j := range datachan {
+		fmt.Println("Started reading from data channel")
+	}
 	var resps *HttpResponse
 	for {
 		select {
