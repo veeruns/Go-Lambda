@@ -215,7 +215,10 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 }
 
 //CallEndPoint functions calls "The" endpoint
-func CallEndPoint() string {
+func CallEndPoint(api string) string {
+	if api == "" {
+		api == "PowerOff"
+	}
 	cert, err := tls.LoadX509KeyPair("ssl/certs/cert.pem", "ssl/keys/key.pem")
 	if err != nil {
 		fmt.Printf("It did not work %s\n", err.Error())
@@ -235,7 +238,10 @@ func CallEndPoint() string {
 	tlsConfig.BuildNameToCertificate()
 	transport := &http.Transport{TLSClientConfig: tlsConfig}
 	client := &http.Client{Transport: transport}
-	resp, err := client.Get("https://veeruns.raghavanonline.com:8080/roku")
+	var url bytes.Buffer
+	url.WriteString("https://veeruns.raghavanonline.com:8080/roku?func=")
+	url.WriteString(api)
+	resp, err := client.Get(url.String())
 	if err != nil {
 		fmt.Printf("HTTP failed %s\n", err.Error())
 		return "OhOh"
