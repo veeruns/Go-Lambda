@@ -41,20 +41,12 @@ func PowerOff(hostname string) bool {
 
 //PowerOn function powers on roku
 func PowerOn(hostname string) bool {
-	var buff bytes.Buffer
 	var url bytes.Buffer
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweron")
-
-	resp, err := http.Post(url.String(), "", &buff)
-	if err != nil {
-		fmt.Printf("That did not work as intended %s, code %d\n", err.Error(), resp.StatusCode)
-		return false
-	} else {
-		//	fmt.Printf("The return string is %s\n", resp.Body)
-		return true
-	}
+	signal <- url.String()
+	return true
 }
 
 func workerpool() {
