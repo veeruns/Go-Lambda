@@ -75,5 +75,5 @@ func workerpool() {
 
 		}
 	}
-	var resps *HttpResponse
+	//	var resps *HttpResponse
 }
