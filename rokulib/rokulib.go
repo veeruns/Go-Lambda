@@ -8,7 +8,7 @@ import (
 )
 
 //HttpResponse a more complex type
-type HttpResponse struct {
+type HTTPResponse struct {
 	url  string
 	resp *http.Response
 	err  error
