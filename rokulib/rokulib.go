@@ -57,7 +57,7 @@ func PowerOn(hostname string) bool {
 }
 
 func workerpool() {
-	for j := range signal {
+	for _ := range signal {
 		fmt.Println("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-signal:
