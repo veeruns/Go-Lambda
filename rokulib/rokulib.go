@@ -29,10 +29,6 @@ func PowerOff(hostname string) bool {
 	somedata.url = url.String()
 	datachan <- &somedata
 	results := asynchttp()
-	if results == "stuffed" {
-		fmt.Printf("stuffed into channel\n")
-
-	}
 	return true
 }
 
