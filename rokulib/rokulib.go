@@ -28,7 +28,7 @@ func PowerOff(hostname string) bool {
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweroff")
 	somedata.url = url.String()
-	datachan <- somedata
+	datachan <- &somedata
 	results := asynchttp()
 	if results == "stuffed" {
 		fmt.Printf("stuffed into channel\n")
