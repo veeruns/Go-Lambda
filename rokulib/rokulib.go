@@ -63,7 +63,7 @@ func workerpool() {
 		case msg := <-signal:
 			//	var resp *http.Response
 			fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
-			var buff bytes.Buffer
+			//var buff bytes.Buffer
 			//resp, err := http.Post(msg, "", &buff)
 			time.Sleep(time.Millisecond * 2500)
 
