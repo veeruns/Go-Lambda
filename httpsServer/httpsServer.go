@@ -28,9 +28,9 @@ func NewServer(addr string) *Server {
 
 func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var functocall string
-	var channeltocall string
+	//var channeltocall string
 	functocall = req.URL.Query().Get("func")
-	channeltocall = req.URL.Query().Get("channel")
+	//channeltocall = req.URL.Query().Get("channel")
 	fmt.Printf("The query function is %s\n", functocall)
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
