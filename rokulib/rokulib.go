@@ -18,7 +18,6 @@ var signal chan string
 
 //ch := make(chan *HttpResponse, 1)
 
-//PowerOff Roku box
 //InitLib initializes channel
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
