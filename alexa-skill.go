@@ -316,6 +316,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 	case "switchofftv":
 		resp = CreateResponse(true)
+		functocall, _ := strconv.Atoi(i.Request.Intent.Slotes["function"].Value)
 		say := CallEndPoint("PowerOff")
 		fmt.Printf("Output from Endpoint is %s\n", say)
 		resp.Say(say)
