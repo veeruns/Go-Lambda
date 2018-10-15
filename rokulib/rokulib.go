@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
-	"time"
 )
 
 type HttpResponse struct {
@@ -76,18 +75,18 @@ func asynchttp() string {
 func workerpool() {
 	for j := range signal {
 		fmt.Println("[Rokulib] Started reading from data channel")
-    select {
-    case msg := <-signal:
-        var resp *http.Response
-        fmt.Printf("[Rokulib] Recieved to post %s\n",msg)
-        var buff bytes.Buffer
-        resp, err := http.Post(msg, "", &buff)
-        fmt.Printf("[Rokulib] Response code from Roku %d\n",resp.StatusCode)
+		select {
+		case msg := <-signal:
+			var resp *http.Response
+			fmt.Printf("[Rokulib] Recieved to post %s\n", msg)
+			var buff bytes.Buffer
+			resp, err := http.Post(msg, "", &buff)
+			fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
 
-    case default:
-        fmt.Printf("[Rokulib] Nothing recieved yet")
+		default:
+			fmt.Printf("[Rokulib] Nothing recieved yet")
 
-    }
+		}
 	}
-	var resps *HttpResponse	
+	var resps *HttpResponse
 }
