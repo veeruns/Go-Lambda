@@ -70,9 +70,9 @@ func workerpool() {
 			/*	if err != nil {
 				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
 			} else {*/
-			fmt.Printf("[Rokulib] Response code from Roku %d\n", 202)
+			fmt.Printf("[Rokulib] Response code from Roku %d\n", 200)
 		//	}
-		case <-time.After(250 * time.Millisecond):
+		case <-time.After(1000 * time.Millisecond):
 			fmt.Printf("[Rokulib] Nothing recieved yet")
 
 		}
