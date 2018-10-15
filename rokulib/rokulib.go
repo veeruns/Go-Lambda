@@ -12,7 +12,7 @@ type HttpResponse struct {
 	err  error
 }
 
-var datachan chan *HttpResponse
+//var datachan chan *HttpResponse
 var signal chan string
 
 //ch := make(chan *HttpResponse, 1)
@@ -20,7 +20,7 @@ var signal chan string
 //PowerOff Roku box
 //InitLib initializes channel
 func InitLib() {
-	datachan := make(chan *HttpResponse, 1)
+	//	datachan := make(chan *HttpResponse, 1)
 	signal := make(chan string)
 	//start workerpool
 	go workerpool()
