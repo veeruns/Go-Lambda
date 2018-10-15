@@ -22,7 +22,7 @@ type app struct {
 	ID          int    `xml:"id,attr"`
 	Version     string `xml:"version,attr"`
 	Channeltype string `xml:"type,attr"`
-	//App         string `xml:"app"`
+	App         string `xml:"app"`
 }
 
 type apps struct {
@@ -110,6 +110,8 @@ func readchannels() {
 	xmlData, _ := ioutil.ReadAll(xmlFile)
 	var A apps
 	xml.Unmarshal(xmlData, &A)
-	fmt.Println(A)
+	for _, value := range A.App{
+    fmt.Printf("%s\n",value.
+    }
 
 }
