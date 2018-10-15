@@ -75,7 +75,7 @@ func getresponses() *HttpResponse {
 	var resps *HttpResponse
 	for {
 		select {
-		case r := <-ch:
+		case r := <-datachan:
 			fmt.Printf("%s was fetched\n", r.url)
 			resps = r
 			return resps
