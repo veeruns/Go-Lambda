@@ -13,7 +13,8 @@ type HttpResponse struct {
 	err  error
 }
 
-var ch chan *HttpResponse
+var datachan chan *HttpResponse
+var signal chan string
 
 //ch := make(chan *HttpResponse, 1)
 
@@ -24,6 +25,7 @@ func PowerOff(hostname string) bool {
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweroff")
+
 	results := asynchttp(url.String())
 	if results == "stuffed" {
 		fmt.Printf("stuffed into channel\n")
@@ -49,21 +51,22 @@ func PowerOn(hostname string) bool {
 	}
 }
 
-func asynchttp(url string) string {
+func asynchttp() string {
 
 	//var resps *HttpResponse
 	var buff bytes.Buffer
+
 	go func(url string) {
 		fmt.Printf("Fetching Roku URL %s\n", url)
 		resp, err := http.Post(url, "", &buff)
 		resp.Body.Close()
-		ch <- &HttpResponse{url, resp, err}
+		datachan <- &HttpResponse{url, resp, err}
 	}(url)
 
 	return "stuffed"
 }
 
-func GetResponses() *HttpResponse {
+func getresponses() *HttpResponse {
 	var resps *HttpResponse
 	for {
 		select {
