@@ -110,8 +110,8 @@ func readchannels() {
 	xmlData, _ := ioutil.ReadAll(xmlFile)
 	var A apps
 	xml.Unmarshal(xmlData, &A)
-	for _, value := range A.App{
-    fmt.Printf("%s\n",value.
-    }
+	for _, value := range A.App {
+		fmt.Printf("%s\n", value.App)
+	}
 
 }
