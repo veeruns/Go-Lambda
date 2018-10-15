@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+//HTTPResponse a more complex type
 type HttpResponse struct {
 	url  string
 	resp *http.Response
