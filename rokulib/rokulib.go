@@ -14,7 +14,6 @@ type HttpResponse struct {
 }
 
 var datachan chan *HttpResponse
-var signal chan string
 
 //ch := make(chan *HttpResponse, 1)
 
