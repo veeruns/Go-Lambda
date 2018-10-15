@@ -60,8 +60,8 @@ func asynchttp() string {
 	var buff bytes.Buffer
 	var url string
 	var recievedata *HttpResponse
-	receievedata <- datachan
-	rec
+	recievedata <- datachan
+
 	go func(url string) {
 		fmt.Printf("Fetching Roku URL %s\n", url)
 		resp, err := http.Post(url, "", &buff)
