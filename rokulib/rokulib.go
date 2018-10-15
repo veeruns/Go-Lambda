@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -70,7 +71,7 @@ func LaunchChannel(hostname string, channelid int) bool {
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/launch/")
-	url.WriteString(channelid)
+	url.WriteString(strconv.Itoa(channelid))
 	signal <- url.String()
 	return true
 
