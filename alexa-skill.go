@@ -312,9 +312,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "AMAZON.HelpIntent":
 		resp = CreateResponse(true)
 		resp.Say("Helping aarya with some things")
-	/* Need to clean up quiz, general way dialog works */
+		/* Need to clean up quiz, general way dialog works */
 
-	case "switchofftv":
+	case "rokucontrol":
 		resp = CreateResponse(true)
 		functocall := i.Request.Intent.Slots["function"].Value
 		say := CallEndPoint(functocall)
