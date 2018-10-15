@@ -39,6 +39,7 @@ func PowerOff(hostname string) bool {
 	return true
 }
 
+//PowerOn function powers on roku
 func PowerOn(hostname string) bool {
 	var buff bytes.Buffer
 	var url bytes.Buffer
