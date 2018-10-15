@@ -316,7 +316,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 	case "rokucontrol":
 		resp = CreateResponse(true)
-		functocall := i.Request.Intent.Slots["function"].Value
+		functocall := i.Request.Intent.Slots["func"].Value
 		fmt.Printf("The request intent value is %s\n", functocall)
 		say := CallEndPoint(functocall)
 		fmt.Printf("Output from Endpoint is %s\n", say)
