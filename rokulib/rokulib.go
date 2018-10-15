@@ -32,6 +32,7 @@ type apps struct {
 
 //var datachan chan *HttpResponse
 var signal chan string
+var channelhash map[string]int
 
 //ch := make(chan *HttpResponse, 1)
 
@@ -39,6 +40,7 @@ var signal chan string
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
 	signal = make(chan string)
+	channelhash = make(map[string]int)
 	readchannels()
 	//start workerpool
 	go workerpool()
@@ -112,6 +114,7 @@ func readchannels() {
 	xml.Unmarshal(xmlData, &A)
 	for _, value := range A.App {
 		fmt.Printf("%s\n", value.App)
+		channelhash[value.App] = value.ID
 	}
 
 }
