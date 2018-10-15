@@ -320,7 +320,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		fmt.Printf("The request intent value is %s\n", functocall)
 		say := CallEndPoint(functocall)
 		fmt.Printf("Output from Endpoint is %s\n", say)
-		resp.Say(say)
+		resp.Say("The request has been send")
 
 	case "quiz":
 		var quizanswer int
