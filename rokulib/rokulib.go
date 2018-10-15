@@ -19,14 +19,14 @@ type HTTPResponse struct {
 }
 
 type app struct {
-	id          int    `xml:"id,attr"`
-	version     string `xml:"version,attr"`
-	channeltype string `xml:"type,attr"`
-	app         string `xml:app`
+	Id          int    `xml:"id,attr"`
+	Version     string `xml:"version,attr"`
+	Channeltype string `xml:"type,attr"`
+	App         string `xml:app`
 }
 
 type apps struct {
-	app []app `xml:app`
+	App []app `xml:app`
 }
 
 //var datachan chan *HttpResponse
