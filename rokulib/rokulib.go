@@ -21,6 +21,7 @@ var signal chan string
 //PowerOff Roku box
 func PowerOff(hostname string) bool {
 	//	var buff bytes.Buffer
+  datachan := make(chan *HttpResponse,1)
 	var url bytes.Buffer
 	url.WriteString("http://")
 	url.WriteString(hostname)
@@ -80,3 +81,5 @@ func getresponses() *HttpResponse {
 		}
 	}
 }
+
+func New
