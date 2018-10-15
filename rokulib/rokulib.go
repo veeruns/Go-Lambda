@@ -21,7 +21,7 @@ var signal chan string
 //InitLib initializes channel
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
-	signal := make(chan string)
+	signal = make(chan string)
 	//start workerpool
 	go workerpool()
 }
