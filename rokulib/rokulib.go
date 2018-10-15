@@ -26,7 +26,8 @@ type app struct {
 }
 
 type apps struct {
-	App []app `xml:"app"`
+	XMLName xml.Name `xml:"apps"`
+	App     []app    `xml:"app"`
 }
 
 //var datachan chan *HttpResponse
