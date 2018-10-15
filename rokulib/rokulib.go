@@ -58,15 +58,13 @@ func asynchttp() string {
 	//var resps *HttpResponse
 	var buff bytes.Buffer
 	var url string
-	//	var recievedata *HttpResponse
-	recievedata = <-datachan
+	var recievedata *HttpResponse
+	recievedata := <-datachan
+	url = recievedata.url
 
-	go func(url string) {
-		fmt.Printf("Fetching Roku URL %s\n", url)
-		resp, err := http.Post(url, "", &buff)
-		resp.Body.Close()
-		datachan <- &HttpResponse{url, resp, err}
-	}(url)
+	fmt.Printf("Fetching Roku URL %s\n", url)
+	resp, err := http.Post(url, "", &buff)
+	defer resp.Body.Close()
 
 	return "stuffed"
 }
