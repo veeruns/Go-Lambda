@@ -81,8 +81,11 @@ func workerpool() {
 			fmt.Printf("[Rokulib] Recieved to post %s\n", msg)
 			var buff bytes.Buffer
 			resp, err := http.Post(msg, "", &buff)
-			fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
-
+			if err != nil {
+				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
+			} else {
+				fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
+			}
 		default:
 			fmt.Printf("[Rokulib] Nothing recieved yet")
 
