@@ -29,7 +29,7 @@ func NewServer(addr string) *Server {
 func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var functocall string
 	functocall = req.URL.Query().Get("func")
-
+	fmt.Printf("The query function is %s\n", functocall)
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
 		fmt.Fprintf(w, "Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
