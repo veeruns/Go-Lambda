@@ -22,7 +22,7 @@ type app struct {
 	Id          int    `xml:"id,attr"`
 	Version     string `xml:"version,attr"`
 	Channeltype string `xml:"type,attr"`
-	Appname     string `xml:app`
+	App         string `xml:app`
 }
 
 type apps struct {
