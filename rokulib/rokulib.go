@@ -70,7 +70,7 @@ func workerpool() {
 			/*	if err != nil {
 				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
 			} else {*/
-			fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
+			fmt.Printf("[Rokulib] Response code from Roku %d\n", 202)
 		//	}
 		default:
 			fmt.Printf("[Rokulib] Nothing recieved yet")
