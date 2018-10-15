@@ -59,6 +59,7 @@ func asynchttp() string {
 	//var resps *HttpResponse
 	var buff bytes.Buffer
 	var url string
+	var recievedata *HttpResponse
 	receievedata <- datachan
 	rec
 	go func(url string) {
