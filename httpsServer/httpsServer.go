@@ -4,6 +4,7 @@ import (
 	// "fmt"
 	// "io"
 
+	"bytes"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
@@ -26,6 +27,8 @@ func NewServer(addr string) *Server {
 }
 
 func RokuServer(w http.ResponseWriter, req *http.Request) {
+	var functocall string
+	functocall = req.URL.Query().Get("func")
 
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
@@ -42,15 +45,30 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(w, "meh")
 	} else {
 		w.Header().Set("Content-Type", "text/plain")
-
 		var works bool
-		works = rokulib.PowerOff("192.168.7.45:8060")
-		fmt.Printf(" Rokulib returned %v\n", works)
-		//"http://192.168.7.45:8060/keypress/powerOff",
-		if works {
-			fmt.Printf("It worked")
+		select {
+		case functocall == "PowerOff":
+
+			works = rokulib.PowerOff("192.168.7.45:8060")
+			fmt.Printf(" Rokulib PowerOff returned %v\n", works)
+		case functocall == "PowerOn":
+
+			works = rokulib.PowerOn("192.168.7.45:8060")
+			fmt.Printf(" Rokulib PowerOn returned %v\n", works)
+		default:
+			fmt.Printf("We are calling default\n")
+
 		}
-		io.WriteString(w, "SwitchedOffTv")
+
+		//"http://192.168.7.45:8060/keypress/powerOff",
+		var retbytes bytes.Buffer
+		retbytes.WriteString(functocall)
+		if works {
+			fmt.Printf("It Returned a bool")
+			retbytes.WriteString(" Achieved")
+		}
+
+		io.WriteString(w, retbytes.String())
 
 		//rokulib.GetResponses()
 	}
