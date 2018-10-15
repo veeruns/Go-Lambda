@@ -48,16 +48,14 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		var works bool
 		switch {
 		case functocall == "PowerOff":
-
 			works = rokulib.PowerOff("192.168.7.45:8060")
 			fmt.Printf(" Rokulib PowerOff returned %v\n", works)
 		case functocall == "PowerOn":
-
 			works = rokulib.PowerOn("192.168.7.45:8060")
 			fmt.Printf(" Rokulib PowerOn returned %v\n", works)
 		default:
+			works = false
 			fmt.Printf("We are calling default\n")
-
 		}
 
 		//"http://192.168.7.45:8060/keypress/powerOff",
