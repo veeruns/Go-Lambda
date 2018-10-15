@@ -46,7 +46,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	} else {
 		w.Header().Set("Content-Type", "text/plain")
 		var works bool
-		select {
+		switch {
 		case functocall == "PowerOff":
 
 			works = rokulib.PowerOff("192.168.7.45:8060")
