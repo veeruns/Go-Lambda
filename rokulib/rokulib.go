@@ -21,13 +21,15 @@ var signal chan string
 //PowerOff Roku box
 func PowerOff(hostname string) bool {
 	//	var buff bytes.Buffer
-  datachan := make(chan *HttpResponse,1)
+	datachan := make(chan *HttpResponse, 1)
+	var somedata HttpResponse
 	var url bytes.Buffer
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweroff")
-
-	results := asynchttp(url.String())
+	somedata.url = url.String()
+	datachan <- somedata
+	results := asynchttp()
 	if results == "stuffed" {
 		fmt.Printf("stuffed into channel\n")
 
@@ -81,5 +83,3 @@ func getresponses() *HttpResponse {
 		}
 	}
 }
-
-func New
