@@ -22,11 +22,11 @@ type app struct {
 	Id          int    `xml:"id,attr"`
 	Version     string `xml:"version,attr"`
 	Channeltype string `xml:"type,attr"`
-	App         string `xml:app`
+	App         string `xml:"app"`
 }
 
 type apps struct {
-	App []app `xml:app`
+	App []app `xml:"app"`
 }
 
 //var datachan chan *HttpResponse
