@@ -19,7 +19,7 @@ type HTTPResponse struct {
 }
 
 type app struct {
-	Id          int    `xml:"id,attr"`
+	ID          int    `xml:"id,attr"`
 	Version     string `xml:"version,attr"`
 	Channeltype string `xml:"type,attr"`
 	App         string `xml:"app"`
@@ -109,6 +109,6 @@ func readchannels() {
 	xmlData, _ := ioutil.ReadAll(xmlFile)
 	var A apps
 	xml.Unmarshal(xmlData, &A)
-	fmt.Println(xmlData)
+	fmt.Println(A)
 
 }
