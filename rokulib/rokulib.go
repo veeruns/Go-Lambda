@@ -28,7 +28,6 @@ func PowerOff(hostname string) bool {
 	url.WriteString("/keypress/poweroff")
 	somedata.url = url.String()
 	datachan <- &somedata
-	results := asynchttp()
 	return true
 }
 
