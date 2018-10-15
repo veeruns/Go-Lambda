@@ -56,22 +56,6 @@ func PowerOn(hostname string) bool {
 	}
 }
 
-func asynchttp() string {
-
-	//var resps *HttpResponse
-	var buff bytes.Buffer
-	var url string
-	var recievedata *HttpResponse
-	recievedata = <-datachan
-	url = recievedata.url
-
-	fmt.Printf("Fetching Roku URL %s\n", url)
-	resp, err := http.Post(url, "", &buff)
-	defer resp.Body.Close()
-
-	return "stuffed"
-}
-
 func workerpool() {
 	for j := range signal {
 		fmt.Println("[Rokulib] Started reading from data channel")
