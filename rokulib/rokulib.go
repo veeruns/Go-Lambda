@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 type HttpResponse struct {
@@ -29,7 +30,6 @@ func InitLib() {
 //PowerOff function sends poweroff to roku
 func PowerOff(hostname string) bool {
 	//	var buff bytes.Buffer
-
 	//	var somedata HttpResponse
 	var url bytes.Buffer
 	url.WriteString("http://")
@@ -61,15 +61,17 @@ func workerpool() {
 		fmt.Println("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-signal:
-			var resp *http.Response
+			//	var resp *http.Response
 			fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
 			var buff bytes.Buffer
-			resp, err := http.Post(msg, "", &buff)
-			if err != nil {
+			//resp, err := http.Post(msg, "", &buff)
+			time.Sleep(time.Millisecond * 2500)
+
+			/*	if err != nil {
 				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
-			} else {
-				fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
-			}
+			} else {*/
+			fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
+		//	}
 		default:
 			fmt.Printf("[Rokulib] Nothing recieved yet")
 
