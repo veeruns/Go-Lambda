@@ -30,7 +30,7 @@ func InitLib() {
 func PowerOff(hostname string) bool {
 	//	var buff bytes.Buffer
 
-	var somedata HttpResponse
+	//	var somedata HttpResponse
 	var url bytes.Buffer
 	url.WriteString("http://")
 	url.WriteString(hostname)
