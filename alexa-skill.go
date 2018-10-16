@@ -65,6 +65,7 @@ type Slot struct {
 	ConfirmationStatus string      `json:"confirmationStatus"`
 	Resolutions        interface{} `json:"resolutions,omitempty"`
 }
+
 //Resolutions
 type Resolutions struct {
 	ResolutionsPerAuthority []struct {
@@ -80,6 +81,7 @@ type Resolutions struct {
 		} `json:"values"`
 	} `json:"resolutionsPerAuthority"`
 }
+
 //OutputSpeech structure
 type OutputSpeech struct {
 	Type string `json:"type,omitempty"`
@@ -161,10 +163,11 @@ func (resp *AlexaResponse) Say(text string) {
 	fmt.Printf("In Say the response is %s\n", sm)
 	resp.Response.OutputSpeech = &speech
 }
+
 //ResolutionValue finds the first value of Resolutions
 
 func ResolutionValue(input interface{}) string {
-	switch t:=
+
 	return "ok"
 }
 
