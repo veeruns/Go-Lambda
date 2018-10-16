@@ -101,10 +101,12 @@ func main() {
 		ClientCAs:          caCertPool,
 	}
 	srv := &http.Server{
-		Addr: ":8080",
+		Addr: ":8081",
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   r,
 	}
+
+	srv.Serve()
 
 }
