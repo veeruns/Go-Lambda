@@ -318,7 +318,10 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(false)
 		functocall := i.Request.Intent.Slots["func"].Value
 		fmt.Printf("The request intent value is %s\n", functocall)
-		say := CallEndPoint(functocall)
+		var b bytes.Buffer
+		b.WriteString("func=")
+		b.WriteString(functocall)
+		say := CallEndPoint(b.String())
 		fmt.Printf("Output from Endpoint is %s\n", say)
 		resp.Ssay("The request has been send to the device")
 
