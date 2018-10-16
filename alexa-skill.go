@@ -66,7 +66,7 @@ type Slot struct {
 	Resolutions        interface{} `json:"resolutions,omitempty"`
 }
 
-//Resolutions
+//Resolutions structure
 type Resolutions struct {
 	ResolutionsPerAuthority []struct {
 		Authority string `json:"authority"`
