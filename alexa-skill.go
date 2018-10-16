@@ -355,8 +355,8 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 	case "changechannel":
 		resp = CreateResponse(false)
 		channelname := i.Request.Intent.Slots["Channel"].Value
-		var resolutions interface{}
-		resolutions = i.Request.Intent.Slots["Channel"].Resolutions
+		var resolutions string
+		resolutions = ResolutionValue(i.Request.Intent.Slots["Channel"].Resolutions)
 
 		//		fmt.Printf("Slot value is %s\n", slotvalue)
 		fmt.Printf("The channel name is %s\n", channelname)
