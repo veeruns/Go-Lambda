@@ -167,11 +167,12 @@ func (resp *AlexaResponse) Say(text string) {
 //ResolutionValue finds the first value of Resolutions
 
 func ResolutionValue(input interface{}) string {
-	switch input.(type)
-case Resolutions:
+	switch input.(type) {
+	case Resolutions:
 		fmt.Printf("It is of resolutions type")
-default:
-	 fmt.Printf("Do not know what it is ")
+	default:
+		fmt.Printf("Do not know what it is ")
+	}
 	return "ok"
 }
 
@@ -357,7 +358,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		var resolutions interface{}
 		resolutions = i.Request.Intent.Slots["Channel"].Resolutions
 
-//		fmt.Printf("Slot value is %s\n", slotvalue)
+		//		fmt.Printf("Slot value is %s\n", slotvalue)
 		fmt.Printf("The channel name is %s\n", channelname)
 		var b bytes.Buffer
 		b.WriteString("channel=")
