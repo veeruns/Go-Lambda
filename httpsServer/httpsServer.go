@@ -32,6 +32,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
+
 	fmt.Printf("The query function is %s\n", functocall)
 	fmt.Printf("Channel change is %s\n", channeltocall)
 	if len(req.TLS.PeerCertificates) > 0 {
