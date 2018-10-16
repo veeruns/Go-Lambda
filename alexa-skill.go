@@ -163,7 +163,7 @@ func (resp *AlexaResponse) Say(text string) {
 }
 //ResolutionValue finds the first value of Resolutions
 
-func ResolutionValue(input {} interface) string {
+func ResolutionValue(input interface{}) string {
 	switch t:=
 	return "ok"
 }
