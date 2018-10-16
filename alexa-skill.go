@@ -270,9 +270,8 @@ func (resp *AlexaResponse) NSsay(text string, number int) {
 
 //CallEndPoint functions calls "The" endpoint
 func CallEndPoint(endpoint string) string {
-	if api == "" {
-		api = "PowerOff"
-	}
+
+	//need to error out of endpoint is empty
 	cert, err := tls.LoadX509KeyPair("ssl/certs/cert.pem", "ssl/keys/key.pem")
 	if err != nil {
 		fmt.Printf("It did not work %s\n", err.Error())
