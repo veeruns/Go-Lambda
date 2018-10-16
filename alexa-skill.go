@@ -15,6 +15,7 @@ import (
 	"crypto/x509"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/davecgh/go-spew/spew"
@@ -230,6 +231,14 @@ func (resp *AlexaResponse) Ssay(text string) {
 func clear(v interface{}) {
 	p := reflect.ValueOf(v).Elem()
 	p.Set(reflect.Zero(p.Type()))
+}
+
+func createurl(callingfunc string, para string) string {
+	var Url *url.URL
+	Url.Path = "https://veeruns.raghavanonline.com/"
+	Url.Path += callingfunc
+	paramerts := Url.Values{}
+	return "ok"
 }
 
 //NSsay function repeats something N times
