@@ -38,7 +38,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 
 	fmt.Printf("The query function is %s\n", functocall)
 	fmt.Printf("Channel change is %s\n", channeltocall)
-	fmt.Printf("Whole query is %s\n", queryparams.Get("channel"))
+	fmt.Printf("Whole query is %s\n", queryparams)
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
 		fmt.Fprintf(w, "Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
