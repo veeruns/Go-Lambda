@@ -244,7 +244,7 @@ func createurl(callingfunc string, para string) string {
 	parameters := url.Values{}
 	parameters.Add("channel", para)
 	Url.RawQuery = parameters.Encode()
-
+	fmt.Printf("URL before being send to handle is %s\n", Url.String())
 	return Url.String()
 }
 
