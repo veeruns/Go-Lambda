@@ -236,13 +236,12 @@ func clear(v interface{}) {
 //createurl for channels will encode the url the right way.
 func createurl(callingfunc string, para string) string {
 	var Url *url.URL
-	Url, err := url.Parse("https://veeruns.raghavanonline.com/")
+	Url, err := url.Parse("https://veeruns.raghavanonline.com/roku")
 	if err != nil {
 		panic("boom")
 	}
-	Url.Path += callingfunc
-	parameters := url.Values{}
 
+	parameters := url.Values{}
 	parameters.Add("channel", para)
 	Url.RawQuery = parameters.Encode()
 
