@@ -18,6 +18,8 @@ type HTTPResponse struct {
 	err  error
 }
 
+var flag bool
+
 type app struct {
 	ID          int    `xml:"id,attr"`
 	Version     string `xml:"version,attr"`
@@ -81,20 +83,27 @@ func LaunchChannel(hostname string, channelid int) bool {
 }
 
 func workerpool() {
+	flag = false
 	for {
 		fmt.Println("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-signal:
-			//	var resp *http.Response
-			fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
-			//var buff bytes.Buffer
-			//resp, err := http.Post(msg, "", &buff)
-			time.Sleep(time.Millisecond * 2500)
-			/*if err != nil {
-				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
+			if flag {
+				var resp *http.Response
+				fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
+				var buff bytes.Buffer
+				resp, err := http.Post(msg, "", &buff)
+				//	time.Sleep(time.Millisecond * 2500)
+				if err != nil {
+					fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
+				} else {
+					fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
+				}
 			} else {
-				fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
-			}*/
+				fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
+				time.Sleep(time.Millisecond * 2500)
+				fmt.Printf("Returning\n")
+			}
 		case <-time.After(30 * time.Second):
 			fmt.Printf("[Rokulib] Nothing recieved yet")
 
