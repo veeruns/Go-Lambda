@@ -85,16 +85,16 @@ func workerpool() {
 		fmt.Println("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-signal:
-			var resp *http.Response
+			//	var resp *http.Response
 			fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
-			var buff bytes.Buffer
-			resp, err := http.Post(msg, "", &buff)
-			//time.Sleep(time.Millisecond * 2500)
-			if err != nil {
+			//var buff bytes.Buffer
+			//resp, err := http.Post(msg, "", &buff)
+			time.Sleep(time.Millisecond * 2500)
+			/*if err != nil {
 				fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
 			} else {
 				fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
-			}
+			}*/
 		case <-time.After(30 * time.Second):
 			fmt.Printf("[Rokulib] Nothing recieved yet")
 
