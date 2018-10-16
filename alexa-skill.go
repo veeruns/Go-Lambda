@@ -324,7 +324,15 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		say := CallEndPoint(b.String())
 		fmt.Printf("Output from Endpoint is %s\n", say)
 		resp.Ssay("The request has been send to the device")
-
+	case "changechannel":
+		resp = CreateResponse(false)
+		channelname := i.Request.Intent.Slots["channel"].Value
+		fmt.Printf("The channel name is %s\n", channelname)
+		var b bytes.Buffer
+		b.WriteString("channel=")
+		b.WriteString(channelname)
+		op := CallEndPoint(b.String())
+		resp.Ssay("Request send to the device")
 	case "quiz":
 		var quizanswer int
 		resp = CreateResponse(false)
