@@ -65,7 +65,21 @@ type Slot struct {
 	ConfirmationStatus string      `json:"confirmationStatus"`
 	Resolutions        interface{} `json:"resolutions,omitempty"`
 }
-
+//Resolutions
+type Resolutions struct {
+	ResolutionsPerAuthority []struct {
+		Authority string `json:"authority"`
+		Status    struct {
+			Code string `json:"code"`
+		} `json:"status"`
+		Values []struct {
+			Value struct {
+				Name string `json:"name"`
+				ID   string `json:"id"`
+			} `json:"value"`
+		} `json:"values"`
+	} `json:"resolutionsPerAuthority"`
+}
 //OutputSpeech structure
 type OutputSpeech struct {
 	Type string `json:"type,omitempty"`
@@ -146,6 +160,12 @@ func (resp *AlexaResponse) Say(text string) {
 	sm, _ := json.Marshal(resp)
 	fmt.Printf("In Say the response is %s\n", sm)
 	resp.Response.OutputSpeech = &speech
+}
+//ResolutionValue finds the first value of Resolutions
+
+func ResolutionValue(input {} interface) string {
+	switch t:=
+	return "ok"
 }
 
 //EndResponse function clears everything
@@ -329,7 +349,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		channelname := i.Request.Intent.Slots["Channel"].Value
 		var resolutions interface{}
 		resolutions = i.Request.Intent.Slots["Channel"].Resolutions
-		slotvalue := resolutions.resolutionsPerAuthority[0].values[0].value
+
 		fmt.Printf("Slot value is %s\n", slotvalue)
 		fmt.Printf("The channel name is %s\n", channelname)
 		var b bytes.Buffer
