@@ -174,7 +174,7 @@ func ResolutionValue(input interface{}) string {
 		slotvalue = input.(Resolutions)
 		fmt.Printf("Slot value is %s\n", slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name)
 	default:
-		fmt.Printf("Do not know what it is ")
+		fmt.Printf("Do not know what it is (%T\n)", input)
 	}
 	return "ok"
 }
