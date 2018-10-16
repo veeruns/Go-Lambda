@@ -242,7 +242,7 @@ func createurl(callingfunc string, para string) string {
 	}
 
 	parameters := url.Values{}
-	parameters.Add("channel", para)
+	parameters.Add(callinffunc, para)
 	Url.RawQuery = parameters.Encode()
 	fmt.Printf("URL before being send to handle is %s\n", Url.String())
 	return Url.String()
@@ -371,10 +371,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(false)
 		functocall := i.Request.Intent.Slots["func"].Value
 		fmt.Printf("The request intent value is %s\n", functocall)
-		var b bytes.Buffer
-		b.WriteString("func=")
-		b.WriteString(functocall)
-		say := CallEndPoint(b.String())
+		var b string
+		b = createurl("func", functocall)
+		say := CallEndPoint(b)
 		fmt.Printf("Output from Endpoint is %s\n", say)
 		resp.Ssay("The request has been send to the device")
 	case "changechannel":
