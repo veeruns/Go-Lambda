@@ -171,7 +171,7 @@ func ResolutionValue(input interface{}) string {
 	slotvalue = input.(Resolutions)
 	fmt.Printf("Slot value is %s\n", slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name)
 
-	return slotvalue
+	return slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name
 }
 
 //EndResponse function clears everything
