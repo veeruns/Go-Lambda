@@ -107,6 +107,6 @@ func main() {
 		Handler:   r,
 	}
 
-	srv.Serve()
+	srv.ListenAndServe()
 
 }
