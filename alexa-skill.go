@@ -60,10 +60,10 @@ type Session struct {
 
 //Slot Structure
 type Slot struct {
-	Name               string      `json:"name"`
-	Value              string      `json:"value,omitempty"`
-	ConfirmationStatus string      `json:"confirmationStatus"`
-	Resolutions        interface{} `json:"resolutions,omitempty"`
+	Name               string       `json:"name"`
+	Value              string       `json:"value,omitempty"`
+	ConfirmationStatus string       `json:"confirmationStatus"`
+	Resolutions        *Resolutions `json:"resolutions,omitempty"`
 }
 
 //Resolutions structure
@@ -168,6 +168,7 @@ func (resp *AlexaResponse) Say(text string) {
 func ResolutionValue(input interface{}) string {
 	switch input.(type) {
 	case Slot:
+		fmt.Printf("IT is a slot type hence")
 		fmt.Printf("Slot value is %s\n", input.(Resolutions).ResolutionsPerAuthority[0].Values[0].Value.Name)
 	default:
 		fmt.Println("Do not care ", reflect.TypeOf(input))
@@ -356,7 +357,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp = CreateResponse(false)
 		channelname := i.Request.Intent.Slots["Channel"].Value
 		var resolutions string
-		resolutions = ResolutionValue(i.Request.Intent.Slots["Channel"])
+		resolutions = ResolutionValue(i.Request.Intent.Slots["Channel"].Resolutions)
 		fmt.Printf("Resolution is %s\n", resolutions)
 
 		//		fmt.Printf("Slot value is %s\n", slotvalue)
