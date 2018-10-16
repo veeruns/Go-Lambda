@@ -12,6 +12,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/veeruns/Go-Lambda/rokulib"
@@ -32,9 +33,12 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
+	wholeurl, _ := url.Parse(req.URL.String())
+	queryparams := wholeurl.Query()
 
 	fmt.Printf("The query function is %s\n", functocall)
 	fmt.Printf("Channel change is %s\n", channeltocall)
+	fmt.Printf("Whole query is %s\n", queryparams)
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
 		fmt.Fprintf(w, "Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
