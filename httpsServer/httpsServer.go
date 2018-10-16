@@ -33,7 +33,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
-	fmt.Printf("Raw url string")
+	fmt.Printf("Raw url string %s\n", req.URL.RequestURI())
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
 	fmt.Printf("The whole url is %s\n", wholeurl.String())
