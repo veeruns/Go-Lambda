@@ -173,8 +173,8 @@ func ResolutionValue(input interface{}) string {
 	case *Resolutions:
 		fmt.Printf("It is a pointer to resolution")
 		var slotvalue *Resolutions
-		slotvalue = input
-		fmt.Printf("Slot value is %s\n", input.ResolutionsPerAuthority[0].Values[0].Value.Name)
+		slotvalue = (* Resolutions) input
+		fmt.Printf("Slot value is %s\n", slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name)
 	case Resolutions:
 		fmt.Printf("It is resolution itself")
 	default:
