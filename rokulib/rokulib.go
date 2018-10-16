@@ -40,7 +40,7 @@ var ChannelHash map[string]int
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
 	signal = make(chan string)
-	channelhash = make(map[string]int)
+	ChannelHash = make(map[string]int)
 	readchannels()
 	//start workerpool
 	go workerpool()
