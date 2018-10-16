@@ -32,7 +32,7 @@ type apps struct {
 
 //var datachan chan *HttpResponse
 var signal chan string
-var channelhash map[string]int
+var ChannelHash map[string]int
 
 //ch := make(chan *HttpResponse, 1)
 
@@ -114,7 +114,7 @@ func readchannels() {
 	xml.Unmarshal(xmlData, &A)
 	for _, value := range A.App {
 		fmt.Printf("%s\n", value.App)
-		channelhash[value.App] = value.ID
+		ChannelHash[value.App] = value.ID
 	}
 
 }
