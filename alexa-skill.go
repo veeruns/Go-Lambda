@@ -171,7 +171,7 @@ func ResolutionValue(input interface{}) string {
 	case Resolutions:
 		fmt.Printf("It is of resolutions type")
 		var slotvalue Resolutions
-		slotvalue = input
+		slotvalue = input.(Resolutions)
 		fmt.Printf("Slot value is %s\n", slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name)
 	default:
 		fmt.Printf("Do not know what it is ")
