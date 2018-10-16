@@ -385,10 +385,9 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 
 		//		fmt.Printf("Slot value is %s\n", slotvalue)
 		fmt.Printf("The channel name is %s\n", channelname)
-		var b bytes.Buffer
-		b.WriteString("channel=")
-		b.WriteString(channelname)
-		op := CallEndPoint(b.String())
+		var b string
+		b = createurl("roku", resolutions)
+		op := CallEndPoint(b)
 		fmt.Printf("Output from launch channel endpoint is %s\n", op)
 		resp.Ssay("Request send to the device")
 	case "quiz":
