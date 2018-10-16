@@ -170,6 +170,8 @@ func ResolutionValue(input interface{}) string {
 	switch input.(type) {
 	case Resolutions:
 		fmt.Printf("It is of resolutions type")
+		var slotvalue Resolutions
+		slotvalue = input
 	default:
 		fmt.Printf("Do not know what it is ")
 	}
