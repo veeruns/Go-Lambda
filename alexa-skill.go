@@ -234,11 +234,15 @@ func clear(v interface{}) {
 }
 
 func createurl(callingfunc string, para string) string {
-	var Url *url.URL
+	var Url url.URL
 	Url.Path = "https://veeruns.raghavanonline.com/"
 	Url.Path += callingfunc
-	paramerts := Url.Values{}
-	return "ok"
+	parameters := url.Values{}
+
+	parameters.Add("channel", para)
+	Url.RawQuery = parameters.Encode()
+
+	return Url.String()
 }
 
 //NSsay function repeats something N times
