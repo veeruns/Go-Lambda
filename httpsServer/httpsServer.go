@@ -29,9 +29,9 @@ func NewServer(addr string) *Server {
 //RokuServer is the handler for https
 func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var functocall string
-	//var channeltocall string
+	var channeltocall string
 	functocall = req.URL.Query().Get("func")
-	//channeltocall = req.URL.Query().Get("channel")
+	channeltocall = req.URL.Query().Get("channel")
 	fmt.Printf("The query function is %s\n", functocall)
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
@@ -56,6 +56,10 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		case strings.TrimRight(functocall, "\n") == "on":
 			works = rokulib.PowerOn("192.168.7.45:8060")
 			fmt.Printf(" Rokulib PowerOn returned %v\n", works)
+		case len(channeltocall) > 0:
+			channelname := strings.TrimRight(channeltocall, "\n")
+			valuid := rokulib.ChannelHash[channelname]
+			fmt.Printf("Channel Name is %s and Channel id is %d\n", channelname, valuid)
 		default:
 			works = false
 			fmt.Printf("We are calling default\n")
