@@ -239,7 +239,7 @@ func CallEndPoint(api string) string {
 	transport := &http.Transport{TLSClientConfig: tlsConfig}
 	client := &http.Client{Transport: transport}
 	var url bytes.Buffer
-	url.WriteString("https://veeruns.raghavanonline.com:8080/roku?func=")
+	url.WriteString("https://veeruns.raghavanonline.com:8080/roku?")
 	url.WriteString(api)
 	resp, err := client.Get(url.String())
 	if err != nil {
