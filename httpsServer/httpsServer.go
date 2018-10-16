@@ -69,6 +69,8 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 			channelname := strings.TrimRight(channeltocall, "\n")
 			valuid := rokulib.ChannelHash[channelname]
 			fmt.Printf("Channel Name is %s and Channel id is %d\n", channelname, valuid)
+			works = rokulib.LaunchChannel("192.168.7.45:8060", valuid)
+			fmt.Printf("Rokulib returned the %v\n", works)
 		default:
 			works = false
 			fmt.Printf("We are calling default\n")
@@ -93,6 +95,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 func main() {
 	rokulib.InitLib()
 	http.HandleFunc("/roku", RokuServer)
+
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
