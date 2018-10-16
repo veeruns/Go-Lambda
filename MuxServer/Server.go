@@ -107,7 +107,6 @@ func main() {
 		Handler:   r,
 	}
 
-	http.ListenAndServeTLS(addr, certFile, keyFile, handler)
 	r.HandleFunc("/roku", Rokuserver)
 
 }
