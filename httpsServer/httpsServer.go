@@ -36,11 +36,11 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	fmt.Printf("Raw url string")
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
-
+	fmt.Printf("The whole url is %s\n", wholeurl.String())
 	fmt.Printf("The query function is %s\n", functocall)
 	fmt.Printf("Channel change is %s\n", channeltocall)
 	m, _ := url.ParseQuery(wholeurl.RawQuery)
-	fmt.Println("Paratmeters are ", m)
+	fmt.Println("Parameters are ", m)
 	fmt.Printf("Whole query is %s\n", m["channel"])
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
