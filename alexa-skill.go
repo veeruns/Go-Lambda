@@ -168,7 +168,7 @@ func (resp *AlexaResponse) Say(text string) {
 
 func ResolutionValue(input interface{}) string {
 	switch input.(type)
-case Resolutions :
+case Resolutions:
 		fmt.Printf("It is of resolutions type")
 default:
 	 fmt.Printf("Do not know what it is ")
