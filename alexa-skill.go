@@ -167,11 +167,16 @@ func (resp *AlexaResponse) Say(text string) {
 //ResolutionValue finds the first value of Resolutions
 
 func ResolutionValue(input interface{}) string {
-	var slotvalue Resolutions
-	slotvalue = input.(Resolutions)
-	fmt.Printf("Slot value is %s\n", slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name)
+	switch input.(type) {
+	case Resolutions:
+		var slotvalue Resolutions
+		slotvalue = input.(Resolutions)
+		fmt.Printf("Slot value is %s\n", slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name)
+	default:
+		fmt.Println("Do not care ", reflect.TypeOf(input))
+	}
 
-	return slotvalue.ResolutionsPerAuthority[0].Values[0].Value.Name
+	return "Ok"
 }
 
 //EndResponse function clears everything
