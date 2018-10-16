@@ -326,7 +326,7 @@ func HandleRequest(ctx context.Context, i AlexaRequest) (AlexaResponse, error) {
 		resp.Ssay("The request has been send to the device")
 	case "changechannel":
 		resp = CreateResponse(false)
-		channelname := i.Request.Intent.Slots["channel"].Value
+		channelname := i.Request.Intent.Slots["Channel"].Value
 		fmt.Printf("The channel name is %s\n", channelname)
 		var b bytes.Buffer
 		b.WriteString("channel=")
