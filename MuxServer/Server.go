@@ -87,7 +87,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 func main() {
 	mux := mux.NewRouter()
 	rokulib.InitLib()
-	mux.HandleFunc("/roku", RokuServer(w, r))
+	mux.HandleFunc("/roku", RokuServer
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
