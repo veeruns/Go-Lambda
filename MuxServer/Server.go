@@ -88,6 +88,7 @@ func main() {
 	mux := mux.NewRouter()
 	rokulib.InitLib()
 	mux.HandleFunc("/roku", RokuServer)
+	mux.Use(logMiddleware)
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
@@ -109,4 +110,17 @@ func main() {
 
 	srv.ListenAndServeTLS("/etc/letsencrypt/live/veeruns.raghavanonline.com/cert.pem", "/etc/letsencrypt/live/veeruns.raghavanonline.com/privkey.pem")
 
+}
+
+func logMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		tag := fmt.Sprintf("[%s -> %s]", req.URL, req.RemoteAddr)
+		log.Printf("%s accept", tag)
+
+		if len(req.TLS.PeerCertificates) > 0 {
+			log.Printf("%s client common name: %+v", tag, req.TLS.PeerCertificates[0].Subject.CommonName)
+		}
+
+		next.ServeHTTP(w, req)
+	})
 }
