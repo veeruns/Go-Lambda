@@ -7,18 +7,13 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"syscall"
 	//	"log"
 	"net/http"
 	"net/url"
-	"os"
-	"os/signal"
 	"strings"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/natefinch/lumberjack"
-	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
 
@@ -45,7 +40,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	}
 	for _, certname := range req.TLS.PeerCertificates {
 		for _, dnsname := range certname.DNSNames {
-			log.Infof("SAN names listed %s\n", dnsname)
+			rokulib.Log.Infof("SAN names listed %s\n", dnsname)
 		}
 	}
 	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, "client-auth.raghavanonline.com") != 0 {
@@ -58,26 +53,26 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		switch {
 		case strings.Compare(functocall, "off") == 0:
 			works = rokulib.PowerOff("192.168.7.45:8060")
-			log.Infof("Rokulib returned %v\n", works)
+			rokulib.Log.Infof("Rokulib returned %v\n", works)
 		case strings.TrimRight(functocall, "\n") == "on":
 			works = rokulib.PowerOn("192.168.7.45:8060")
-			log.Infof(" Rokulib PowerOn returned %v\n", works)
+			rokulib.Log.Infof(" Rokulib PowerOn returned %v\n", works)
 		case len(channeltocall) > 0:
 			channelname := strings.TrimRight(channeltocall, "\n")
 			valuid := rokulib.ChannelHash[channelname]
-			log.Infof("Channel Name is %s and Channel id is %d\n", channelname, valuid)
+			rokulib.Log.Infof("Channel Name is %s and Channel id is %d\n", channelname, valuid)
 			works = rokulib.LaunchChannel("192.168.7.45:8060", valuid)
-			log.Infof("Rokulib returned the %v\n", works)
+			rokulib.Log.Infof("Rokulib returned the %v\n", works)
 		default:
 			works = false
-			log.Infof("We are calling default\n")
+			rokulib.Log.Infof("We are calling default\n")
 		}
 
 		//"http://192.168.7.45:8060/keypress/powerOff",
 		var retbytes bytes.Buffer
 		retbytes.WriteString(functocall)
 		if works {
-			log.Infof("It Returned a bool")
+			rokulib.Log.Infof("It Returned a bool")
 			retbytes.WriteString(" Achieved")
 		}
 
@@ -90,34 +85,6 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	var sigchannel chan os.Signal
-	sigchannel = make(chan os.Signal, 1)
-
-	accesslog, err := os.OpenFile("/opt/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	defer accesslog.Close()
-	var ljack lumberjack.Logger
-	ljack = lumberjack.Logger{
-		Filename:   "/opt/httpsServer/logs/accesslog",
-		MaxSize:    5, // megabytes
-		MaxBackups: 3,
-		MaxAge:     28,   //days
-		Compress:   true, // disabled by default
-	}
-
-	log.SetOutput(&ljack)
-	signal.Notify(sigchannel, syscall.SIGHUP)
-
-	go func() {
-		for {
-			<-sigchannel
-			ljack.Rotate()
-			log.Info("accesslog is rotated")
-		}
-	}()
 
 	mux := mux.NewRouter()
 	rokulib.InitLib()
@@ -128,7 +95,7 @@ func main() {
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 	if err != nil {
-		log.Fatal(err)
+		rokulib.Log.Fatal(err)
 	}
 	cfg := &tls.Config{
 		MinVersion:         tls.VersionTLS12,
