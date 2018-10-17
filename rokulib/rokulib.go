@@ -54,7 +54,7 @@ func InitLib() {
 		log.Fatal(err)
 	}
 
-	defer accesslog.Close()
+	defer rokuliblog.Close()
 
 	log.SetOutput(&lumberjack.Logger{
 		Filename:   "/opt/httpsServer/logs/rokulib.log",
