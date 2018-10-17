@@ -131,6 +131,7 @@ func main() {
 
 }
 
+/*
 func logMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		tag := fmt.Sprintf("[%s -> %s]", req.URL, req.RemoteAddr)
@@ -142,4 +143,4 @@ func logMiddleware(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, req)
 	})
-}
+}*/
