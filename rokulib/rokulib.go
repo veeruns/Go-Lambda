@@ -57,12 +57,13 @@ func InitLib() {
 	readchannels()
 	//start workerpool
 	go workerpool()
+	var err error
 	RokulibLog, err = os.OpenFile("/opt/httpsServer/logs/access.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		Log.Fatal(err)
 	}
 
-	defer rokuliblog.Close()
+	defer RokulibLog.Close()
 	Ljack = lumberjack.Logger{
 		Filename:   "/opt/httpsServer/logs/access.log",
 		MaxSize:    1, // megabytes
