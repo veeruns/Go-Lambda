@@ -7,6 +7,9 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
+	"os/signal"
+	"syscall"
 	//	"log"
 	"net/http"
 	"net/url"
@@ -14,6 +17,7 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/natefinch/lumberjack"
 	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
@@ -86,6 +90,31 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+
+	var sigchannel chan os.Signal
+	sigchannel = make(chan os.Signal, 1)
+	accesslog, err := os.OpenFile("/opt/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer accesslog.Close()
+	var ljack lumberjack.Logger
+	ljack = lumberjack.Logger{
+		Filename:   "/opt/httpsServer/logs/accesslog",
+		MaxSize:    5, // megabytes
+		MaxBackups: 3,
+		MaxAge:     28,   //days
+		Compress:   true, // disabled by default
+	}
+	log.SetOutput(&ljack)
+	signal.Notify(sigchannel, syscall.SIGHUP)
+	go func() {
+		for {
+			<-sigchannel
+			ljack.Rotate()
+			log.Info("accesslog is rotated")
+		}
+	}()
 
 	mux := mux.NewRouter()
 	rokulib.InitLib()
