@@ -36,6 +36,8 @@ type apps struct {
 
 //var datachan chan *HttpResponse
 var signal chan string
+
+//ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
 
 //ch := make(chan *HttpResponse, 1)
