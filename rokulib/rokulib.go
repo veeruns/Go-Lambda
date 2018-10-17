@@ -39,6 +39,7 @@ type apps struct {
 //var datachan chan *HttpResponse
 var flagsignal chan string
 var signalchannel chan os.Signal
+var RokulibLog os.File
 
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
@@ -56,7 +57,7 @@ func InitLib() {
 	readchannels()
 	//start workerpool
 	go workerpool()
-	rokuliblog, err := os.OpenFile("/opt/httpsServer/logs/access.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	RokulibLog, err = os.OpenFile("/opt/httpsServer/logs/access.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		Log.Fatal(err)
 	}
