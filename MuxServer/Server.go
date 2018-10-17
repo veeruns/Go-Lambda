@@ -56,7 +56,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		switch {
 		case strings.Compare(functocall, "off") == 0:
 			works = rokulib.PowerOff("192.168.7.45:8060")
-			log.Fatalf("Rokulib returned %v\n", works)
+			log.Printf("Rokulib returned %v\n", works)
 		case strings.TrimRight(functocall, "\n") == "on":
 			works = rokulib.PowerOn("192.168.7.45:8060")
 			fmt.Printf(" Rokulib PowerOn returned %v\n", works)
