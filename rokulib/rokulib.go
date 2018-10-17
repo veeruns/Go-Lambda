@@ -3,7 +3,6 @@ package rokulib
 import (
 	"bytes"
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -102,7 +101,7 @@ func LaunchChannel(hostname string, channelid int) bool {
 func workerpool() {
 	flag = false
 	for {
-		fmt.Println("[Rokulib] Started reading from data channel")
+		log.Info("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-signal:
 			if flag {
