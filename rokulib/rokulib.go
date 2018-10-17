@@ -3,6 +3,7 @@ package rokulib
 import (
 	"bytes"
 	"encoding/xml"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,9 +11,6 @@ import (
 	"strconv"
 	"syscall"
 	"time"
-
-	"github.com/natefinch/lumberjack"
-	"github.com/sirupsen/logrus"
 )
 
 //HTTPResponse a more complex type
@@ -46,12 +44,6 @@ var RokulibLog *os.File
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
 
-//Ljack lumberjack logger
-var Ljack lumberjack.Logger
-
-//Log handler for logrus.logger
-var Log logrus.Logger
-
 //ch := make(chan *HttpResponse, 1)
 
 //InitLib initializes channel
@@ -63,22 +55,6 @@ func InitLib() {
 	readchannels()
 	//start workerpool
 	go workerpool()
-	var err error
-	RokulibLog, err = os.OpenFile("/opt/httpsServer/logs/access.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if err != nil {
-		Log.Fatal(err)
-	}
-
-	defer RokulibLog.Close()
-	Ljack = lumberjack.Logger{
-		Filename:   "/opt/httpsServer/logs/access.log",
-		MaxSize:    1, // megabytes
-		MaxBackups: 3,
-		MaxAge:     28,   //days
-		Compress:   true, // disabled by default
-
-	}
-	Log.SetOutput(&Ljack)
 
 }
 
@@ -120,30 +96,23 @@ func workerpool() {
 	flag = true
 	signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
-		Log.Info("[Rokulib] Started reading from data channel")
+
 		select {
 		case msg := <-flagsignal:
 			if flag {
 				var resp *http.Response
-				Log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
+
 				var buff bytes.Buffer
-				resp, err := http.Post(msg, "", &buff)
-				//	time.Sleep(time.Millisecond * 2500)
-				if err != nil {
-					Log.Infof("[Rokulib] Error from Roku %s\n", err.Error())
-				} else {
-					Log.Infof("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
-				}
+				http.Post(msg, "", &buff)
+
 			} else {
-				Log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
+
 				time.Sleep(time.Millisecond * 2500)
-				Log.Infof("Returning\n")
+
 			}
 		case <-time.After(30 * time.Second):
-			Log.Infof("[Rokulib] Nothing recieved yet")
-		case <-signalchannel:
-			Ljack.Rotate()
-			Log.Info("The log was rotated")
+			fmt.Printf("Something ")
+
 		}
 	}
 	//	var resps *HttpResponse
