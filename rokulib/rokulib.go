@@ -39,11 +39,17 @@ type apps struct {
 //var datachan chan *HttpResponse
 var flagsignal chan string
 var signalchannel chan os.Signal
+
+//RokulibLog file for server
 var RokulibLog *os.File
 
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
+
+//Ljack lumberjack logger
 var Ljack lumberjack.Logger
+
+//Log handler for logrus.logger
 var Log logrus.Logger
 
 //ch := make(chan *HttpResponse, 1)
