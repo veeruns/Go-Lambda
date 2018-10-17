@@ -132,7 +132,7 @@ func workerpool() {
 func readchannels() {
 	xmlFile, err := os.Open("/etc/httpsServer/channel-list.xml")
 	if err != nil {
-		log.Fatalf("Opening file error : ", err)
+		log.Fatalf("Opening file error : %s", err.Error())
 	}
 	defer xmlFile.Close()
 	xmlData, _ := ioutil.ReadAll(xmlFile)
