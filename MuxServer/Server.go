@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/gorilla/handlers"
@@ -88,7 +89,8 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 func main() {
 	mux := mux.NewRouter()
 	rokulib.InitLib()
-	mux.HandleFunc("/roku", handlers.CombinedLoggingHandler(os.StdOut, RokuServer))
+	mux.HandleFunc("/roku", RokuServer)
+	loggedRouter := handlers.CombinedLoggingHandler(os.Stdout, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
