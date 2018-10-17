@@ -100,7 +100,7 @@ func workerpool() {
 		select {
 		case msg := <-flagsignal:
 			if flag {
-				var resp *http.Response
+				//var resp *http.Response
 
 				var buff bytes.Buffer
 				http.Post(msg, "", &buff)
