@@ -134,6 +134,7 @@ func workerpool() {
 			log.Infof("[Rokulib] Nothing recieved yet")
 		case <-signalchannel:
 			ljack.Rotate()
+			log.Info("The log was rotated")
 		}
 	}
 	//	var resps *HttpResponse
