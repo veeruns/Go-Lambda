@@ -96,7 +96,7 @@ func main() {
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 	if err != nil {
-		rokulib.Log.Fatal(err)
+		log.Fatal(err)
 	}
 	cfg := &tls.Config{
 		MinVersion:         tls.VersionTLS12,
