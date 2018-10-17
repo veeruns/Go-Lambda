@@ -31,7 +31,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
 	rokilib.Log.Infof("The whole url is %s\n", wholeurl.String())
-	log.Infof("The query function is %s\n", functocall)
+	rokulib.Log.Infof("The query function is %s\n", functocall)
 	log.Warnf("Channel change is %s\n", channeltocall)
 	m, _ := url.ParseQuery(wholeurl.RawQuery)
 	log.Infof("Parameters are %s\n", m)
