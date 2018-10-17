@@ -92,15 +92,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 func main() {
 	var sigchannel chan os.Signal
 	sigchannel = make(chan os.Signal, 1)
-	signal.Notify(sigchannel, syscall.SIGHUP)
 
-	go func() {
-		for {
-			<-sigchannel
-			ljack.Rotate()
-			log.Info("accesslog is rotated")
-		}
-	}()
 	accesslog, err := os.OpenFile("/opt/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
@@ -117,6 +109,15 @@ func main() {
 	}
 
 	log.SetOutput(&ljack)
+	signal.Notify(sigchannel, syscall.SIGHUP)
+
+	go func() {
+		for {
+			<-sigchannel
+			ljack.Rotate()
+			log.Info("accesslog is rotated")
+		}
+	}()
 
 	mux := mux.NewRouter()
 	rokulib.InitLib()
