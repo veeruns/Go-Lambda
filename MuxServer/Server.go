@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/gorilla/handlers"
@@ -87,6 +88,12 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	accesslog, err := os.OpenFile("/var/log/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer f.Close()
 
 	log.SetOutput(&lumberjack.Logger{
 		Filename:   "/var/log/httpsServer/logs/accesslog",
