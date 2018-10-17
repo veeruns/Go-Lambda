@@ -91,7 +91,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	var sigchannel os.Signal
-	sigchannel = make(os.Signal, 1)
+	sigchannel = make(chan os.Signal, 1)
 	signal.Notify(sigchannel, syscall.SIGHUP)
 
 	go func() {
