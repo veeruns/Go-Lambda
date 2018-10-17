@@ -87,6 +87,7 @@ func PowerOn(hostname string) bool {
 	return true
 }
 
+//LaunchChannel send the launch command to roku
 func LaunchChannel(hostname string, channelid int) bool {
 	var url bytes.Buffer
 	url.WriteString("http://")
