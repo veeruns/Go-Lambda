@@ -41,13 +41,14 @@ var signalchannel chan os.Signal
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
 var ljack lumberjack.Logger
+
 //ch := make(chan *HttpResponse, 1)
 
 //InitLib initializes channel
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
 	signal = make(chan string)
-  signalchannel = make(chan os.Signal,1)
+	signalchannel = make(chan os.Signal, 1)
 	ChannelHash = make(map[string]int)
 	readchannels()
 	//start workerpool
@@ -58,7 +59,7 @@ func InitLib() {
 	}
 
 	defer rokuliblog.Close()
-  ljack = lumberjack.Logger{
+	ljack := lumberjack.Logger{
 		Filename:   "/opt/httpsServer/logs/rokulib.log",
 		MaxSize:    1, // megabytes
 		MaxBackups: 3,
@@ -106,7 +107,6 @@ func LaunchChannel(hostname string, channelid int) bool {
 
 func workerpool() {
 	flag = false
-  signal.Notify(signalchannel, syscall.SIGHUP)
 
 	for {
 		log.Info("[Rokulib] Started reading from data channel")
@@ -130,8 +130,8 @@ func workerpool() {
 			}
 		case <-time.After(30 * time.Second):
 			log.Infof("[Rokulib] Nothing recieved yet")
-    case <- signalchannel
-      ljack.Rotate()
+		case <-signalchannel:
+			ljack.Rotate()
 		}
 	}
 	//	var resps *HttpResponse
