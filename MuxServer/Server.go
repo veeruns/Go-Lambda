@@ -88,7 +88,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	accesslog, err := os.OpenFile("/var/log/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	accesslog, err := os.OpenFile("/opt/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
