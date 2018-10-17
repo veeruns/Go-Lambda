@@ -14,6 +14,7 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
 
@@ -22,25 +23,25 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
-	rokulib.Log.Infof("Raw url string %s\n", req.URL.RequestURI())
+	log.Infof("Raw url string %s\n", req.URL.RequestURI())
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
-	rokulib.Log.Infof("The whole url is %s\n", wholeurl.String())
-	rokulib.Log.Infof("The query function is %s\n", functocall)
-	rokulib.Log.Warnf("Channel change is %s\n", channeltocall)
+	log.Infof("The whole url is %s\n", wholeurl.String())
+	log.Infof("The query function is %s\n", functocall)
+	log.Warnf("Channel change is %s\n", channeltocall)
 	m, _ := url.ParseQuery(wholeurl.RawQuery)
-	rokulib.Log.Infof("Parameters are %s\n", m)
-	rokulib.Log.Infof("Whole query is %s\n", m["channel"])
+	log.Infof("Parameters are %s\n", m)
+	log.Infof("Whole query is %s\n", m["channel"])
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
 		fmt.Fprintf(w, "Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
-		rokulib.Log.Infof("client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
-		rokulib.Log.Infof("Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
+		log.Infof("client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
+		log.Infof("Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
 		//	fmt.Fprintf(w, " %s\n", req.TLS.PeerCertificates[0].Verify)
 	}
 	for _, certname := range req.TLS.PeerCertificates {
 		for _, dnsname := range certname.DNSNames {
-			rokulib.Log.Infof("SAN names listed %s\n", dnsname)
+			log.Infof("SAN names listed %s\n", dnsname)
 		}
 	}
 	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, "client-auth.raghavanonline.com") != 0 {
@@ -53,26 +54,26 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		switch {
 		case strings.Compare(functocall, "off") == 0:
 			works = rokulib.PowerOff("192.168.7.45:8060")
-			rokulib.Log.Infof("Rokulib returned %v\n", works)
+			log.Infof("Rokulib returned %v\n", works)
 		case strings.TrimRight(functocall, "\n") == "on":
 			works = rokulib.PowerOn("192.168.7.45:8060")
-			rokulib.Log.Infof(" Rokulib PowerOn returned %v\n", works)
+			log.Infof(" Rokulib PowerOn returned %v\n", works)
 		case len(channeltocall) > 0:
 			channelname := strings.TrimRight(channeltocall, "\n")
 			valuid := rokulib.ChannelHash[channelname]
-			rokulib.Log.Infof("Channel Name is %s and Channel id is %d\n", channelname, valuid)
+			log.Infof("Channel Name is %s and Channel id is %d\n", channelname, valuid)
 			works = rokulib.LaunchChannel("192.168.7.45:8060", valuid)
-			rokulib.Log.Infof("Rokulib returned the %v\n", works)
+			log.Infof("Rokulib returned the %v\n", works)
 		default:
 			works = false
-			rokulib.Log.Infof("We are calling default\n")
+			log.Infof("We are calling default\n")
 		}
 
 		//"http://192.168.7.45:8060/keypress/powerOff",
 		var retbytes bytes.Buffer
 		retbytes.WriteString(functocall)
 		if works {
-			rokulib.Log.Infof("It Returned a bool")
+			log.Infof("It Returned a bool")
 			retbytes.WriteString(" Achieved")
 		}
 
