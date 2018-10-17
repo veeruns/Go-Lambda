@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/natefinch/lumberjack"
-	Log "github.com/sirupsen/logrus"
 )
 
 //HTTPResponse a more complex type
@@ -43,6 +42,7 @@ var signalchannel chan os.Signal
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
 var Ljack lumberjack.Logger
+var Log log
 
 //ch := make(chan *HttpResponse, 1)
 
