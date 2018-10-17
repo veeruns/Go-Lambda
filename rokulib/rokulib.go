@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/xml"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -13,6 +12,7 @@ import (
 	"time"
 
 	"github.com/natefinch/lumberjack"
+	"github.com/sirupsen/logrus"
 )
 
 //HTTPResponse a more complex type
@@ -43,7 +43,7 @@ var signalchannel chan os.Signal
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
 var Ljack lumberjack.Logger
-var Log log.Logger
+var Log logrus.Logger
 
 //ch := make(chan *HttpResponse, 1)
 
