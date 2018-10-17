@@ -121,14 +121,14 @@ func workerpool() {
 func readchannels() {
 	xmlFile, err := os.Open("/etc/httpsServer/channel-list.xml")
 	if err != nil {
-		Log.Fatalf("Opening file error : %s", err.Error())
+		//	Log.Fatalf("Opening file error : %s", err.Error())
 	}
 	defer xmlFile.Close()
 	xmlData, _ := ioutil.ReadAll(xmlFile)
 	var A apps
 	xml.Unmarshal(xmlData, &A)
 	for _, value := range A.App {
-		Log.Infof("%s\n", value.App)
+		//	Log.Infof("%s\n", value.App)
 		ChannelHash[value.App] = value.ID
 	}
 
