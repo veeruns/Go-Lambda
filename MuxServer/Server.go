@@ -96,7 +96,7 @@ func main() {
 	defer accesslog.Close()
 
 	log.SetOutput(&lumberjack.Logger{
-		Filename:   "/var/log/httpsServer/logs/accesslog",
+		Filename:   "/opt/httpsServer/logs/accesslog",
 		MaxSize:    5, // megabytes
 		MaxBackups: 3,
 		MaxAge:     28,   //days
