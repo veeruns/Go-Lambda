@@ -27,20 +27,20 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
-	rokilib.Log.Infof("Raw url string %s\n", req.URL.RequestURI())
+	rokulib.Log.Infof("Raw url string %s\n", req.URL.RequestURI())
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
-	rokilib.Log.Infof("The whole url is %s\n", wholeurl.String())
+	rokulib.Log.Infof("The whole url is %s\n", wholeurl.String())
 	rokulib.Log.Infof("The query function is %s\n", functocall)
-	log.Warnf("Channel change is %s\n", channeltocall)
+	rokulib.Log.Warnf("Channel change is %s\n", channeltocall)
 	m, _ := url.ParseQuery(wholeurl.RawQuery)
-	log.Infof("Parameters are %s\n", m)
-	log.Infof("Whole query is %s\n", m["channel"])
+	rokulib.Log.Infof("Parameters are %s\n", m)
+	rokulib.Log.Infof("Whole query is %s\n", m["channel"])
 	if len(req.TLS.PeerCertificates) > 0 {
 		fmt.Fprintf(w, "client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
 		fmt.Fprintf(w, "Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
-		log.Infof("client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
-		log.Infof("Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
+		rokulib.Log.Infof("client common name: %+v\n", req.TLS.PeerCertificates[0].Subject.CommonName)
+		rokulib.Log.Infof("Client OU %+v\n", req.TLS.PeerCertificates[0].Subject.OrganizationalUnit)
 		//	fmt.Fprintf(w, " %s\n", req.TLS.PeerCertificates[0].Verify)
 	}
 	for _, certname := range req.TLS.PeerCertificates {
