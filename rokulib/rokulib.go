@@ -59,7 +59,7 @@ func InitLib() {
 	}
 
 	defer rokuliblog.Close()
-	ljack := lumberjack.Logger{
+	ljack = lumberjack.Logger{
 		Filename:   "/opt/httpsServer/logs/rokulib.log",
 		MaxSize:    1, // megabytes
 		MaxBackups: 3,
@@ -67,7 +67,7 @@ func InitLib() {
 		Compress:   true, // disabled by default
 
 	}
-	log.SetOutput(ljack)
+	log.SetOutput(&ljack)
 
 }
 
