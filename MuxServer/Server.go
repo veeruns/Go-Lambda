@@ -10,11 +10,11 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/natefinch/lumberjack"
 
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
@@ -87,10 +87,19 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+
+	log.SetOutput(&lumberjack.Logger{
+		Filename:   "/var/log/httpsServer/logs/accesslog",
+		MaxSize:    500, // megabytes
+		MaxBackups: 3,
+		MaxAge:     28,   //days
+		Compress:   true, // disabled by default
+	})
+
 	mux := mux.NewRouter()
 	rokulib.InitLib()
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(os.Stdout, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(log, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
