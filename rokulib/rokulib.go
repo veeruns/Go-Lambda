@@ -9,6 +9,9 @@ import (
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/natefinch/lumberjack"
+	log "github.com/sirupsen/logrus"
 )
 
 //HTTPResponse a more complex type
@@ -46,6 +49,20 @@ func InitLib() {
 	readchannels()
 	//start workerpool
 	go workerpool()
+	rokuliblog, err := os.OpenFile("/opt/httpsServer/logs/rokulib.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer accesslog.Close()
+
+	log.SetOutput(&lumberjack.Logger{
+		Filename:   "/opt/httpsServer/logs/rokulib.log",
+		MaxSize:    1, // megabytes
+		MaxBackups: 3,
+		MaxAge:     28,   //days
+		Compress:   true, // disabled by default
+	})
 
 }
 
@@ -90,22 +107,22 @@ func workerpool() {
 		case msg := <-signal:
 			if flag {
 				var resp *http.Response
-				fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
+				log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
 				var buff bytes.Buffer
 				resp, err := http.Post(msg, "", &buff)
 				//	time.Sleep(time.Millisecond * 2500)
 				if err != nil {
-					fmt.Printf("[Rokulib] Error from Roku %s\n", err.Error())
+					log.Infof("[Rokulib] Error from Roku %s\n", err.Error())
 				} else {
-					fmt.Printf("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
+					log.Infof("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
 				}
 			} else {
-				fmt.Printf("[Rokulib]  Recieved to post %s\n ", msg)
+				log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
 				time.Sleep(time.Millisecond * 2500)
-				fmt.Printf("Returning\n")
+				log.Infof("Returning\n")
 			}
 		case <-time.After(30 * time.Second):
-			fmt.Printf("[Rokulib] Nothing recieved yet")
+			log.Infof("[Rokulib] Nothing recieved yet")
 
 		}
 	}
