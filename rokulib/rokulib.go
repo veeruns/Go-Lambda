@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/signal"
 	"strconv"
 	"syscall"
 	"time"
@@ -36,7 +37,7 @@ type apps struct {
 }
 
 //var datachan chan *HttpResponse
-var signal chan string
+var flagsignal chan string
 var signalchannel chan os.Signal
 
 //ChannelHash is the channel name to channel id map
@@ -48,7 +49,7 @@ var ljack lumberjack.Logger
 //InitLib initializes channel
 func InitLib() {
 	//	datachan := make(chan *HttpResponse, 1)
-	signal = make(chan string)
+	flagsignal = make(chan string)
 	signalchannel = make(chan os.Signal, 1)
 	ChannelHash = make(map[string]int)
 	readchannels()
@@ -80,7 +81,7 @@ func PowerOff(hostname string) bool {
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweroff")
-	signal <- url.String()
+	flagsignal <- url.String()
 	return true
 }
 
@@ -90,7 +91,7 @@ func PowerOn(hostname string) bool {
 	url.WriteString("http://")
 	url.WriteString(hostname)
 	url.WriteString("/keypress/poweron")
-	signal <- url.String()
+	flagsignal <- url.String()
 	return true
 }
 
@@ -101,18 +102,18 @@ func LaunchChannel(hostname string, channelid int) bool {
 	url.WriteString(hostname)
 	url.WriteString("/launch/")
 	url.WriteString(strconv.Itoa(channelid))
-	signal <- url.String()
+	flagsignal <- url.String()
 	return true
 
 }
 
 func workerpool() {
 	flag = false
-	os.signal.Notify(signalchannel, syscall.SIGHUP)
+	signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
 		log.Info("[Rokulib] Started reading from data channel")
 		select {
-		case msg := <-signal:
+		case msg := <-flagsignal:
 			if flag {
 				var resp *http.Response
 				log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
