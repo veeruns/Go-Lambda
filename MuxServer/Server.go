@@ -27,10 +27,10 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
-	log.Infof("Raw url string %s\n", req.URL.RequestURI())
+	rokilib.Log.Infof("Raw url string %s\n", req.URL.RequestURI())
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
-	log.Infof("The whole url is %s\n", wholeurl.String())
+	rokilib.Log.Infof("The whole url is %s\n", wholeurl.String())
 	log.Infof("The query function is %s\n", functocall)
 	log.Warnf("Channel change is %s\n", channeltocall)
 	m, _ := url.ParseQuery(wholeurl.RawQuery)
