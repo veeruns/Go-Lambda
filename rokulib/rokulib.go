@@ -39,7 +39,7 @@ type apps struct {
 //var datachan chan *HttpResponse
 var flagsignal chan string
 var signalchannel chan os.Signal
-var RokulibLog os.File
+var RokulibLog *os.File
 
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
