@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/natefinch/lumberjack"
-	log "github.com/sirupsen/logrus"
+	Log "github.com/sirupsen/logrus"
 )
 
 //HTTPResponse a more complex type
@@ -42,7 +42,7 @@ var signalchannel chan os.Signal
 
 //ChannelHash is the channel name to channel id map
 var ChannelHash map[string]int
-var ljack lumberjack.Logger
+var Ljack lumberjack.Logger
 
 //ch := make(chan *HttpResponse, 1)
 
@@ -55,21 +55,21 @@ func InitLib() {
 	readchannels()
 	//start workerpool
 	go workerpool()
-	rokuliblog, err := os.OpenFile("/opt/httpsServer/logs/rokulib.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	rokuliblog, err := os.OpenFile("/opt/httpsServer/logs/access.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
-		log.Fatal(err)
+		Log.Fatal(err)
 	}
 
 	defer rokuliblog.Close()
-	ljack = lumberjack.Logger{
-		Filename:   "/opt/httpsServer/logs/rokulib.log",
+	Ljack = lumberjack.Logger{
+		Filename:   "/opt/httpsServer/logs/access.log",
 		MaxSize:    1, // megabytes
 		MaxBackups: 3,
 		MaxAge:     28,   //days
 		Compress:   true, // disabled by default
 
 	}
-	log.SetOutput(&ljack)
+	Log.SetOutput(&Ljack)
 
 }
 
@@ -111,30 +111,30 @@ func workerpool() {
 	flag = false
 	signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
-		log.Info("[Rokulib] Started reading from data channel")
+		Log.Info("[Rokulib] Started reading from data channel")
 		select {
 		case msg := <-flagsignal:
 			if flag {
 				var resp *http.Response
-				log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
+				Log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
 				var buff bytes.Buffer
 				resp, err := http.Post(msg, "", &buff)
 				//	time.Sleep(time.Millisecond * 2500)
 				if err != nil {
-					log.Infof("[Rokulib] Error from Roku %s\n", err.Error())
+					Log.Infof("[Rokulib] Error from Roku %s\n", err.Error())
 				} else {
-					log.Infof("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
+					Log.Infof("[Rokulib] Response code from Roku %d\n", resp.StatusCode)
 				}
 			} else {
-				log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
+				Log.Infof("[Rokulib]  Recieved to post %s\n ", msg)
 				time.Sleep(time.Millisecond * 2500)
-				log.Infof("Returning\n")
+				Log.Infof("Returning\n")
 			}
 		case <-time.After(30 * time.Second):
-			log.Infof("[Rokulib] Nothing recieved yet")
+			Log.Infof("[Rokulib] Nothing recieved yet")
 		case <-signalchannel:
-			ljack.Rotate()
-			log.Info("The log was rotated")
+			Ljack.Rotate()
+			Log.Info("The log was rotated")
 		}
 	}
 	//	var resps *HttpResponse
@@ -143,14 +143,14 @@ func workerpool() {
 func readchannels() {
 	xmlFile, err := os.Open("/etc/httpsServer/channel-list.xml")
 	if err != nil {
-		log.Fatalf("Opening file error : %s", err.Error())
+		Log.Fatalf("Opening file error : %s", err.Error())
 	}
 	defer xmlFile.Close()
 	xmlData, _ := ioutil.ReadAll(xmlFile)
 	var A apps
 	xml.Unmarshal(xmlData, &A)
 	for _, value := range A.App {
-		log.Infof("%s\n", value.App)
+		Log.Infof("%s\n", value.App)
 		ChannelHash[value.App] = value.ID
 	}
 
