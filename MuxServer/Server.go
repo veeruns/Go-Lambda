@@ -20,6 +20,20 @@ import (
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
 
+type logwriter struct {
+	logger   *log.Logger
+	severity logging.Severity
+}
+
+func (w writer) Write(p []byte) (n int, err error) {
+	w.logger.Log(logging.Entry{
+		Severity: w.severity,
+		Payload:  string(p),
+	})
+	return len(p), nil
+
+}
+
 func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var functocall string
 	var channeltocall string
@@ -93,7 +107,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	defer f.Close()
+	defer accesslog.Close()
 
 	log.SetOutput(&lumberjack.Logger{
 		Filename:   "/var/log/httpsServer/logs/accesslog",
@@ -106,7 +120,7 @@ func main() {
 	mux := mux.NewRouter()
 	rokulib.InitLib()
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(log, mux)
+	loggedRouter := handlers.CombinedLoggingHandler()
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
