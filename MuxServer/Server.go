@@ -25,12 +25,12 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
 	channeltocall = req.URL.Query().Get("channel")
-	fmt.Printf("Raw url string %s\n", req.URL.RequestURI())
+	log.Infof("Raw url string %s\n", req.URL.RequestURI())
 	wholeurl, _ := url.Parse(req.URL.RequestURI())
 	//queryparams := wholeurl.Query()
-	fmt.Printf("The whole url is %s\n", wholeurl.String())
-	fmt.Printf("The query function is %s\n", functocall)
-	fmt.Printf("Channel change is %s\n", channeltocall)
+	log.Infof("The whole url is %s\n", wholeurl.String())
+	log.Infof("The query function is %s\n", functocall)
+	log.Warnf("Channel change is %s\n", channeltocall)
 	m, _ := url.ParseQuery(wholeurl.RawQuery)
 	fmt.Println("Parameters are ", m)
 	fmt.Printf("Whole query is %s\n", m["channel"])
@@ -97,7 +97,7 @@ func main() {
 
 	log.SetOutput(&lumberjack.Logger{
 		Filename:   "/var/log/httpsServer/logs/accesslog",
-		MaxSize:    500, // megabytes
+		MaxSize:    5, // megabytes
 		MaxBackups: 3,
 		MaxAge:     28,   //days
 		Compress:   true, // disabled by default
