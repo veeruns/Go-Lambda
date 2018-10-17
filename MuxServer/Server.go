@@ -119,7 +119,7 @@ func main() {
 	mux := mux.NewRouter()
 	rokulib.InitLib()
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(rokulib.RokulibLog, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(accesslog, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
 	caCertPool := x509.NewCertPool()
