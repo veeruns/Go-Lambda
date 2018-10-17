@@ -108,7 +108,7 @@ func LaunchChannel(hostname string, channelid int) bool {
 
 func workerpool() {
 	flag = false
-	signal.Notify(signalchannel, syscall.SIGHUP)
+	os.signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
 		log.Info("[Rokulib] Started reading from data channel")
 		select {
