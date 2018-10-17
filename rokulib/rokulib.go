@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"syscall"
 	"time"
 
 	"github.com/natefinch/lumberjack"
@@ -107,7 +108,7 @@ func LaunchChannel(hostname string, channelid int) bool {
 
 func workerpool() {
 	flag = false
-
+	signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
 		log.Info("[Rokulib] Started reading from data channel")
 		select {
