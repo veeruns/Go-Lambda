@@ -156,8 +156,12 @@ func main() {
 		InsecureSkipVerify: true,
 		ClientCAs:          caCertPool,
 	}
+	var v bytes.Buffer
+	v.WriteString(rokulib.Conf.Server)
+	v.WriteString(":")
+	v.WriteString(rokulib.Conf.Listenport)
 	srv := &http.Server{
-		Addr: ":8080",
+		Addr: v.String(),
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
