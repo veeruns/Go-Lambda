@@ -28,6 +28,7 @@ func main() {
 			fmt.Printf("This is correct %s\n", nerr.Error())
 		}
 	} else {
+		fmt.Printf("There has been an error %s\n", err.Error())
 
 	}
 
