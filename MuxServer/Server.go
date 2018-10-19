@@ -22,6 +22,10 @@ import (
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
 
+type config struct {
+	server string
+}
+
 func RokuServer(w http.ResponseWriter, req *http.Request) {
 	var functocall string
 	var channeltocall string
