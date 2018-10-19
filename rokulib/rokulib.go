@@ -3,7 +3,6 @@ package rokulib
 import (
 	"bytes"
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -93,7 +92,7 @@ func LaunchChannel(hostname string, channelid int) bool {
 }
 
 func workerpool() {
-	flag = true
+	flag = false
 	signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
 
@@ -111,7 +110,7 @@ func workerpool() {
 
 			}
 		case <-time.After(30 * time.Second):
-			fmt.Printf("Something ")
+			//			fmt.Printf("Something ")
 
 		}
 	}
