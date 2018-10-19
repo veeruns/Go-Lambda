@@ -98,7 +98,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-
+	rokulib.InitLib()
 	var sigchannel chan os.Signal
 	sigchannel = make(chan os.Signal, 1)
 	accesslog, err := os.OpenFile(rokulib.Conf.Log, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
@@ -126,7 +126,7 @@ func main() {
 	}()
 
 	mux := mux.NewRouter()
-	rokulib.InitLib()
+
 	log.Infof("Server Configuration %s", rokulib.Conf.Server)
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
