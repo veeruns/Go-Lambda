@@ -45,6 +45,7 @@ type Config struct {
 	AuthString    string
 	SSLcertname   string
 	SSLkeyname    string
+	CAcert        string
 }
 
 var Conf Config
@@ -96,6 +97,8 @@ func readconfig(*Config) bool {
 
 		Conf.SSLcertname = viper.GetString("SSL.Certname")
 		Conf.SSLkeyname = viper.GetString("SSL.KeyName")
+		Conf.CAcert = viper.GetString("SSL.CAcert")
+
 	}
 	return true
 }
