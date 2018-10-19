@@ -3,3 +3,5 @@ ssl/*
 rokulib/channel-list.xml
 rokulib/conf/*.conf
 rokulib/conf/*.toml
+Server
+httpsServer
