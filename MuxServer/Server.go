@@ -108,7 +108,7 @@ func main() {
 	defer accesslog.Close()
 	var ljack lumberjack.Logger
 	ljack = lumberjack.Logger{
-		Filename:   "/opt/httpsServer/logs/accesslog",
+		Filename:   rokulib.Conf.Accesslogpath,
 		MaxSize:    5, // megabytes
 		MaxBackups: 3,
 		MaxAge:     28,   //days
