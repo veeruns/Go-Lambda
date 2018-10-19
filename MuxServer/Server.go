@@ -101,7 +101,7 @@ func main() {
 
 	var sigchannel chan os.Signal
 	sigchannel = make(chan os.Signal, 1)
-	accesslog, err := os.OpenFile("/opt/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	accesslog, err := os.OpenFile(rokulib.Conf.Accesslogpath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
 		log.Fatal(err.Error())
