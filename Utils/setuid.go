@@ -18,7 +18,7 @@ func main() {
 		}
 	}
 	gid := 65524
-	err := syscall.Setgid(uid)
+	err := syscall.Setgid(gid)
 	if err == nil {
 		fmt.Printf("OS error %s \n", err.Error())
 		_, nerr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
