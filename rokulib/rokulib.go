@@ -3,6 +3,7 @@ package rokulib
 import (
 	"bytes"
 	"encoding/xml"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -10,7 +11,8 @@ import (
 	"strconv"
 	"syscall"
 	"time"
-  "github.com/spf13/viper"
+
+	"github.com/spf13/viper"
 )
 
 //HTTPResponse a more complex type
@@ -35,13 +37,15 @@ type apps struct {
 }
 
 type Config struct {
-	Server string
-  Listenport string
-  Rokuurl string
-  Accesslogpath string
-  Devflag bool
+	Server        string
+	Listenport    string
+	Rokuurl       string
+	Accesslogpath string
+	Devflag       bool
 }
+
 var Conf Config
+
 //var datachan chan *HttpResponse
 var flagsignal chan string
 var signalchannel chan os.Signal
@@ -61,30 +65,30 @@ func InitLib() {
 	signalchannel = make(chan os.Signal, 1)
 	ChannelHash = make(map[string]int)
 	readchannels()
-  readconfig(&Conf)
+	readconfig(&Conf)
 	//start workerpool
 	go workerpool()
 
 }
 
 //Readconfig File
-func readconfig(*conf Config) bool {
-  viper.SetConfigName("Server")
-  viper.AddConfigPath("/opt/httpsServer/conf")
- err := viper.ReadInConfig()
-  if err != nil {
-   fmt.Println("Config file not found...%s\n",err.Error())
-   return false
- } else {
-   //Server section
-   Conf.Accesslogpath=viper.GetString("Server.accesslogpath")
-   Conf.Server=viper.GetString("Server.Host")
-   Conf.Listenport=viper.GetString("Server.ListenPort")
-   //Roku section
-   Conf.Devflag=viper.GetBool("Roku.Development")
-   Conf.Rokuurl=viper.GetString("Roku.URL")
- }
- return true
+func readconfig(*Config) bool {
+	viper.SetConfigName("Server")
+	viper.AddConfigPath("/opt/httpsServer/conf")
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println("Config file not found...%s\n", err.Error())
+		return false
+	} else {
+		//Server section
+		Conf.Accesslogpath = viper.GetString("Server.accesslogpath")
+		Conf.Server = viper.GetString("Server.Host")
+		Conf.Listenport = viper.GetString("Server.ListenPort")
+		//Roku section
+		Conf.Devflag = viper.GetBool("Roku.Development")
+		Conf.Rokuurl = viper.GetString("Roku.URL")
+	}
+	return true
 }
 
 //PowerOff function sends poweroff to roku
