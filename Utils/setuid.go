@@ -8,8 +8,8 @@ import (
 
 func main() {
 	_, cherr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
-	if cherr == nil {
-		fmt.Printf("It works")
+	if cherr != nil {
+		fmt.Printf("It works %s\n", cherr.Error())
 	}
 	if syscall.Getuid() == 0 {
 		fmt.Printf("You are running as root, Dropping your privileges\n")
