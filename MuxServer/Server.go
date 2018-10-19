@@ -101,6 +101,7 @@ func main() {
 	rokulib.InitLib()
 	var sigchannel chan os.Signal
 	sigchannel = make(chan os.Signal, 1)
+
 	accesslog, err := os.OpenFile(rokulib.Conf.Log, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
@@ -118,6 +119,8 @@ func main() {
 	}
 
 	log.SetOutput(accesslog)
+	w := log.Logger.Writer()
+	defer w.Close()
 	signal.Notify(sigchannel, syscall.SIGHUP)
 	go func() {
 		for {
@@ -134,7 +137,7 @@ func main() {
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
 	mux.HandleFunc("/roku", RokuServer)
 
-	loggedRouter := handlers.CombinedLoggingHandler(accesslog, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(w, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile(rokulib.Conf.CAcert)
 	caCertPool := x509.NewCertPool()
