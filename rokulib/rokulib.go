@@ -37,15 +37,15 @@ type apps struct {
 }
 
 type Config struct {
-	Server        string
-	Listenport    string
-	Rokuurl       string
-	Accesslogpath string
-	Devflag       bool
-	AuthString    string
-	SSLcertname   string
-	SSLkeyname    string
-	CAcert        string
+	Server      string
+	Listenport  string
+	Rokuurl     string
+	Log         string
+	Devflag     bool
+	AuthString  string
+	SSLcertname string
+	SSLkeyname  string
+	CAcert      string
 }
 
 var Conf Config
@@ -85,7 +85,7 @@ func readconfig(*Config) bool {
 		return false
 	} else {
 		//Server section
-		Conf.Accesslogpath = viper.GetString("Server.accesslog")
+		Conf.Log = viper.GetString("Server.Log")
 		Conf.Server = viper.GetString("Server.Host")
 		Conf.Listenport = viper.GetString("Server.ListenPort")
 		//Roku section
