@@ -7,6 +7,10 @@ import (
 )
 
 func main() {
+	_, cherr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
+	if cherr == nil {
+		fmt.Printf("It works")
+	}
 	if syscall.Getuid() == 0 {
 		fmt.Printf("You are running as root, Dropping your privileges\n")
 		_, ferr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
