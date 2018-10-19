@@ -141,6 +141,8 @@ func workerpool() {
 			} else {
 
 				time.Sleep(time.Millisecond * 2500)
+				fmt.Printf("")
+				fmt.Printf("Roku dev flag is %v so not doing anything\n", Conf.Devflag)
 
 			}
 		case <-time.After(30 * time.Second):
