@@ -123,11 +123,12 @@ func main() {
 			log.Info("accesslog is rotated")
 		}
 	}()
+
+	mux := mux.NewRouter()
+	rokulib.InitLib()
 	log.Infof("Server Configuration %s\n", rokulib.Conf.Server)
 	log.Infof("Server port %s\n", rokulib.Conf.Listenport)
 	log.Fatalf("Server access log path %s\n", rokulib.Conf.Accesslogpath)
-	mux := mux.NewRouter()
-	rokulib.InitLib()
 	mux.HandleFunc("/roku", RokuServer)
 	loggedRouter := handlers.CombinedLoggingHandler(accesslog, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
