@@ -19,7 +19,7 @@ func main() {
 	}
 	uid := 65524
 	err := syscall.Setuid(uid)
-	if err != nil {
+	if err == nil {
 		fmt.Printf("OS error %s \n", err.Error())
 		_, nerr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
 		if nerr == nil {
