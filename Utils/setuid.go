@@ -17,8 +17,8 @@ func main() {
 			fmt.Printf("Error is %s\n", ferr.Error())
 		}
 	}
-	uid := 65524
-	err := syscall.Setuid(uid)
+	gid := 65524
+	err := syscall.Setgid(uid)
 	if err == nil {
 		fmt.Printf("OS error %s \n", err.Error())
 		_, nerr := filetostring("/etc/letsencrypt/live/veeruns.raghavanonline.com/README")
