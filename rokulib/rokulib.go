@@ -77,7 +77,7 @@ func readconfig(*Config) bool {
 	viper.AddConfigPath("/opt/httpsServer/conf")
 	err := viper.ReadInConfig()
 	if err != nil {
-		fmt.Println("Config file not found...%s\n", err.Error())
+		fmt.Printf("Config file not found...%s\n", err.Error())
 		return false
 	} else {
 		//Server section
