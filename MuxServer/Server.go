@@ -101,7 +101,7 @@ func main() {
 
 	var sigchannel chan os.Signal
 	sigchannel = make(chan os.Signal, 1)
-	accesslog, err := os.OpenFile("/opt/httpsServer/logs/accesslog", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	accesslog, err := os.OpenFile(rokulib.Conf.Accesslogpath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -126,13 +126,13 @@ func main() {
 
 	mux := mux.NewRouter()
 	rokulib.InitLib()
-	log.Infof("Server Configuration %s\n", rokulib.Conf.Server)
-	log.Infof("Server port %s\n", rokulib.Conf.Listenport)
-	log.Infof("Server access log path %s\n", rokulib.Conf.Accesslogpath)
+	log.Infof("Server Configuration %s", rokulib.Conf.Server)
+	log.Infof("Server port %s", rokulib.Conf.Listenport)
+	log.Infof("Server access log path %s", rokulib.Conf.Accesslogpath)
 	mux.HandleFunc("/roku", RokuServer)
 	loggedRouter := handlers.CombinedLoggingHandler(accesslog, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
-	caCert, err := ioutil.ReadFile("/etc/httpsServer/ssl/certs/CAcerts.pem")
+	caCert, err := ioutil.ReadFile(rokulib.Conf.CAcert)
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 	if err != nil {
