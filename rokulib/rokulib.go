@@ -61,7 +61,7 @@ func InitLib() {
 	signalchannel = make(chan os.Signal, 1)
 	ChannelHash = make(map[string]int)
 	readchannels()
-  readconfig(*Conf)
+  readconfig(&Conf)
 	//start workerpool
 	go workerpool()
 
