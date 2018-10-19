@@ -116,7 +116,7 @@ func main() {
 		MaxAge:     28,   //days
 		Compress:   true, // disabled by default
 	}
-  mWriter := io.MultiWriter(accesslog, ljack)
+	mWriter := io.MultiWriter(accesslog, ljack)
 	log.SetOutput(mWriter)
 	signal.Notify(sigchannel, syscall.SIGHUP)
 	go func() {
@@ -133,7 +133,7 @@ func main() {
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(mWriter, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile(rokulib.Conf.CAcert)
 	caCertPool := x509.NewCertPool()
