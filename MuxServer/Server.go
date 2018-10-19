@@ -133,7 +133,7 @@ func main() {
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(mWriter, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(ljack, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile(rokulib.Conf.CAcert)
 	caCertPool := x509.NewCertPool()
