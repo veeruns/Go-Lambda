@@ -126,7 +126,7 @@ func LaunchChannel(hostname string, channelid int) bool {
 }
 
 func workerpool() {
-	flag = false
+	flag = Conf.Devflag
 	signal.Notify(signalchannel, syscall.SIGHUP)
 	for {
 
