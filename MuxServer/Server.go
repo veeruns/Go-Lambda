@@ -18,7 +18,7 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/natefinch/lumberjack"
-	log "github.com/sirupsen/logrus"
+//	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
   lumberhook "github.com/gooops/logrus-lumberjack-hook"
 )
