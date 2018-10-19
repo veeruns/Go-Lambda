@@ -23,7 +23,11 @@ import (
 )
 
 type config struct {
-	server string
+	server        string
+	listenport    string
+	rokuurl       string
+	accesslogpath string
+	devflag       bool
 }
 
 func RokuServer(w http.ResponseWriter, req *http.Request) {
@@ -119,7 +123,9 @@ func main() {
 			log.Info("accesslog is rotated")
 		}
 	}()
-
+	log.Infof("Server Configuration %s\n", rokulib.Config.Server)
+	log.Infof("Server port %s\n", rokulib.Config.Listenport)
+	log.Fatalf("Server access log path %s\n", rokulib.Config.Accesslogpath)
 	mux := mux.NewRouter()
 	rokulib.InitLib()
 	mux.HandleFunc("/roku", RokuServer)
