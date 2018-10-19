@@ -56,7 +56,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 			log.Infof("SAN names listed %s\n", dnsname)
 		}
 	}
-	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, "client-auth.raghavanonline.com") != 0 {
+	if strings.Compare(req.TLS.PeerCertificates[0].Subject.CommonName, rokulib.Conf.AuthString) != 0 {
 
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Fprintf(w, "meh")
