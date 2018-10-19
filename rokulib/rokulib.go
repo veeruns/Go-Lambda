@@ -42,6 +42,7 @@ type Config struct {
 	Rokuurl       string
 	Accesslogpath string
 	Devflag       bool
+	AuthString    string
 }
 
 var Conf Config
@@ -87,6 +88,8 @@ func readconfig(*Config) bool {
 		//Roku section
 		Conf.Devflag = viper.GetBool("Roku.Development")
 		Conf.Rokuurl = viper.GetString("Roku.URL")
+		//Authorization section
+		Conf.AuthString = viper.GetString("Authorization.CommonName")
 	}
 	return true
 }
