@@ -104,6 +104,7 @@ func main() {
 	accesslog, err := os.OpenFile(rokulib.Conf.Accesslogpath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
+		log.Fatal(err.Error())
 	}
 	defer accesslog.Close()
 	var ljack lumberjack.Logger
