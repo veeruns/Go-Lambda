@@ -167,7 +167,7 @@ func main() {
 		Handler:   loggedRouter,
 	}
 
-	srv.ListenAndServeTLS("/etc/letsencrypt/live/veeruns.raghavanonline.com/cert.pem", "/etc/letsencrypt/live/veeruns.raghavanonline.com/privkey.pem")
+	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
 
 }
 
