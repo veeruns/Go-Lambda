@@ -85,7 +85,7 @@ func readconfig(*Config) bool {
 		return false
 	} else {
 		//Server section
-		Conf.Accesslogpath = viper.GetString("Server.accesslogpath")
+		Conf.Accesslogpath = viper.GetString("Server.accesslog")
 		Conf.Server = viper.GetString("Server.Host")
 		Conf.Listenport = viper.GetString("Server.ListenPort")
 		//Roku section
