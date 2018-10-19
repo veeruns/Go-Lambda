@@ -1,3 +1,4 @@
 *.pem
 ssl/*
 rokulib/channel-list.xml
+rokulib/conf/*.conf
