@@ -107,6 +107,7 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	defer accesslog.Close()
+
 	var ljack lumberjack.Logger
 	ljack = lumberjack.Logger{
 		Filename:   rokulib.Conf.Log,
@@ -131,7 +132,7 @@ func main() {
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(log.Logger.Out, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(ljack.Write(p), mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile(rokulib.Conf.CAcert)
 	caCertPool := x509.NewCertPool()
