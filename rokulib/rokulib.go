@@ -145,6 +145,8 @@ func workerpool() {
 			}
 		case <-time.After(30 * time.Second):
 			//			fmt.Printf("Something ")
+			fmt.Printf("Roku configuration %s\n", Conf.Rokuurl)
+			fmt.Printf("Roku dev flag is %v\n", Conf.Devflag)
 
 		}
 	}
