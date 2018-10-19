@@ -117,7 +117,7 @@ func main() {
 			Compress:   true, // disabled by default
 		}
 	*/
-	rotateFileHook, err := NewRotateFileHook(rotatefilehook.RotateFileConfig{
+	rotateFileHook, err := NewRotateFileHook(RotateFileConfig{
 		Filename:   rokulib.Conf.Log,
 		MaxSize:    5,
 		MaxBackups: 7,
