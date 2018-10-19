@@ -20,6 +20,7 @@ import (
 	"github.com/natefinch/lumberjack"
 	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
+  lumberhook "github.com/gooops/logrus-lumberjack-hook"
 )
 
 type config struct {
@@ -116,6 +117,23 @@ func main() {
 		MaxAge:     28,   //days
 		Compress:   true, // disabled by default
 	}
+
+  lhook, _ := lumberhook.NewLumberjackHook(map[string]*lumberjack.Logger{
+		"info": {
+  		Filename:   rokulib.Conf.Log,
+  		MaxSize:    5, // megabytes
+  		MaxBackups: 3,
+  		MaxAge:     28,   //days
+  		Compress:   true, // disabled by default
+  	},
+		"warn": {
+  		Filename:   rokulib.Conf.Log,
+  		MaxSize:    5, // megabytes
+  		MaxBackups: 3,
+  		MaxAge:     28,   //days
+  		Compress:   true, // disabled by default
+  	},
+	})
 	mWriter := io.MultiWriter(accesslog, ljack)
 	log.SetOutput(mWriter)
 	signal.Notify(sigchannel, syscall.SIGHUP)
@@ -133,7 +151,7 @@ func main() {
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
 	mux.HandleFunc("/roku", RokuServer)
-	loggedRouter := handlers.CombinedLoggingHandler(ljack, mux)
+	loggedRouter := handlers.CombinedLoggingHandler(, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
 	caCert, err := ioutil.ReadFile(rokulib.Conf.CAcert)
 	caCertPool := x509.NewCertPool()
