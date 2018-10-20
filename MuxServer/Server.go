@@ -123,8 +123,8 @@ func main() {
 		MaxBackups: 7,
 		MaxAge:     7,
 		Formatter:  log.TextFormatter,
-		Level:      log.InfoLevel
-  }
+		Level:      log.InfoLevel,
+	})
 
 	log.SetOutput(accesslog)
 
