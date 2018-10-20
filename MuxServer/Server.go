@@ -118,7 +118,7 @@ func main() {
 		Compress:   true, // disabled by default
 	}
 
-	log.SetOutput(accesslog)
+	log.SetOutput(&ljack)
 
 	signal.Notify(sigchannel, syscall.SIGHUP)
 	go func() {
