@@ -17,6 +17,7 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/natefinch/lumberjack"
 	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
 )
@@ -107,24 +108,15 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	defer accesslog.Close()
-	/*
-		var ljack lumberjack.Logger
-		ljack = lumberjack.Logger{
-			Filename:   rokulib.Conf.Log,
-			MaxSize:    5, // megabytes
-			MaxBackups: 3,
-			MaxAge:     28,   //days
-			Compress:   true, // disabled by default
-		}
-	*/
-	rotateFileHook, err := NewRotateFileHook(RotateFileConfig{
+
+	var ljack lumberjack.Logger
+	ljack = lumberjack.Logger{
 		Filename:   rokulib.Conf.Log,
-		MaxSize:    5,
-		MaxBackups: 7,
-		MaxAge:     7,
-		Formatter:  log.TextFormatter,
-		Level:      log.InfoLevel,
-	})
+		MaxSize:    5, // megabytes
+		MaxBackups: 3,
+		MaxAge:     28,   //days
+		Compress:   true, // disabled by default
+	}
 
 	log.SetOutput(accesslog)
 
