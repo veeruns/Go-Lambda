@@ -122,7 +122,7 @@ func main() {
 		MaxSize:    5,
 		MaxBackups: 7,
 		MaxAge:     7,
-		Formatter:  log.TextFormatter{},
+		Formatter:  log.TextFormatter,
 		Level:      log.InfoLevel,
 	})
 
