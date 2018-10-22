@@ -72,16 +72,16 @@ func InitLib() {
 	signalchannel = make(chan os.Signal, 1)
 	ChannelHash = make(map[string]int)
 	readchannels()
-	readconfig(&Conf)
+	readconfig(&Conf,"/opt/httpsServer/conf","Server")
 	//start workerpool
 	go workerpool()
 
 }
 
 //Readconfig File
-func readconfig(*Config) bool {
-	viper.SetConfigName("Server")
-	viper.AddConfigPath("/opt/httpsServer/conf")
+func readconfig(*Config,confdir string,confname string) bool {
+	viper.SetConfigName(confname)
+	viper.AddConfigPath(confdir)
 	err := viper.ReadInConfig()
 	if err != nil {
 		fmt.Printf("Config file not found...%s\n", err.Error())
