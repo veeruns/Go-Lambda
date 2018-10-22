@@ -51,3 +51,11 @@ func TestLaunchChannel(t *testing.T) {
 		t.Error("Has to return true")
 	}
 }
+
+func TestPause(t *testing.T) {
+	InitLib()
+	op := Pause("10.0.0.3:85")
+	if op != true {
+		t.Error("This has to return true, something really wrong")
+	}
+}
