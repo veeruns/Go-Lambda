@@ -111,24 +111,6 @@ func main() {
 	}
 	defer accesslog.Close()
 
-	errorLog, errerr := os.OpenFile(rokulib.Conf.Errorlog, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
-	if errerr != nil {
-		log.Fatal(errerr)
-		log.Fatal(errerr.Error())
-	}
-	defer errorLog.Close()
-	errjack := lumberjack.Logger{
-		Filename:   rokulib.Conf.Errorlog,
-		MaxSize:    5, // megabytes
-		MaxBackups: 3,
-		MaxAge:     28,   //days
-		Compress:   true, // disabled by default
-	}
-	errlog := log.StandardLogger()
-
-	errlog.Level = log.ErrorLevel
-	errlog.Out = &errjack
-
 	hostPolicy := func(ctx context.Context, host string) error {
 		// Note: change to your real domain
 		allowedHost := rokulib.Conf.Allowedhost
@@ -216,7 +198,6 @@ func main() {
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
-    ErrorLog:= log.New()
 	}
 	go http.ListenAndServe(httpv.String(), certManager.HTTPHandler(nil))
 
