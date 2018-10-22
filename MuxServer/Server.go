@@ -126,6 +126,8 @@ func main() {
 		HostPolicy: hostPolicy,
 	}
 
+	log.Debugf("certmanager config is %v\n", certManager)
+
 	var ljack lumberjack.Logger
 	ljack = lumberjack.Logger{
 		Filename:   rokulib.Conf.Log,
