@@ -43,3 +43,11 @@ func TestPowerOn(t *testing.T) {
 		t.Error("Has to return true")
 	}
 }
+
+func TestLaunchChannel(t *testing.T) {
+	InitLib()
+	op := LaunchChannel("10.0.0.3:85", "1234")
+	if op != true {
+		t.Error("Has to return true")
+	}
+}
