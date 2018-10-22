@@ -126,7 +126,7 @@ func main() {
 		HostPolicy: hostPolicy,
 	}
 
-	log.Debugf("certmanager config is %v\n", certManager)
+	log.Debugf("certmanager config is %v\n", certManager.Cache)
 
 	var ljack lumberjack.Logger
 	ljack = lumberjack.Logger{
