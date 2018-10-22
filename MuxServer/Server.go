@@ -122,7 +122,7 @@ func main() {
 
 	certManager := autocert.Manager{
 		Prompt:     autocert.AcceptTOS,
-		Cache:      autocert.DirCache(rokulib.Conf.certdir),
+		Cache:      autocert.DirCache(rokulib.Conf.Certdir),
 		HostPolicy: hostPolicy,
 	}
 
