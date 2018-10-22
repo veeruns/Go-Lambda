@@ -117,7 +117,7 @@ func main() {
 		if host == allowedHost {
 			return nil
 		}
-		return log.Infof("acme/autocert: only %s host is allowed", allowedHost)
+		return fmt.Errorf("acme/autocert: only %s host is allowed", allowedHost)
 	}
 
 	certManager := autocert.Manager{
