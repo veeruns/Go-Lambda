@@ -127,6 +127,7 @@ func main() {
 	errlog := log.New()
 	errlog.Level = log.ErrorLevel
 	errlog.Out = &errjack
+	errlog = log.StandardLogger()
 
 	hostPolicy := func(ctx context.Context, host string) error {
 		// Note: change to your real domain
@@ -215,7 +216,7 @@ func main() {
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
-    ErrorLog : errlog
+		ErrorLog:  errlog,
 	}
 	go http.ListenAndServe(httpv.String(), certManager.HTTPHandler(nil))
 
