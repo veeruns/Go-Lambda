@@ -178,7 +178,7 @@ func main() {
 		ClientAuth:         tls.RequireAndVerifyClientCert,
 		InsecureSkipVerify: true,
 		ClientCAs:          caCertPool,
-		//GetCertificate:     certManager.GetCertificate,
+		GetCertificate:     certManager.GetCertificate,
 	}
 
 	var v bytes.Buffer
