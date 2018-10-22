@@ -215,6 +215,7 @@ func main() {
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
+    ErrorLog : errlog
 	}
 	go http.ListenAndServe(httpv.String(), certManager.HTTPHandler(nil))
 
