@@ -27,3 +27,10 @@ func TestWrongDir(t *testing.T) {
 		t.Fatal("There should not be anything there")
 	}
 }
+
+func TestPowerOff(t *testing.T) {
+	op := PowerOff("10.0.0.3:85")
+	if op != true {
+		t.Error("Has to return true")
+	}
+}
