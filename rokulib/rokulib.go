@@ -41,6 +41,7 @@ type Config struct {
 	Listenport  string
 	Rokuurl     string
 	Log         string
+	Errorlog    string
 	Devflag     bool
 	AuthString  string
 	SSLcertname string
@@ -88,6 +89,7 @@ func readconfig(*Config) bool {
 	} else {
 		//Server section
 		Conf.Log = viper.GetString("Server.Log")
+		Conf.Errorlog = viper.GetString("Server.ErrorLog")
 		Conf.Server = viper.GetString("Server.Host")
 		Conf.Listenport = viper.GetString("Server.ListenPort")
 		//Roku section
