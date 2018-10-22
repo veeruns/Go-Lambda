@@ -72,14 +72,14 @@ func InitLib() {
 	signalchannel = make(chan os.Signal, 1)
 	ChannelHash = make(map[string]int)
 	readchannels()
-	readconfig(&Conf,"/opt/httpsServer/conf","Server")
+	readconfig(&Conf, "/opt/httpsServer/conf", "Server")
 	//start workerpool
 	go workerpool()
 
 }
 
 //Readconfig File
-func readconfig(*Config,confdir string,confname string) bool {
+func readconfig(cfg *Config, confdir string, confname string) bool {
 	viper.SetConfigName(confname)
 	viper.AddConfigPath(confdir)
 	err := viper.ReadInConfig()
@@ -88,24 +88,24 @@ func readconfig(*Config,confdir string,confname string) bool {
 		return false
 	} else {
 		//Server section
-		Conf.Log = viper.GetString("Server.Log")
-		Conf.Errorlog = viper.GetString("Server.ErrorLog")
-		Conf.Server = viper.GetString("Server.Host")
-		Conf.Listenport = viper.GetString("Server.ListenPort")
+		cfg.Log = viper.GetString("Server.Log")
+		cfg.Errorlog = viper.GetString("Server.ErrorLog")
+		cfg.Server = viper.GetString("Server.Host")
+		cfg.Listenport = viper.GetString("Server.ListenPort")
 		//Roku section
-		Conf.Devflag = viper.GetBool("Roku.Development")
-		Conf.Rokuurl = viper.GetString("Roku.URL")
+		cfg.Devflag = viper.GetBool("Roku.Development")
+		cfg.Rokuurl = viper.GetString("Roku.URL")
 		//Authorization section
-		Conf.AuthString = viper.GetString("Authorization.CommonName")
+		cfg.AuthString = viper.GetString("Authorization.CommonName")
 		//SSL Cert/keysection
 
-		Conf.SSLcertname = viper.GetString("SSL.Certname")
-		Conf.SSLkeyname = viper.GetString("SSL.KeyName")
-		Conf.CAcert = viper.GetString("SSL.CAcert")
+		cfg.SSLcertname = viper.GetString("SSL.Certname")
+		cfg.SSLkeyname = viper.GetString("SSL.KeyName")
+		cfg.CAcert = viper.GetString("SSL.CAcert")
 
 		//autocert
-		Conf.Certdir = viper.GetString("Autocert.certdir")
-		Conf.Allowedhost = viper.GetString("Autocert.allowedhost")
+		cfg.Certdir = viper.GetString("Autocert.certdir")
+		cfg.Allowedhost = viper.GetString("Autocert.allowedhost")
 
 	}
 	return true
