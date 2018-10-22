@@ -185,13 +185,19 @@ func main() {
 	v.WriteString(rokulib.Conf.Server)
 	v.WriteString(":")
 	v.WriteString(rokulib.Conf.Listenport)
+
+	var httpv bytes.Buffer
+	httpv.WriteString(rokulib.Conf.Server)
+	httpv.WriteString(":")
+	httpv.WriteString("80")
+
 	srv := &http.Server{
 		Addr: v.String(),
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
 	}
-	go http.ListenAndServe(v.String(), certManager.HTTPHandler(nil))
+	go http.ListenAndServe(httpv.String(), certManager.HTTPHandler(nil))
 
 	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
 
