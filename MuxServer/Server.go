@@ -113,7 +113,7 @@ func main() {
 
 	hostPolicy := func(ctx context.Context, host string) error {
 		// Note: change to your real domain
-		allowedHost := "veeruns.raghavanonline.com"
+		allowedHost := rokulib.Conf.Allowedhost
 		if host == allowedHost {
 			return nil
 		}
