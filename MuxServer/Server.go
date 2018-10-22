@@ -199,6 +199,9 @@ func main() {
 	}
 	go http.ListenAndServe(httpv.String(), certManager.HTTPHandler(nil))
 
-	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
+	errssl := srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
+	if errssl != nil {
+		log.Fatalf("Cannot start ssl server because %s\n", errssl.Error())
+	}
 
 }
