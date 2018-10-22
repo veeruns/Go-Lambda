@@ -124,10 +124,10 @@ func main() {
 		MaxAge:     28,   //days
 		Compress:   true, // disabled by default
 	}
-	errlog := log.New()
+	errlog := log.StandardLogger()
+
 	errlog.Level = log.ErrorLevel
 	errlog.Out = &errjack
-	errlog = log.StandardLogger()
 
 	hostPolicy := func(ctx context.Context, host string) error {
 		// Note: change to your real domain
