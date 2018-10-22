@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestReadconfig(t *testing.T) {
+func TestReadConfig(t *testing.T) {
 	var c Config
 	op := readconfig(&c, "conf", "Server")
 	if c.Certdir != "/opt/httpsServer/conf/certs" {
@@ -15,7 +15,7 @@ func TestReadconfig(t *testing.T) {
 	}
 }
 
-func TestWrongdir(t *testing.T) {
+func TestWrongDir(t *testing.T) {
 	var c Config
 	op := readconfig(&c, "/opt/httpsServer/conf", "Server")
 	if op == true {
