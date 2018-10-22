@@ -18,10 +18,7 @@ func TestReadconfig(t *testing.T) {
 func TestWrongdir(t *testing.T) {
 	var c Config
 	op := readconfig(&c, "/opt/httpsServer/conf", "Server")
-	if c.Certdir != "/opt/httpsServer/conf/cert" {
-		t.Error("Exepcted /opt/httpsServer/conf/certs")
-	}
-	if op == false {
+	if op == true {
 		t.Fatal("There should not be anything there")
 	}
 }
