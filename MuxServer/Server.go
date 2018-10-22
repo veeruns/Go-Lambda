@@ -182,7 +182,7 @@ func main() {
 	}
 	go http.ListenAndServe(":80", certManager.HTTPHandler(nil))
 
-	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
+	srv.ListenAndServeTLS("", "")
 
 }
 
