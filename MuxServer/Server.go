@@ -111,7 +111,7 @@ func main() {
 	}
 	defer accesslog.Close()
 
-	errorLog, errerr := log.New("/opt/httpsServer/log/errorlog")
+	errorLog, errerr := os.OpenFile(rokulib.Conf.Errorlog, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if errerr != nil {
 		log.Fatal(errerr)
 		log.Fatal(errerr.Error())
