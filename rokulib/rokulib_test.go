@@ -18,7 +18,7 @@ func TestReadConfig(t *testing.T) {
 
 func TestWrongDir(t *testing.T) {
 	var c Config
-	op := readconfig(&c, "/opt/httpsServer/conf", "Server")
+	op := readconfig(&c, "/opt/httpsServer/confs", "Server")
 	fmt.Printf("Output is %v\n", op)
 	if op == true {
 		t.Fatal("There should not be anything there")
