@@ -47,6 +47,7 @@ type Config struct {
 	SSLkeyname  string
 	CAcert      string
 	Certdir     string
+	Allowedhost string
 }
 
 var Conf Config
@@ -102,6 +103,7 @@ func readconfig(*Config) bool {
 
 		//autocert
 		Conf.Certdir = viper.GetString("Autocert.certdir")
+		Conf.Allowedhost = viper.GetString("Autocert.allowedhost")
 
 	}
 	return true
