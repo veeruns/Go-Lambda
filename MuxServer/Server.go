@@ -111,6 +111,13 @@ func main() {
 	}
 	defer accesslog.Close()
 
+	errorLog, errerr := log.New("/opt/httpsServer/log/errorlog")
+	if errerr != nil {
+		log.Fatal(errerr)
+		log.Fatal(errerr.Error())
+	}
+	defer errorLog.Close()
+
 	hostPolicy := func(ctx context.Context, host string) error {
 		// Note: change to your real domain
 		allowedHost := rokulib.Conf.Allowedhost
