@@ -67,10 +67,10 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 		var works bool
 		switch {
 		case strings.Compare(functocall, "off") == 0:
-			works = rokulib.PowerOff("192.168.7.45:8060")
+			works = rokulib.PowerOff(rokulib.Conf.Rokuurl)
 			log.Infof("Rokulib returned %v\n", works)
 		case strings.TrimRight(functocall, "\n") == "on":
-			works = rokulib.PowerOn("192.168.7.45:8060")
+			works = rokulib.PowerOn(rokulib.Conf.Rokuurl)
 			log.Infof(" Rokulib PowerOn returned %v\n", works)
 		case len(channeltocall) > 0:
 			channelname := strings.TrimRight(channeltocall, "\n")
