@@ -125,7 +125,7 @@ func main() {
 		Cache:      autocert.DirCache(rokulib.Conf.Certdir),
 		HostPolicy: hostPolicy,
 	}
-  log.Debugf()
+	//	log.Debugf()
 	log.Debugf("certmanager config is %v\n", certManager.Cache)
 
 	var ljack lumberjack.Logger
@@ -198,7 +198,7 @@ func main() {
 		//		Handler:   mux,
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
-    ErrorLog : log.Logger
+		ErrorLog:  log.Logger,
 	}
 	go http.ListenAndServe(httpv.String(), certManager.HTTPHandler(nil))
 
