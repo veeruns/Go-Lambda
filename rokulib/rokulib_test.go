@@ -7,7 +7,7 @@ import (
 func Testreadconfig(t *testing.T) {
 	var c Config
 	readconfig(&c)
-	if c.Certdir != "/opt/httpsServer/conf/certs" {
+	if c.Certdir != "/opt/httpsServer/conf/cert" {
 		t.Error("Exepcted /opt/httpsServer/conf/certs")
 	}
 }
