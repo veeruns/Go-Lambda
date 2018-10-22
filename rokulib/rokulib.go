@@ -89,28 +89,27 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 	if err != nil {
 		fmt.Printf("Config file not found...%s\n", err.Error())
 		return false
-	} else {
-		//Server section
-		cfg.Log = viper.GetString("Server.Log")
-		cfg.Errorlog = viper.GetString("Server.ErrorLog")
-		cfg.Server = viper.GetString("Server.Host")
-		cfg.Listenport = viper.GetString("Server.ListenPort")
-		//Roku section
-		cfg.Devflag = viper.GetBool("Roku.Development")
-		cfg.Rokuurl = viper.GetString("Roku.URL")
-		//Authorization section
-		cfg.AuthString = viper.GetString("Authorization.CommonName")
-		//SSL Cert/keysection
-
-		cfg.SSLcertname = viper.GetString("SSL.Certname")
-		cfg.SSLkeyname = viper.GetString("SSL.KeyName")
-		cfg.CAcert = viper.GetString("SSL.CAcert")
-
-		//autocert
-		cfg.Certdir = viper.GetString("Autocert.certdir")
-		cfg.Allowedhost = viper.GetString("Autocert.allowedhost")
-		return true
 	}
+	//Server section
+	cfg.Log = viper.GetString("Server.Log")
+	cfg.Errorlog = viper.GetString("Server.ErrorLog")
+	cfg.Server = viper.GetString("Server.Host")
+	cfg.Listenport = viper.GetString("Server.ListenPort")
+	//Roku section
+	cfg.Devflag = viper.GetBool("Roku.Development")
+	cfg.Rokuurl = viper.GetString("Roku.URL")
+	//Authorization section
+	cfg.AuthString = viper.GetString("Authorization.CommonName")
+	//SSL Cert/keysection
+
+	cfg.SSLcertname = viper.GetString("SSL.Certname")
+	cfg.SSLkeyname = viper.GetString("SSL.KeyName")
+	cfg.CAcert = viper.GetString("SSL.CAcert")
+
+	//autocert
+	cfg.Certdir = viper.GetString("Autocert.certdir")
+	cfg.Allowedhost = viper.GetString("Autocert.allowedhost")
+	return true
 
 }
 
