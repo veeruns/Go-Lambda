@@ -85,7 +85,7 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 	viper.SetConfigName(confname)
 	viper.AddConfigPath(confdir)
 	err := viper.ReadInConfig()
-	fmt.printf("%s\n %s\n", confdir, confname)
+	fmt.Printf("%s\n %s\n", confdir, confname)
 	if err != nil {
 		fmt.Printf("Config file not found...%s\n", err.Error())
 		return false
