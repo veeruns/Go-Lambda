@@ -36,6 +36,7 @@ type apps struct {
 	App     []app    `xml:"app"`
 }
 
+//Config is the Configuration structure
 type Config struct {
 	Server      string
 	Listenport  string
@@ -51,6 +52,7 @@ type Config struct {
 	Allowedhost string
 }
 
+//Conf is the
 var Conf Config
 
 //var datachan chan *HttpResponse
