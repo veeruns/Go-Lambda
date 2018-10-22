@@ -76,7 +76,7 @@ func RokuServer(w http.ResponseWriter, req *http.Request) {
 			channelname := strings.TrimRight(channeltocall, "\n")
 			valuid := rokulib.ChannelHash[channelname]
 			log.Infof("Channel Name is %s and Channel id is %d\n", channelname, valuid)
-			works = rokulib.LaunchChannel("192.168.7.45:8060", valuid)
+			works = rokulib.LaunchChannel(rokulib.Conf.Rokuurl), valuid)
 			log.Infof("Rokulib returned the %v\n", works)
 		default:
 			works = false
