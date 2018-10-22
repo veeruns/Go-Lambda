@@ -117,6 +117,14 @@ func main() {
 		log.Fatal(errerr.Error())
 	}
 	defer errorLog.Close()
+	errlog := log.New(&lumberjack.Logger{
+		Filename:   rokulib.Conf.Errorlog,
+		MaxSize:    5, // megabytes
+		MaxBackups: 3,
+		MaxAge:     28,   //days
+		Compress:   true, // disabled by default
+		Level:      log.ErrorLevel,
+	})
 
 	hostPolicy := func(ctx context.Context, host string) error {
 		// Note: change to your real domain
