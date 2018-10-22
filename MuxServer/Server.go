@@ -180,7 +180,7 @@ func main() {
 		ClientAuth:         tls.RequireAndVerifyClientCert,
 		InsecureSkipVerify: true,
 		ClientCAs:          caCertPool,
-		GetCertificate:     certManager.GetCertificate,
+		//GetCertificate:     certManager.GetCertificate,
 	}
 
 	var v bytes.Buffer
@@ -195,7 +195,7 @@ func main() {
 	}
 	go http.ListenAndServe(":80", certManager.HTTPHandler(nil))
 
-	srv.ListenAndServeTLS("", "")
+	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
 
 }
 
