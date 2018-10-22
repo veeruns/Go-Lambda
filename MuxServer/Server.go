@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
@@ -109,9 +110,20 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	defer accesslog.Close()
+
+	hostPolicy := func(ctx context.Context, host string) error {
+		// Note: change to your real domain
+		allowedHost := "veeruns.raghavanonline.com"
+		if host == allowedHost {
+			return nil
+		}
+		return log.Infof("acme/autocert: only %s host is allowed", allowedHost)
+	}
+
 	certManager := autocert.Manager{
-		Prompt: autocert.AcceptTOS,
-		Cache:  autocert.DirCache("certs"),
+		Prompt:     autocert.AcceptTOS,
+		Cache:      autocert.DirCache("certs"),
+		HostPolicy: hostPolicy,
 	}
 
 	var ljack lumberjack.Logger
@@ -170,6 +182,7 @@ func main() {
 		ClientCAs:          caCertPool,
 		GetCertificate:     certManager.GetCertificate,
 	}
+
 	var v bytes.Buffer
 	v.WriteString(rokulib.Conf.Server)
 	v.WriteString(":")
