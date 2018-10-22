@@ -108,9 +108,9 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 		//autocert
 		cfg.Certdir = viper.GetString("Autocert.certdir")
 		cfg.Allowedhost = viper.GetString("Autocert.allowedhost")
-
+		return true
 	}
-	return true
+
 }
 
 //PowerOff function sends poweroff to roku
