@@ -29,6 +29,7 @@ func TestWrongDir(t *testing.T) {
 }
 
 func TestPowerOff(t *testing.T) {
+	InitLib()
 	op := PowerOff("10.0.0.3:85")
 	if op != true {
 		t.Error("Has to return true")
