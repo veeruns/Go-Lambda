@@ -20,7 +20,7 @@ import (
 	"github.com/natefinch/lumberjack"
 	log "github.com/sirupsen/logrus"
 	"github.com/veeruns/Go-Lambda/rokulib"
-  "golang.org/x/crypto/acme/autocert"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 type config struct {
@@ -108,13 +108,11 @@ func main() {
 		log.Fatal(err)
 		log.Fatal(err.Error())
 	}
-	defer accesslog.Close
-  certManager := autocert.Manager{
+	defer accesslog.Close()
+	certManager := autocert.Manager{
 		Prompt: autocert.AcceptTOS,
 		Cache:  autocert.DirCache("certs"),
 	}
-
-
 
 	var ljack lumberjack.Logger
 	ljack = lumberjack.Logger{
@@ -168,7 +166,7 @@ func main() {
 		ClientAuth:         tls.RequireAndVerifyClientCert,
 		InsecureSkipVerify: true,
 		ClientCAs:          caCertPool,
-    GetCertificate: certManager.GetCertificate,
+		GetCertificate:     certManager.GetCertificate,
 	}
 	var v bytes.Buffer
 	v.WriteString(rokulib.Conf.Server)
@@ -180,7 +178,7 @@ func main() {
 		TLSConfig: cfg,
 		Handler:   loggedRouter,
 	}
-  go http.ListenAndServe(":80", certManager.HTTPHander(nil))
+	go http.ListenAndServe(":80", certManager.HTTPHander(nil))
 
 	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
 
