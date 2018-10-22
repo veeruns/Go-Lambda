@@ -198,17 +198,3 @@ func main() {
 	srv.ListenAndServeTLS(rokulib.Conf.SSLcertname, rokulib.Conf.SSLkeyname)
 
 }
-
-/*
-func logMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		tag := fmt.Sprintf("[%s -> %s]", req.URL, req.RemoteAddr)
-		log.Infof(format)("%s accept", tag)
-
-		if len(req.TLS.PeerCertificates) > 0 {
-			log.Infof("%s client common name: %+v", tag, req.TLS.PeerCertificates[0].Subject.CommonName)
-		}
-
-		next.ServeHTTP(w, req)
-	})
-}*/
