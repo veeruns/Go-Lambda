@@ -6,9 +6,9 @@ import (
 
 func TestReadconfig(t *testing.T) {
 	var c Config
-	op := readconfig(&c, "/opt/httpsServer/conf", "Server")
+	op := readconfig(&c, "conf", "Server")
 	if c.Certdir != "/opt/httpsServer/conf/certs" {
-		t.Error("Exepcted /opt/httpsServer/conf/certs")
+		t.Error("Expected /opt/httpsServer/conf/certs")
 	}
 	if op == false {
 		t.Fatal("It should always be true")
