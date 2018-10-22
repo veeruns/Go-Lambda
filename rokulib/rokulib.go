@@ -148,6 +148,16 @@ func LaunchChannel(hostname string, channelid int) bool {
 
 }
 
+func Pause(hostname string) bool {
+	var url bytes.Buffer
+	url.WriteString("http://")
+	url.WriteString(hostname)
+	url.WriteString("/keypress/Play")
+	flagsignal <- url.String()
+	return true
+}
+
+//launch/837?contentID=VIDEOID"
 func workerpool() {
 	flag = Conf.Devflag
 	signal.Notify(signalchannel, syscall.SIGHUP)
