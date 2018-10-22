@@ -35,3 +35,11 @@ func TestPowerOff(t *testing.T) {
 		t.Error("Has to return true")
 	}
 }
+
+func TestPowerOn(t *testing.T) {
+	InitLib()
+	op := PowerOn("10.0.0.3:85")
+	if op != true {
+		t.Error("Has to return true")
+	}
+}
