@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Open file on disk.
-	f, _ := os.Open("./coin.jpg")
+	f, _ := os.Open("./5mb.jpg")
 
 	// Read entire JPG into byte slice.
 	reader := bufio.NewReader(f)
