@@ -13,4 +13,5 @@ Go functions in Lamda
 ---
 ## Todo
 
-1. Raspberry pi, opencv motion detector + AMAZON rekognition + Alexa 
+1. Raspberry pi, opencv motion detector + AMAZON rekognition + Alexa
+2. Raspberry Pi, plex media server + Alexa 
