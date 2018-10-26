@@ -26,3 +26,17 @@ pkcs11-tool --module /usr/local/lib/softhsm/libsofthsm2.so --keypairgen --key-ty
 sudo LD_LIBRARY_PATH=/usr/local/lib/ OPENSSL_CONF=openssl.cnf /usr/local/bin/openssl req -new -x509 -days 7300 -sha256 -engine pkcs11 -keyform engine -key 1810989539:10 -out CACERT.pem
 
 ```
+* Create Slot for Intermediate CA keys.
+
+```
+softhsm2-util --init-token --slot 318488403 --label "IntermediateCA"
+
+```
+
+* Create intermediate key
+
+```
+
+pkcs11-tool --module /usr/local/lib/softhsm/libsofthsm2.so --keypairgen --key-type rsa:4096  --id 10 --login --usage-sign --label "INTERMEDIATE_CA_KEY" --slot 318488403
+
+```
