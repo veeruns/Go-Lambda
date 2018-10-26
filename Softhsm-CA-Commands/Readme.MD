@@ -40,3 +40,22 @@ softhsm2-util --init-token --slot 318488403 --label "IntermediateCA"
 pkcs11-tool --module /usr/local/lib/softhsm/libsofthsm2.so --keypairgen --key-type rsa:4096  --id 10 --login --usage-sign --label "INTERMEDIATE_CA_KEY" --slot 318488403
 
 ```
+
+* Create Intermediate CA CSR
+```
+sudo LD_LIBRARY_PATH=/usr/local/lib/ OPENSSL_CONF=openssl.cnf /usr/local/bin/openssl req -new -sha256 -engine pkcs11 -keyform engine -key 318488403:10 -out csr/intermediate.csr.pem
+
+```
+
+* Sign the CSR with rootCA
+```
+sudo LD_LIBRARY_PATH=/usr/local/lib/ OPENSSL_CONF=openssl.cnf /usr/local/bin/openssl x509 -req  -CAkeyform engine -engine pkcs11 -in ../IntermediateCA/csr/intermediate.csr.pem -CA ./CACERT.pem  -CAkey 1810989539:10 -days 3650 -sha256 -out ../IntermediateCA/certs/Intermediate.cert.pem -set_serial 1001
+```
+
+* Generate Server Cert Key and CSR the normal always
+
+* Sign using key from pkcs11 store
+```
+sudo LD_LIBRARY_PATH=/usr/local/lib/ OPENSSL_CONF=openssl.cnf /usr/local/bin/openssl ca  -extensions server_cert -keyform engine -engine pkcs11 -keyfile 318488403:10 -in csr/server.csr -out certs/server.cert.pem
+
+```
