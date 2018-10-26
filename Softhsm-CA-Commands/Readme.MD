@@ -20,3 +20,9 @@ Openssl.
 ```
 pkcs11-tool --module /usr/local/lib/softhsm/libsofthsm2.so --keypairgen --key-type rsa:4096  --id 10 --login --usage-sign --label "ROOT_CA_KEY" --slot 1810989539
 ```
+
+* Create root Certificate with about key, the directory the root CA cert is stored is readable by root only. Version of openssl in my raspberry pi has a bug, hence had to compile. note the key is slotid:index number. I think you can give slot_name:label_label_of_token also, have to check it output
+```
+sudo LD_LIBRARY_PATH=/usr/local/lib/ OPENSSL_CONF=openssl.cnf /usr/local/bin/openssl req -new -x509 -days 7300 -sha256 -engine pkcs11 -keyform engine -key 1810989539:10 -out CACERT.pem
+
+```
