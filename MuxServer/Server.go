@@ -154,7 +154,7 @@ func main() {
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
 
-	mux.HandleFunc("/roku", RokuServer)
+	mux.HandleFunc("/roku", RokuServer).Methods("GET")
 
 	loggedRouter := handlers.CombinedLoggingHandler(&ljack, mux)
 	//mux.Use(handlers.CombinedLoggingHandler(os.StdOut, ))
