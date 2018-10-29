@@ -153,6 +153,7 @@ func main() {
 	log.Infof("Server Configuration %s", rokulib.Conf.Server)
 	log.Infof("Server port %s", rokulib.Conf.Listenport)
 	log.Infof("Server access log path %s", rokulib.Conf.Log)
+
 	mux.HandleFunc("/roku", RokuServer)
 
 	loggedRouter := handlers.CombinedLoggingHandler(&ljack, mux)
