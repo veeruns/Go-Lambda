@@ -16,6 +16,7 @@ before_script:
   - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
   - cd $GOPATH/src/$REPO_NAME
   - make dep
+  - go get -t ./...
 
 stages:
     - test
