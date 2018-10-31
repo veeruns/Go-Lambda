@@ -14,7 +14,7 @@ test: ## Run unittests
   @go test -short ${PKG_LIST}
 
 race: dep ## Run data race detector
-  @go test -race -short ${PKG_LIST}
+	@go test -race -short ${PKG_LIST}
 
 msan: dep ## Run memory sanitizer
   @go test -msan -short ${PKG_LIST}
