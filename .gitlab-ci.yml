@@ -30,8 +30,15 @@ format:
 compile:
     stage: build
     script:
-      - GOOS=linux GOARCH=arm GOARM=5 go build  -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/Server
-      - GOOS=linux GOARCH=arm GOARM=5 go build  MuxServer/Server.go -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/Server
+      - mkdir -p $CI_PROJECT_DIR/artifacts
+      - cd $GOPATH/src/$REPO_NAME
+      - cd MuxServer && GOOS=linux GOARCH=arm GOARM=5 go build  -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/artifacts/Server && cd -
+      - cd Utils/setuid && go build  -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/artifacts/setuid && cd -
+      - cd Utils/upload-to-dynamodb && go build  -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/artifacts/dynamodb && cd -
+
+
     artifacts:
       paths:
-        - Server
+        - artificats/Server
+        - artificats/setuid
+        - artificats/dynamodb
