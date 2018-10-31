@@ -14,6 +14,7 @@ variables:
 before_script:
   - mkdir -p $GOPATH/src/$(dirname $REPO_NAME)
   - ln -svf $CI_PROJECT_DIR $GOPATH/src/$REPO_NAME
+  - mkdir -p $CI_PROJECT_DIR/artifacts
   - cd $GOPATH/src/$REPO_NAME
   - make dep
   - go get -t ./...
@@ -30,7 +31,6 @@ format:
 compile:
     stage: build
     script:
-      - mkdir -p $CI_PROJECT_DIR/artifacts
       - cd $GOPATH/src/$REPO_NAME
       - cd MuxServer && GOOS=linux GOARCH=arm GOARM=5 go build  -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/artifacts/Server && cd -
       - cd Utils/setuid && go build  -ldflags "-extldflags '-static'" -o $CI_PROJECT_DIR/artifacts/setuid && cd -
