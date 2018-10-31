@@ -33,6 +33,7 @@ type config struct {
 }
 
 func RokuServer(w http.ResponseWriter, req *http.Request) {
+
 	var functocall string
 	var channeltocall string
 	functocall = req.URL.Query().Get("func")
