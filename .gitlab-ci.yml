@@ -39,6 +39,6 @@ compile:
 
     artifacts:
       paths:
-        - artificats/Server
-        - artificats/setuid
-        - artificats/dynamodb
+        - artifacts/Server
+        - artifacts/setuid
+        - artifacts/dynamodb
