@@ -12,6 +12,8 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 
+	"path/filepath"
+
 	"github.com/spf13/viper"
 )
 
@@ -65,9 +67,10 @@ func AddFileToS3(s *session.Session, fileDir string) error {
 
 	// Config settings: this is where you choose the bucket, filename, content-type etc.
 	// of the file you're uploading.
+	basepath := filepath.Base(fileDir)
 	_, err = s3.New(s).PutObject(&s3.PutObjectInput{
 		Bucket:               aws.String(Conf.s3_bucket),
-		Key:                  aws.String(fileDir),
+		Key:                  aws.String(basepath),
 		ACL:                  aws.String("private"),
 		Body:                 bytes.NewReader(buffer),
 		ContentLength:        aws.Int64(size),
