@@ -5,3 +5,4 @@ rokulib/conf/*.conf
 rokulib/conf/*.toml
 Server
 httpsServer
+*.secret
