@@ -2,13 +2,17 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+
+	"github.com/spf13/viper"
 )
 
 // TODO fill these in!
@@ -17,10 +21,19 @@ const (
 	S3_BUCKET = "image.dump"
 )
 
-func main() {
+type Config struct {
+	s3_bucket         string
+	s3_region         string
+	access_key_id     string
+	access_key_secret string
+}
 
+var Conf Config
+
+func main() {
+	readconfig(&Conf, "/etc/motion/", "creds")
 	// Create a single AWS session (we can re use this if we're uploading many files)
-	s, err := session.NewSession(&aws.Config{Region: aws.String(S3_REGION)})
+	s, err := session.NewSession(&aws.Config{Credentials: credentials.NewStaticCredentials(Conf.access_key_id, Conf.access_key_secret, ""), Region: aws.String(Conf.s3_region)})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -53,7 +66,7 @@ func AddFileToS3(s *session.Session, fileDir string) error {
 	// Config settings: this is where you choose the bucket, filename, content-type etc.
 	// of the file you're uploading.
 	_, err = s3.New(s).PutObject(&s3.PutObjectInput{
-		Bucket:               aws.String(S3_BUCKET),
+		Bucket:               aws.String(Conf.s3_bucket),
 		Key:                  aws.String(fileDir),
 		ACL:                  aws.String("private"),
 		Body:                 bytes.NewReader(buffer),
@@ -63,4 +76,24 @@ func AddFileToS3(s *session.Session, fileDir string) error {
 		ServerSideEncryption: aws.String("AES256"),
 	})
 	return err
+}
+
+//Readconfig File
+func readconfig(cfg *Config, confdir string, confname string) bool {
+	viper.SetConfigName(confname)
+	viper.AddConfigPath(confdir)
+	err := viper.ReadInConfig()
+
+	if err != nil {
+		fmt.Printf("Config file not found...%s\n", err.Error())
+		return false
+	}
+	//Server section
+	cfg.access_key_id = viper.GetString("aws.access_key_id")
+	cfg.access_key_secret = viper.GetString("aws.access_key_secret")
+	cfg.s3_bucket = viper.GetString("aws.s3_bucket")
+	cfg.s3_region = viper.GetString("aws.s3_region")
+
+	return true
+
 }
