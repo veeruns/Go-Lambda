@@ -31,7 +31,7 @@ type Config struct {
 var Conf Config
 
 func main() {
-	readconfig(&Conf, "/etc/motion/", "creds")
+	readconfig(&Conf, "/etc/motion", "creds")
 	// Create a single AWS session (we can re use this if we're uploading many files)
 	s, err := session.NewSession(&aws.Config{Credentials: credentials.NewStaticCredentials(Conf.access_key_id, Conf.access_key_secret, ""), Region: aws.String(Conf.s3_region)})
 	if err != nil {
