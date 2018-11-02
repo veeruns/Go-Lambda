@@ -45,10 +45,12 @@ func main() {
 	//CleanupBucket(s)
 	// Upload
 	filename := os.Args[1]
+	bpath = filepath.Base(filename)
 	err = AddFileToS3(s, filename)
 	if err != nil {
 		log.Fatal(err)
 	}
+	DetectFaces(s, bpath)
 }
 func CleanupBucket(s *session.Session) bool {
 	svc := s3.New(s)
