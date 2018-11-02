@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -133,14 +134,14 @@ func DetectFaces(s *session.Session, filename string) {
 	}
 	defer imgFile.Close()
 
-	fInfo, _ := imgFile.Stat() // So that we know the size of buffer to create
-	var size int64 = fInfo.Size()
-	buf := make([]byte, size) // Make a buffer with size we got earlier
+	/*	fInfo, _ := imgFile.Stat() // So that we know the size of buffer to create
+		var size int64 = fInfo.Size()
+		buf := make([]byte, size) */ // Make a buffer with size we got earlier
 
 	fReader := bufio.NewReader(imgFile) //Use bufio to read it to buffer
-	fReader.Read(buf)
+	content, _ = ioutil.ReadAll(fReader)
 
-	imgBase64Str := base64.StdEncoding.EncodeToString(buf) //base64 encoded string
+	imgBase64Str := base64.StdEncoding.EncodeToString(content) //base64 encoded string
 
 	svc := rekognition.New(s)
 	/*
