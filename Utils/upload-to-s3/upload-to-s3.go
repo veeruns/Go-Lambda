@@ -6,8 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-
+  "bufio"
 	"path/filepath"
+  "encoding/base64"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -45,12 +46,12 @@ func main() {
 	//CleanupBucket(s)
 	// Upload
 	filename := os.Args[1]
-	bpath := filepath.Base(filename)
+	DetectFaces(s, filename)
 	err = AddFileToS3(s, filename)
 	if err != nil {
 		log.Fatal(err)
 	}
-	DetectFaces(s, bpath)
+//	DetectFaces(s, filename)
 }
 func CleanupBucket(s *session.Session) bool {
 	svc := s3.New(s)
@@ -119,9 +120,28 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 	return true
 
 }
-
+//DetectFaces Labels, Now I do not want to upload to S3 if no humans are detected. So
 func DetectFaces(s *session.Session, filename string) {
+  // Read the file to buffer
+  imgFile,err := os.Open(filename)
+
+  if(err != nil){
+    fmt.Printf("Oops some error %s\n",err.Error())
+    os.Exit(1)
+  }
+  defer imgFile.Close()
+
+  fInfo, _ := imgFile.Stat() // So that we know the size of buffer to create
+  var size int64 = fInfo.Size()
+  buf := make([]byte, size) // Make a buffer with size we got earlier
+
+  fReader := bufio.NewReader(imgFile) //Use bufio to read it to buffer
+  fReader.Read(buf)
+
+  imgBase64Str := base64.StdEncoding.EncodeToString(buf) //base64 encoded string
+
 	svc := rekognition.New(s)
+  /*
 	input := &rekognition.DetectLabelsInput{
 		Image: &rekognition.Image{
 			S3Object: &rekognition.S3Object{
@@ -131,7 +151,15 @@ func DetectFaces(s *session.Session, filename string) {
 		},
 		MaxLabels:     aws.Int64(123),
 		MinConfidence: aws.Float64(70.000000),
-	}
+	} */
+  input := &rekognition.DetectLabelsInput{
+    Image: &rekognition.Image{
+      Bytes: imgBase64Str
+    },
+    MaxLabels:     aws.Int64(123),
+    MinConfidence: aws.Float64(70.000000),
+  }
+
 
 	result, err := svc.DetectLabels(input)
 	if err != nil {
