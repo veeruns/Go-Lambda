@@ -47,10 +47,11 @@ func main() {
 	// Upload
 	filename := os.Args[1]
 	DetectFaces(s, filename)
-	err = AddFileToS3(s, filename)
-	if err != nil {
-		log.Fatal(err)
-	}
+	/*
+		err = AddFileToS3(s, filename)
+		if err != nil {
+			log.Fatal(err)
+		}*/
 	//	DetectFaces(s, filename)
 }
 func CleanupBucket(s *session.Session) bool {
