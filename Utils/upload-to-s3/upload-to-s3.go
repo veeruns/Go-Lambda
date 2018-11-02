@@ -264,12 +264,12 @@ func DetectLabels(s *session.Session, filename string) bool {
 			// Message from an error.
 			fmt.Println(err.Error())
 		}
-		return
+		return false
 	}
 
 	fmt.Println(result)
 	for v := range result.Labels {
 		fmt.Printf("%s\n", v.Name)
 	}
-
+	return true
 }
