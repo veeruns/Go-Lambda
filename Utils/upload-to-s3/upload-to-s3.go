@@ -204,7 +204,7 @@ func DetectFaces(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
-	json.Unmarshal([]byte(result.GoString()), &detectlabel)
+
 }
 
 func DetectLabels(s *session.Session, filename string) {
@@ -268,4 +268,6 @@ func DetectLabels(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
+	json.Unmarshal([]byte(result.GoString()), &detectlabel)
+	fmt.Printf("%s\n", detectlabel.labels[1].Name)
 }
