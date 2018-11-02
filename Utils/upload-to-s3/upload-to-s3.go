@@ -58,7 +58,7 @@ func main() {
 	filename := os.Args[1]
 	DetectFaces(s, filename)
  op:=	DetectLabels(s, filename)
-	if(op == true)
+	if(op == true){}
 		err = AddFileToS3(s, filename)
 		if err != nil {
 			log.Fatal(err)
