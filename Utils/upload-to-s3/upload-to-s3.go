@@ -40,7 +40,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	CleanupBucket(s)
+	//CleanupBucket(s)
 	// Upload
 	filename := os.Args[1]
 	err = AddFileToS3(s, filename)
