@@ -34,8 +34,8 @@ type label struct {
 }
 
 type labelresponse struct {
-	labelmodelversion string  `json:LabelModelVersion`
-	labels            []label `json:Labels`
+	labelmodelversion string  `json:labelModelVersion`
+	labels            []label `json:labels`
 }
 type Config struct {
 	s3_bucket         string
