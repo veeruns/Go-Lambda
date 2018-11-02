@@ -269,5 +269,5 @@ func DetectLabels(s *session.Session, filename string) {
 
 	fmt.Println(result)
 	json.Unmarshal([]byte(result.GoString()), &detectlabel)
-	fmt.Printf("%s\n", detectlabel.labels)
+	fmt.Printf("%s\n", detectlabel.labels[1].Name)
 }
