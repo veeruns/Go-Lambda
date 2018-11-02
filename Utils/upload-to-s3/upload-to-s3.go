@@ -27,10 +27,11 @@ const (
 	S3_BUCKET = "image.dump"
 )
 
-type Label struct {
+type label struct {
 	Confidence float64
 	Name       string
 }
+
 type Config struct {
 	s3_bucket         string
 	s3_region         string
