@@ -45,6 +45,7 @@ type Config struct {
 }
 
 var Conf Config
+var detectlabel labelresponse
 
 func main() {
 	readconfig(&Conf, "/etc/motion", "creds")
@@ -203,7 +204,7 @@ func DetectFaces(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
-	json.Unmarshal([]byte(result.GoString()), &label)
+	json.Unmarshal([]byte(result.GoString()), &detectlabel)
 }
 
 func DetectLabels(s *session.Session, filename string) {
