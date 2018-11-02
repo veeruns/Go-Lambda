@@ -162,7 +162,7 @@ func DetectFaces(s *session.Session, filename string) {
 		MinConfidence: aws.Float64(70.000000),
 	}
 
-	result, err := svc.DetectLabels(input)
+	result, err := svc.DetectFaces(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
 			switch aerr.Code() {
