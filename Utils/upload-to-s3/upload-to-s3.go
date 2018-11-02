@@ -158,8 +158,6 @@ func DetectFaces(s *session.Session, filename string) {
 		Image: &rekognition.Image{
 			Bytes: []byte(content),
 		},
-		MaxLabels:     aws.Int64(123),
-		MinConfidence: aws.Float64(70.000000),
 	}
 
 	result, err := svc.DetectFaces(input)
