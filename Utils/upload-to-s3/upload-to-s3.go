@@ -157,7 +157,7 @@ func DetectFaces(s *session.Session, filename string) {
 		} */
 	input := &rekognition.DetectLabelsInput{
 		Image: &rekognition.Image{
-			Bytes: []byte(imgBase64Str),
+			Bytes: []byte(content),
 		},
 		MaxLabels:     aws.Int64(123),
 		MinConfidence: aws.Float64(70.000000),
