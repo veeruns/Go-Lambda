@@ -51,12 +51,12 @@ func main() {
 func CleanupBucket(s *session.Session) bool {
 	svc := s3.New(s)
 	iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
-		Bucket: aws.String(bucket),
+		Bucket: aws.String(Conf.s3_bucket),
 	})
 
 	// Traverse iterator deleting each object
 	if err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter); err != nil {
-		exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
+		fmt.Errorf("Unable to delete objects from bucket %q, %v", bucket, err)
 	}
 	return true
 
