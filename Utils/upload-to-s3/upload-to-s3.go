@@ -45,7 +45,7 @@ func main() {
 	//CleanupBucket(s)
 	// Upload
 	filename := os.Args[1]
-	bpath = filepath.Base(filename)
+	bpath := filepath.Base(filename)
 	err = AddFileToS3(s, filename)
 	if err != nil {
 		log.Fatal(err)
@@ -121,7 +121,7 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 }
 
 func DetectFaces(s *session.Session, filename string) {
-	svc := rekognition.New(session.New())
+	svc := rekognition.New(s)
 	input := &rekognition.DetectLabelsInput{
 		Image: &rekognition.Image{
 			S3Object: &rekognition.S3Object{
