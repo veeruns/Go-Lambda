@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 
 	"path/filepath"
 
@@ -39,13 +40,26 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	CleanupBucket(s)
 	// Upload
 	filename := os.Args[1]
 	err = AddFileToS3(s, filename)
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+func CleanupBucket(s *session.Session) bool {
+	svc := s3.New(s)
+	iter := s3manager.NewDeleteListIterator(svc, &s3.ListObjectsInput{
+		Bucket: aws.String(bucket),
+	})
+
+	// Traverse iterator deleting each object
+	if err := s3manager.NewBatchDeleteWithClient(svc).Delete(aws.BackgroundContext(), iter); err != nil {
+		exitErrorf("Unable to delete objects from bucket %q, %v", bucket, err)
+	}
+	return true
+
 }
 
 // AddFileToS3 will upload a single file to S3, it will require a pre-built aws session
