@@ -29,13 +29,13 @@ const (
 )
 
 type label struct {
-	Confidence float64 `json:"confidence"`
-	Name       string  `json:"name"`
+	Confidence float64 `json:"Confidence"`
+	Name       string  `json:"Name"`
 }
 
 type Labelresponse struct {
-	Labelmodelversion string  `json:"labelmodelversion"`
-	Labels            []label `json:"labels"`
+	LabelModelVersion string  `json:"LabelModelVersion"`
+	Labels            []label `json:"Labels"`
 }
 type Config struct {
 	s3_bucket         string
