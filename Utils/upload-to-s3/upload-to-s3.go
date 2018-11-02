@@ -57,12 +57,13 @@ func main() {
 	// Upload
 	filename := os.Args[1]
 	DetectFaces(s, filename)
-	DetectLabels(s, filename)
-	/*
+ op:=	DetectLabels(s, filename)
+	if(op == true)
 		err = AddFileToS3(s, filename)
 		if err != nil {
 			log.Fatal(err)
-		}*/
+		}
+  }
 	//	DetectFaces(s, filename)
 }
 func CleanupBucket(s *session.Session) bool {
@@ -269,7 +270,9 @@ func DetectLabels(s *session.Session, filename string) bool {
 
 	fmt.Println(result)
 	for _, v := range result.Labels {
-		fmt.Printf("%s\n", *v.Name)
+		if *v.Name == "Human"{
+      return true
+    }
 	}
-	return true
+	return false
 }
