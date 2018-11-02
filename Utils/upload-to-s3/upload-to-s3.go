@@ -45,7 +45,7 @@ type Config struct {
 }
 
 var Conf Config
-var detectlabel labelresponse
+var detectlabel Labelresponse
 
 func main() {
 	readconfig(&Conf, "/etc/motion", "creds")
