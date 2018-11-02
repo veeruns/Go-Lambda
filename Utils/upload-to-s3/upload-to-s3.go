@@ -29,11 +29,11 @@ const (
 )
 
 type label struct {
-	Confidence float64
-	Name       string
+	Confidence float64 `json:"confidence"`
+	Name       string  `json:"name"`
 }
 
-type labelresponse struct {
+type Labelresponse struct {
 	Labelmodelversion string  `json:"labelmodelversion"`
 	Labels            []label `json:"labels"`
 }
@@ -268,6 +268,10 @@ func DetectLabels(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
-	json.Unmarshal([]byte(result.GoString()), &detectlabel)
-	fmt.Printf("%v\n", detectlabel)
+	err2 := json.Unmarshal([]byte(result.GoString()), &detectlabel)
+	if err2 != nil {
+		fmt.Printf("Error deteted %s\n", err2.Error())
+	} else {
+		fmt.Printf("%v\n", detectlabel)
+	}
 }
