@@ -268,7 +268,7 @@ func DetectLabels(s *session.Session, filename string) bool {
 	}
 
 	fmt.Println(result)
-	for v := range *result.Labels {
+	for v := range result.Labels {
 		fmt.Printf("%s\n", v.Name)
 	}
 
