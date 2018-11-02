@@ -236,7 +236,8 @@ func DetectLabels(s *session.Session, filename string) {
 		MinConfidence: aws.Float64(70.000000),
 	}
 
-	result, err := svc.DetectLabels(input)
+	var result rekognition.DetectLabelsOutput
+	result, err = svc.DetectLabels(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
 			switch aerr.Code() {
@@ -268,6 +269,7 @@ func DetectLabels(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
+
 	err2 := json.Unmarshal([]byte(result.GoString()), &detectlabel)
 	if err2 != nil {
 		fmt.Printf("Error deteted %s\n", err2.Error())
