@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -202,6 +203,7 @@ func DetectFaces(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
+	json.Unmarshal(result, label)
 }
 
 func DetectLabels(s *session.Session, filename string) {
