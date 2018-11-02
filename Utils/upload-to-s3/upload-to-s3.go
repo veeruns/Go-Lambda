@@ -139,9 +139,9 @@ func DetectFaces(s *session.Session, filename string) {
 		buf := make([]byte, size) */ // Make a buffer with size we got earlier
 
 	fReader := bufio.NewReader(imgFile) //Use bufio to read it to buffer
-	content, _ = ioutil.ReadAll(fReader)
+	content, _ := ioutil.ReadAll(fReader)
 
-	imgBase64Str := base64.StdEncoding.EncodeToString(content) //base64 encoded string
+	imgBase64Str := base64.StdEncoding.DecodeString(content) //base64 encoded string
 
 	svc := rekognition.New(s)
 	/*
