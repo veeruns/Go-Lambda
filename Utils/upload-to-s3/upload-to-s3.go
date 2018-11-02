@@ -34,7 +34,7 @@ type label struct {
 }
 
 type labelresponse struct {
-	labelmodelversion string  `json:labelModelVersion`
+	labelmodelversion string  `json:labelmodelversion`
 	labels            []label `json:labels`
 }
 type Config struct {
