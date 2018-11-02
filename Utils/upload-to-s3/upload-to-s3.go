@@ -118,13 +118,13 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 
 }
 
-func DetectFaces(s *session.Session) {
-	svc := rekognition.New(s.New())
+func DetectFaces(s *session.Session, filename string) {
+	svc := rekognition.New(session.New())
 	input := &rekognition.DetectLabelsInput{
 		Image: &rekognition.Image{
 			S3Object: &rekognition.S3Object{
-				Bucket: aws.String("mybucket"),
-				Name:   aws.String("myphoto"),
+				Bucket: aws.String(Conf.s3_bucket),
+				Name:   aws.String(filename),
 			},
 		},
 		MaxLabels:     aws.Int64(123),
