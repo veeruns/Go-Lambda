@@ -268,6 +268,6 @@ func DetectLabels(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
-	fmt.Printf("%s\n", result.Labels[1].Name)
+	fmt.Printf("%s\n", *result.Labels[1].Name)
 
 }
