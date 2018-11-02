@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -269,11 +268,6 @@ func DetectLabels(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
+	fmt.Printf("%s\n", result.Labels[1].Name)
 
-	err2 := json.Unmarshal([]byte(result.GoString()), &detectlabel)
-	if err2 != nil {
-		fmt.Printf("Error deteted %s\n", err2.Error())
-	} else {
-		fmt.Printf("%v\n", detectlabel)
-	}
 }
