@@ -203,7 +203,7 @@ func DetectFaces(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
-	json.Unmarshal(result, label)
+	json.Unmarshal(result, &label)
 }
 
 func DetectLabels(s *session.Session, filename string) {
