@@ -206,7 +206,7 @@ func DetectFaces(s *session.Session, filename string) {
 
 }
 
-func DetectLabels(s *session.Session, filename string) {
+func DetectLabels(s *session.Session, filename string) bool {
 	// Read the file to buffer
 	imgFile, err := os.Open(filename)
 
@@ -268,6 +268,8 @@ func DetectLabels(s *session.Session, filename string) {
 	}
 
 	fmt.Println(result)
-	fmt.Printf("%s\n", *result.Labels[1].Name)
+	for v := range *result.Labels {
+		fmt.Printf("%s\n", v.Name)
+	}
 
 }
