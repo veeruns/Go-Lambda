@@ -41,6 +41,7 @@ type Config struct {
 	s3_region         string
 	access_key_id     string
 	access_key_secret string
+	upload            bool
 }
 
 var Conf Config
@@ -60,9 +61,13 @@ func main() {
 	op := DetectLabels(s, filename)
 	if op == true {
 		fmt.Printf("Human detected uploading to S3\n")
-		err = AddFileToS3(s, filename)
-		if err != nil {
-			log.Fatal(err)
+		if Conf.upload {
+			err = AddFileToS3(s, filename)
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			fmt.Printf("Upload disabled\n")
 		}
 	}
 	//	DetectFaces(s, filename)
@@ -130,6 +135,7 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 	cfg.access_key_secret = viper.GetString("aws.access_key_secret")
 	cfg.s3_bucket = viper.GetString("aws.s3_bucket")
 	cfg.s3_region = viper.GetString("aws.s3_region")
+	cfg.upload = viper.GetBool("aws.upload")
 
 	return true
 
