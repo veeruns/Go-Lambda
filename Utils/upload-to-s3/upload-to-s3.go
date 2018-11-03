@@ -177,6 +177,9 @@ func DetectFaces(s *session.Session, filename string) {
 		Image: &rekognition.Image{
 			Bytes: []byte(content),
 		},
+    Attributes : [
+        "ALL"
+    ]
 	}
 
 	result, err := svc.DetectFaces(input)
