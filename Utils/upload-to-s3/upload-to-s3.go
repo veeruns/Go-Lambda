@@ -284,3 +284,69 @@ func DetectLabels(s *session.Session, filename string) bool {
 	}
 	return false
 }
+
+func RecognizeCelebrity(s *session.Session, filename string) bool {
+	// Read the file to buffer
+	imgFile, err := os.Open(filename)
+
+	if err != nil {
+		fmt.Printf("Oops some error %s\n", err.Error())
+		os.Exit(1)
+	}
+	defer imgFile.Close()
+
+	/*	fInfo, _ := imgFile.Stat() // So that we know the size of buffer to create
+		var size int64 = fInfo.Size()
+		buf := make([]byte, size) */ // Make a buffer with size we got earlier
+
+	fReader := bufio.NewReader(imgFile) //Use bufio to read it to buffer
+	content, _ := ioutil.ReadAll(fReader)
+
+	//imgBase64Str, _ := base64.StdEncoding.DecodeString(content) //base64 encoded string
+
+	svc := rekognition.New(s)
+
+	input := &rekognition.RecognizeCelebritiesInput{
+		Image: &rekognition.Image{
+			Bytes: []byte(content),
+		},
+	}
+
+	var result *rekognition.RecognizeCelebritiesOutput
+	result, err = svc.RecognizeCelebrities(input)
+	if err != nil {
+		if aerr, ok := err.(awserr.Error); ok {
+			switch aerr.Code() {
+			case rekognition.ErrCodeInvalidS3ObjectException:
+				fmt.Println(rekognition.ErrCodeInvalidS3ObjectException, aerr.Error())
+			case rekognition.ErrCodeInvalidParameterException:
+				fmt.Println(rekognition.ErrCodeInvalidParameterException, aerr.Error())
+			case rekognition.ErrCodeImageTooLargeException:
+				fmt.Println(rekognition.ErrCodeImageTooLargeException, aerr.Error())
+			case rekognition.ErrCodeAccessDeniedException:
+				fmt.Println(rekognition.ErrCodeAccessDeniedException, aerr.Error())
+			case rekognition.ErrCodeInternalServerError:
+				fmt.Println(rekognition.ErrCodeInternalServerError, aerr.Error())
+			case rekognition.ErrCodeThrottlingException:
+				fmt.Println(rekognition.ErrCodeThrottlingException, aerr.Error())
+			case rekognition.ErrCodeProvisionedThroughputExceededException:
+				fmt.Println(rekognition.ErrCodeProvisionedThroughputExceededException, aerr.Error())
+			case rekognition.ErrCodeInvalidImageFormatException:
+				fmt.Println(rekognition.ErrCodeInvalidImageFormatException, aerr.Error())
+			default:
+				fmt.Println(aerr.Error())
+			}
+		} else {
+			// Print the error, cast err to awserr.Error to get the Code and
+			// Message from an error.
+			fmt.Println(err.Error())
+		}
+		return false
+	}
+
+	fmt.Println(result)
+	for _, v := range result.CelebrityFaces {
+		fmt.Printf("%s\n", v.GoString())
+	}
+	return false
+}
