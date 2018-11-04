@@ -59,6 +59,7 @@ func main() {
 	filename := os.Args[1]
 	DetectFaces(s, filename)
 	op := DetectLabels(s, filename)
+	RecognizeCelebrity(s, filename)
 	if op == true {
 		fmt.Printf("Human detected uploading to S3\n")
 		if Conf.upload {
