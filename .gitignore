@@ -8,3 +8,4 @@ Server
 httpsServer
 *.secret
 *.gz
+ssd_mobilenet*
