@@ -252,9 +252,10 @@ func main() {
 		y1 := float32(img.Bounds().Max.Y) * boxes[curObj][0]
 		y2 := float32(img.Bounds().Max.Y) * boxes[curObj][2]
 
-		Rect(img, int(x1), int(y1), int(x2), int(y2), 4, colornames.Map[colornames.Names[int(classes[curObj])]])
-		addLabel(img, int(x1), int(y1), int(classes[curObj]), getLabel(curObj, probabilities, classes))
-
+		/*	Rect(img, int(x1), int(y1), int(x2), int(y2), 4, colornames.Map[colornames.Names[int(classes[curObj])]])
+			addLabel(img, int(x1), int(y1), int(classes[curObj]), getLabel(curObj, probabilities, classes))
+		*/
+		label := getLabel(curObj, probabilities, classes)
 		curObj++
 	}
 
