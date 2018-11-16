@@ -240,7 +240,7 @@ func main() {
 	// Outputs
 	probabilities := output[1].Value().([][]float32)[0]
 	classes := output[2].Value().([][]float32)[0]
-	boxes := output[0].Value().([][][]float32)[0]
+	//	boxes := output[0].Value().([][][]float32)[0]
 
 	// Draw a box around the objects
 	curObj := 0
