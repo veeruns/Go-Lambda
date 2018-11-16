@@ -7,3 +7,4 @@ rokulib/conf/*.json
 Server
 httpsServer
 *.secret
+*.gz
