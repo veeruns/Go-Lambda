@@ -7,6 +7,8 @@ import (
 func main() {
 	var disk groucho.Result
 	disk.OutputString = "Test"
+	disk.RegisterID.Name = "DiskChecker"
+	disk.RegisterID.Version = "1.0"
 
 	disk.OutputCode = groucho.OK
 	disk.OutputDesc = "Test result"
