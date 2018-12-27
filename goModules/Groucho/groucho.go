@@ -1,14 +1,14 @@
 package groucho
 
 import (
-  "fmt"
-  "github.com/google/uuid"
+	"fmt"
 )
+
 type code int
 
 type pluginid struct {
-  Name string
-  Version string
+	Name    string
+	Version string
 }
 
 const (
@@ -34,7 +34,7 @@ func (re Result) PrintResult() {
 }
 
 func (re Result) Validate() (bool, string) {
-	if len(re.OutputDesc) == 0 || len(re.OutputString) == 0 || re.OutputCode > 3 || re.OutputCode < 0 || len(re.RegisterID.Name) == 0 || len(re.RegisterID.Version) == 0) {
+	if len(re.OutputDesc) == 0 || len(re.OutputString) == 0 || re.OutputCode > 3 || re.OutputCode < 0 || len(re.RegisterID.Name) == 0 || len(re.RegisterID.Version) == 0 {
 		return false, "Something Wrong with result set"
 	}
 	return true, "All OK"
