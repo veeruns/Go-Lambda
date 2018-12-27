@@ -6,7 +6,7 @@ type result struct {
 	outputString string
 }
 
-func (re []result) PrintResult() {
+func (re result) PrintResult() {
 
 }
 
