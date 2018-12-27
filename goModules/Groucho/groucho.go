@@ -53,7 +53,7 @@ func (re Result) AppendResults() (bool, string) {
 	return true, "Successfully Appended"
 }
 
-func (re Result) PrintAllResults() err {
+func (re Result) PrintAllResults() error {
 	vop, _ := re.Validate()
 	if vop != true {
 		function, file, line, _ := runtime.Caller(1)
