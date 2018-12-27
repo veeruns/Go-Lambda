@@ -17,14 +17,14 @@ type Result struct {
 }
 
 func (re Result) PrintResult() {
-	fmt.Printf("OutputCode is %d\n", re.outputCode)
-	fmt.Printf("OutputString is %s\n", re.outputString)
-	fmt.Printf("OutputDesc is %s\n", re.outputDesc)
+	fmt.Printf("OutputCode is %d\n", re.OutputCode)
+	fmt.Printf("OutputString is %s\n", re.OutputString)
+	fmt.Printf("OutputDesc is %s\n", re.OutputDesc)
 
 }
 
 func (re Result) Validate() (bool, string) {
-	if len(re.outputDesc) == 0 || len(re.outputString) == 0 || re.outputCode > 3 || re.outputCode < 0 {
+	if len(re.OutputDesc) == 0 || len(re.OutputString) == 0 || re.OutputCode > 3 || re.OutputCode < 0 {
 		return false, "Something Wrong with result set"
 	}
 	return true, "All OK"
