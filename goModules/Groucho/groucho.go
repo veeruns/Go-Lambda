@@ -61,4 +61,5 @@ func (re Result) PrintAllResults() error {
 
 		return errors.New(op)
 	}
+	return nil
 }
