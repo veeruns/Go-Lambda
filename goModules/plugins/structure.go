@@ -31,4 +31,5 @@ func (re result) Validate() (bool, string) {
 
 }
 
+// Result is the main stucture
 var Result result
