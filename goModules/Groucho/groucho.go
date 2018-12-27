@@ -38,5 +38,5 @@ func (re *Result) AppendResults() (bool, string) {
 	if vop != true {
 		return false, "Validation Failure"
 	}
-	AllResults = append(AllResult, re)
+	AllResults = append(AllResults, re)
 }
