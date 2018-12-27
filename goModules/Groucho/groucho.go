@@ -52,11 +52,12 @@ func (re Result) AppendResults() (bool, string) {
 	return true, "Successfully Appended"
 }
 
-func (re Result) PrintAllResults() {
+func (re Result) PrintAllResults() err {
 	vop, _ := re.Validate()
 	if vop != true {
 		function, file, line, _ := runtime.Caller(1)
 		op := fmt.Sprintf("Validation failure at %s %s %d", file, runtime.FuncForPC(function).Name(), line)
-		return false, op
+		error = op
+		return
 	}
 }
