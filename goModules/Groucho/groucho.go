@@ -12,7 +12,7 @@ const (
 
 type Result struct {
 	OutputDesc   string
-	OutputCode   int
+	OutputCode   code
 	OutputString string
 }
 
