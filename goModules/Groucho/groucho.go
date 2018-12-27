@@ -33,7 +33,7 @@ func (re Result) Validate() (bool, string) {
 
 }
 
-func (re *Result) AppendResults() (bool, string) {
+func (re Result) AppendResults() (bool, string) {
 	vop, _ := re.Validate()
 	if vop != true {
 		return false, "Validation Failure"
