@@ -1,16 +1,12 @@
 package main
 
-import (
-  "fmt"
-)
-
 type result struct {
-  outputDesc string
-  outputCode int
-  outputString string
+	outputDesc   string
+	outputCode   int
+	outputString string
 }
 
-func (re []result) PrintResult{
+func (re []result) PrintResult() {
 
 }
 
