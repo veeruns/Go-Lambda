@@ -6,9 +6,8 @@ import (
 	"github.com/veeruns/Go-Lambda/goModules/groucho"
 )
 
-var disk groucho.Result
-
 func main() {
+	var disk groucho.Result
 	disk.outputString = "Test"
 
 	fmt.Printf("%s\n", disk.outputString)
