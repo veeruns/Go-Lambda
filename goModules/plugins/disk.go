@@ -1,4 +1,3 @@
 package main
 
-var  disk Result
-disk.
+var disk Result
