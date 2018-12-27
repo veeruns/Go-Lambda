@@ -6,7 +6,7 @@ import (
 
 func main() {
 	var disk groucho.Result
-	disk.outputString = "Test"
+	disk.OutputString = "Test"
 
 	disk.OutputCode = groucho.OK
 	disk.OutputDesc = "Test result"
