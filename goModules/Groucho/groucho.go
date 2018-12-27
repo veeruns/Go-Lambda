@@ -11,9 +11,9 @@ const (
 )
 
 type Result struct {
-	outputDesc   string
-	outputCode   int
-	outputString string
+	OutputDesc   string
+	OutputCode   int
+	OutputString string
 }
 
 func (re Result) PrintResult() {
