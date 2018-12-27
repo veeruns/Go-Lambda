@@ -10,7 +10,7 @@ func main() {
 
 	disk.OutputCode = groucho.OK
 	disk.OutputDesc = "Test result"
-	op, ops := disk.Validate()
+	op, _ := disk.Validate()
 	if op == true {
 		disk.PrintResult()
 	}
