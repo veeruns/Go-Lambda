@@ -1,3 +1,4 @@
 package main
 
-type disk Result
+var  disk Result
+disk.
