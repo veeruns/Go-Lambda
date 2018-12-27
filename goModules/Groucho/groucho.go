@@ -16,6 +16,8 @@ type Result struct {
 	OutputString string
 }
 
+var AllResults []Result
+
 func (re Result) PrintResult() {
 	fmt.Printf("OutputCode is %d\n", re.OutputCode)
 	fmt.Printf("OutputString is %s\n", re.OutputString)
@@ -29,4 +31,12 @@ func (re Result) Validate() (bool, string) {
 	}
 	return true, "All OK"
 
+}
+
+func (re *Result) AppendResults(bool, string) {
+	vop, _ := re.Validate()
+	if vop != true {
+		return false, "Validation Failure"
+	}
+	AllResults = append(AllResult, re)
 }
