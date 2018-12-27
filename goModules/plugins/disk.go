@@ -1,14 +1,17 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/veeruns/Go-Lambda/goModules/groucho"
 )
 
 func main() {
-	type disk groucho.Result
+	var disk groucho.Result
 	disk.outputString = "Test"
 
-	fmt.Printf("%s\n", disk.outputString)
+	disk.OutputCode = groucho.OK
+	disk.OutputDesc = "Test result"
+	op, ops := disk.Validate()
+	if op == true {
+		disk.PrintResult()
+	}
 }
