@@ -61,5 +61,8 @@ func (re Result) PrintAllResults() error {
 
 		return errors.New(op)
 	}
+  for k := range AllResults {
+      fmt.Printf("%s %s %d\n",k[])
+  }
 	return nil
 }
