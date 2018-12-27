@@ -2,6 +2,7 @@ package groucho
 
 import (
 	"fmt"
+	"runtime"
 )
 
 type code int
@@ -49,4 +50,13 @@ func (re Result) AppendResults() (bool, string) {
 	}
 	AllResults = append(AllResults, re)
 	return true, "Successfully Appended"
+}
+
+func (re Result) PrintAllResults() {
+	vop, _ := re.Validate()
+	if vop != true {
+		function, file, line, _ := runtime.Caller(1)
+		op := fmt.Sprintf("Validation failure at %s %s %d", chopPath(file), runtime.FuncForPC(function).Name(), line)
+		return false, op
+	}
 }
