@@ -11,6 +11,7 @@ const (
 )
 
 type Result struct {
+	RegisterID
 	OutputDesc   string
 	OutputCode   code
 	OutputString string
