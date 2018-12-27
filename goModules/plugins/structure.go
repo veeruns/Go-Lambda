@@ -3,11 +3,13 @@ package main
 import "fmt"
 
 type code int
+
 const (
-  CRITICAL code = iota
-  WARNING
-  OK
+	CRITICAL code = iota
+	WARNING
+	OK
 )
+
 type result struct {
 	outputDesc   string
 	outputCode   int
@@ -21,12 +23,12 @@ func (re result) PrintResult() {
 
 }
 
-func (re result) Validate() (bool,string){
-  if(len(re.outputDesc) == 0 || len(re.outputString) == 0) || re.outputCode > 3 || re.outputCode < 0 ){
-    return false,"Something Wrong with result set"
-  } else {
-    return true,"All OK"
-  }
+func (re result) Validate() (bool, string) {
+	if len(re.outputDesc) == 0 || len(re.outputString) == 0 || re.outputCode > 3 || re.outputCode < 0 {
+		return false, "Something Wrong with result set"
+	} else {
+		return true, "All OK"
+	}
 }
 
 var Result result
