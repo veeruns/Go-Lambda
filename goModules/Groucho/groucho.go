@@ -7,8 +7,9 @@ import (
 type code int
 
 type pluginid struct {
-	Name    string
-	Version string
+	Name     string
+	Version  string
+	CodePath string
 }
 
 const (
