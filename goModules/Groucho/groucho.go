@@ -39,4 +39,5 @@ func (re *Result) AppendResults() (bool, string) {
 		return false, "Validation Failure"
 	}
 	AllResults = append(AllResults, re)
+	return true, "Successfully Appended"
 }
