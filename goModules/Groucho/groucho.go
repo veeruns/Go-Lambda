@@ -1,6 +1,7 @@
 package groucho
 
 import (
+	"errors"
 	"fmt"
 	"runtime"
 )
@@ -57,7 +58,7 @@ func (re Result) PrintAllResults() err {
 	if vop != true {
 		function, file, line, _ := runtime.Caller(1)
 		op := fmt.Sprintf("Validation failure at %s %s %d", file, runtime.FuncForPC(function).Name(), line)
-		error = op
-		return
+
+		return errors.New(op)
 	}
 }
