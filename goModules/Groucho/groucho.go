@@ -63,5 +63,5 @@ func (re allresults) PrintAllResults() {
 	for _, v := range re {
 		fmt.Printf("%s %s %d\n", v.OutputString, v.OutputDesc, v.OutputCode)
 	}
-	return nil
+
 }
