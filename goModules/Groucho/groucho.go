@@ -53,7 +53,7 @@ func (re *AllResults) AppendResults(input Result) (bool, string) {
 }
 
 //PrintAllResults prints all the data in memory
-func (re AllResults) PrintAllResults() {
+func (re *AllResults) PrintAllResults() {
 	/*	vop, _ := re.Validate()
 		if vop != true {
 			function, file, line, _ := runtime.Caller(1)
