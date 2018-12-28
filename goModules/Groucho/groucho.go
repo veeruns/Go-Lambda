@@ -29,7 +29,7 @@ var inside Result
 
 type allresults []Result
 
-type AllResults allresults
+type AllResults []Result
 
 func (re Result) PrintResult() {
 	fmt.Printf("OutputCode is %d\n", re.OutputCode)
