@@ -27,7 +27,7 @@ func main() {
 	fmt.Printf("Done Appeneding\n")
 	allr.PrintAllResults()
 	allr.AppendResults(d2)
-
+	allr.PrintAllResults()
 	op, _ := disk.Validate()
 	if op == true {
 		disk.PrintResult()
