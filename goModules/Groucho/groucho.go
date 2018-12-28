@@ -27,7 +27,9 @@ type Result struct {
 	OutputString string
 }
 
-var AllResults []Result
+type allresults []Result
+
+var AllResults allresults
 
 func (re Result) PrintResult() {
 	fmt.Printf("OutputCode is %d\n", re.OutputCode)
@@ -44,7 +46,7 @@ func (re Result) Validate() (bool, string) {
 
 }
 
-func (re AllResults) AppendResults(inlet result) (bool, string) {
+func (re allresults) AppendResults(inlet result) (bool, string) {
 	vop, _ := re.Validate()
 	if vop != true {
 		return false, "Validation Failure"
