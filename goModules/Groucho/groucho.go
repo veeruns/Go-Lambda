@@ -27,7 +27,7 @@ type Result struct {
 
 var inside Result
 
-type allresults []Result
+//type allresults []Result
 
 type AllResults []Result
 
@@ -46,13 +46,13 @@ func (re Result) Validate() (bool, string) {
 
 }
 
-func (re *allresults) AppendResults(input Result) (bool, string) {
+func (re *AllResults) AppendResults(input Result) (bool, string) {
 	*re = append(*re, input)
 	return true, "Successfully Appended"
 }
 
 //PrintAllResults prints all the data in memory
-func (re allresults) PrintAllResults() {
+func (re AllResults) PrintAllResults() {
 	/*	vop, _ := re.Validate()
 		if vop != true {
 			function, file, line, _ := runtime.Caller(1)
