@@ -64,7 +64,7 @@ func (re *AllResults) PrintAllResults() {
 			return errors.New(op)
 		}*/
 	fmt.Printf("Printing all of AllResults\n")
-	function, file, line, _ := runtime.Caller(2)
+	function, file, line, _ := runtime.Caller(0)
 	op := fmt.Sprintf("Validation failure at %s %s %d", file, runtime.FuncForPC(function).Name(), line)
 	fmt.Printf("%s\n", op)
 	for k, v := range *re {
