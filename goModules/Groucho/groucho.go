@@ -61,7 +61,8 @@ func (re *AllResults) PrintAllResults() {
 
 			return errors.New(op)
 		}*/
-	for _, v := range re {
+	fmt.Printf("Printing all of AllResults")
+	for _, v := range *re {
 		fmt.Printf("%s %s %d\n", v.OutputString, v.OutputDesc, v.OutputCode)
 	}
 
