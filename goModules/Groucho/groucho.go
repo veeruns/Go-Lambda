@@ -44,7 +44,7 @@ func (re Result) Validate() (bool, string) {
 
 }
 
-func (re Result) AppendResults() (bool, string) {
+func (re AllResults) AppendResults(inlet result) (bool, string) {
 	vop, _ := re.Validate()
 	if vop != true {
 		return false, "Validation Failure"
@@ -53,7 +53,8 @@ func (re Result) AppendResults() (bool, string) {
 	return true, "Successfully Appended"
 }
 
-func (re Result) PrintAllResults() error {
+//PrintAllResults prints all the data in memory
+func (re AllResults) PrintAllResults() error {
 	vop, _ := re.Validate()
 	if vop != true {
 		function, file, line, _ := runtime.Caller(1)
@@ -61,7 +62,7 @@ func (re Result) PrintAllResults() error {
 
 		return errors.New(op)
 	}
-	for _, v := range AllResults {
+	for _, v := range re {
 		fmt.Printf("%s %s %d\n", v.OutputString, v.OutputDesc, v.OutputCode)
 	}
 	return nil
