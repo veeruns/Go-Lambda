@@ -47,7 +47,7 @@ func (re Result) Validate() (bool, string) {
 }
 
 func (re allresults) AppendResults(input Result) (bool, string) {
-	AllResults = append(AllResults, re)
+	re = append(re, input)
 	return true, "Successfully Appended"
 }
 
