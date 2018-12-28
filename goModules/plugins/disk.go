@@ -24,7 +24,7 @@ func main() {
 
 	var allr groucho.AllResults
 	allr.AppendResults(disk)
-	fmt.Printf("Done Appeneding")
+	fmt.Printf("Done Appeneding\")
 	allr.PrintAllResults()
 	allr.AppendResults(d2)
 
