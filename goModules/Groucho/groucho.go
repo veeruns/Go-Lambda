@@ -2,6 +2,7 @@ package groucho
 
 import (
 	"fmt"
+	"runtime"
 )
 
 type code int
@@ -63,6 +64,9 @@ func (re *AllResults) PrintAllResults() {
 			return errors.New(op)
 		}*/
 	fmt.Printf("Printing all of AllResults\n")
+	function, file, line, _ := runtime.Caller(1)
+	op := fmt.Sprintf("Validation failure at %s %s %d", file, runtime.FuncForPC(function).Name(), line)
+	fmt.Printf("%s\n", op)
 	for k, v := range *re {
 		fmt.Printf("%d\t%s\t%s\t%s\t%d\n", k, v.PluginName, v.OutputString, v.OutputDesc, v.OutputCode)
 	}
