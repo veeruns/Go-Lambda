@@ -21,6 +21,9 @@ func main() {
 	d2.RegisterID.Version = "2.0"
 
 	var allr groucho.AllResults
+	allr.AppendResults(disk)
+	allr.PrintAllResults()
+	allr.AppendResults(d2)
 
 	op, _ := disk.Validate()
 	if op == true {
