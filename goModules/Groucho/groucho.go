@@ -48,6 +48,7 @@ func (re Result) Validate() (bool, string) {
 
 func (re *AllResults) AppendResults(input Result) (bool, string) {
 	*re = append(*re, input)
+	fmt.Printf("Appending Done")
 	return true, "Successfully Appended"
 }
 
