@@ -27,6 +27,8 @@ type Result struct {
 	OutputString string
 }
 
+var inside Result
+
 type allresults []Result
 
 var AllResults allresults
@@ -46,11 +48,7 @@ func (re Result) Validate() (bool, string) {
 
 }
 
-func (re allresults) AppendResults(inlet result) (bool, string) {
-	vop, _ := re.Validate()
-	if vop != true {
-		return false, "Validation Failure"
-	}
+func (re allresults) AppendResults(input inside) (bool, string) {
 	AllResults = append(AllResults, re)
 	return true, "Successfully Appended"
 }
