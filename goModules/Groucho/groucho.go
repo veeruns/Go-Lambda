@@ -20,6 +20,7 @@ const (
 
 type Result struct {
 	RegisterID   pluginid
+	PluginName   string
 	OutputDesc   string
 	OutputCode   code
 	OutputString string
@@ -63,7 +64,7 @@ func (re *AllResults) PrintAllResults() {
 		}*/
 	fmt.Printf("Printing all of AllResults\n")
 	for k, v := range *re {
-		fmt.Printf("%d %s %s %d\n", k, v.OutputString, v.OutputDesc, v.OutputCode)
+		fmt.Printf("%d\t%s\t%s\t%d\n", k, v.PluginName, v.OutputString, v.OutputDesc, v.OutputCode)
 	}
 
 }
