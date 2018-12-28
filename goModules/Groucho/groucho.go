@@ -48,7 +48,7 @@ func (re Result) Validate() (bool, string) {
 
 func (re *AllResults) AppendResults(input Result) (bool, string) {
 	*re = append(*re, input)
-	fmt.Printf("Appending Done")
+	fmt.Printf("Appending Done\n")
 	return true, "Successfully Appended"
 }
 
@@ -61,7 +61,7 @@ func (re *AllResults) PrintAllResults() {
 
 			return errors.New(op)
 		}*/
-	fmt.Printf("Printing all of AllResults")
+	fmt.Printf("Printing all of AllResults\n")
 	for k, v := range *re {
 		fmt.Printf("%d %s %s %d\n", k, v.OutputString, v.OutputDesc, v.OutputCode)
 	}
