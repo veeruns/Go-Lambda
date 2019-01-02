@@ -31,5 +31,5 @@ func readconfig(cfg *Config, confdir string, confname string) bool {
 	}
 
 	err := viper.Unmarshal("Groucho", &cfg)
-
+	return true
 }
