@@ -11,7 +11,7 @@ import (
 
 func main() {
 	u := "veeru"
-	p := "secret"
+	p := "$R33r@m$$January2019"
 
 	bouncerRawURL := "https://by.bouncer.login.yahoo.com/login/"
 	//bouncerRawURL := "http://localhost/login"
