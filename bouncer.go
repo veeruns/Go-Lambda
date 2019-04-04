@@ -13,8 +13,8 @@ func main() {
 	u := "veeru"
 	p := "$R33r@m$$January2019"
 
-	//bouncerRawURL := "https://by.bouncer.login.yahoo.com/login/"
-	bouncerRawURL := "http://localhost/login"
+	bouncerRawURL := "https://by.bouncer.login.yahoo.com/login/"
+	//bouncerRawURL := "http://localhost/login"
 
 	values := make(url.Values)
 	values.Add("id", u)
@@ -29,7 +29,7 @@ func main() {
 
 	// Add headers
 	req.Header.Add("Accept-Encoding", "*/*")
-	req.Header.Set("Connection", "keep-alive")
+	//req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Content-Length", strconv.Itoa(len(v)))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Host", "by.bouncer.login.yahoo.com")
