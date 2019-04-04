@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// Add headers
-	req.Header.Add("Accept-Encoding", "*/*")
+	//req.Header.Add("Accept-Encoding", "*/*")
 	//req.Header.Set("Connection", "keep-alive")
 	//req.Header.Set("Content-Length", strconv.Itoa(len(v)))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
