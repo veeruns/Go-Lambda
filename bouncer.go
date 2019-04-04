@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"strconv"
 	"strings"
 )
 
@@ -30,10 +29,10 @@ func main() {
 	// Add headers
 	req.Header.Add("Accept-Encoding", "*/*")
 	//req.Header.Set("Connection", "keep-alive")
-	req.Header.Set("Content-Length", strconv.Itoa(len(v)))
+	//req.Header.Set("Content-Length", strconv.Itoa(len(v)))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Host", "by.bouncer.login.yahoo.com")
-	req.Header.Set("User-Agent", "Go HTTP")
+	//req.Header.Set("Host", "by.bouncer.login.yahoo.com")
+	//req.Header.Set("User-Agent", "Go HTTP")
 
 	data, err := httputil.DumpRequest(req, true)
 	if err != nil {
