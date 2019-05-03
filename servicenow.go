@@ -10,7 +10,8 @@ import (
 
 func basicAuth() string {
 	var username string = "snowensemble"
-	var passwd string = "KbxYDhpQJNdDS1IuQnt!$2uy!QVp1Px6Q0mRtHpU"
+	var passwd string = "KbxYDhpQJNdDS1IuQnt!$2uy!QVp1Px6Q0mRtHpU*"
+
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://vzbuilders.service-now.com/api/now/table/u_ops_request_management", nil)
 
