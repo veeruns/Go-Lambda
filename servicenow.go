@@ -24,7 +24,7 @@ func basicAuth() string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(string(requestDump))
+	//fmt.Println(string(requestDump))
 	resp, err := client.Do(req)
 
 	if err != nil {
@@ -36,7 +36,7 @@ func basicAuth() string {
 }
 
 func main() {
-	fmt.Println("requesting...")
+	//fmt.Println("requesting...")
 	S := basicAuth()
 	fmt.Println(S)
 }
