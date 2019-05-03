@@ -16,7 +16,7 @@ func basicAuth() string {
 
 	req.SetBasicAuth(username, passwd)
 	query := req.URL.Query()
-	query.Add("sysparm_query", "u_business_service%3D8434f15b0fc0cfc0abe3590be1050e86^state=1")
+	query.Add("sysparm_query", "u_business_service=8434f15b0fc0cfc0abe3590be1050e86^state=1")
 	query.Add("sysparam_limit", "10")
 	req.URL.RawQuery = query.Encode()
 
