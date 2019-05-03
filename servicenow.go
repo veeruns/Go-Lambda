@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/http/httputil"
 )
 
 func basicAuth() string {
@@ -20,10 +19,7 @@ func basicAuth() string {
 	query.Add("sysparm_query", "u_business_service%3D8434f15b0fc0cfc0abe3590be1050e86^state=1")
 	query.Add("sysparam_limit", "10")
 	req.URL.RawQuery = query.Encode()
-	requestDump, err := httputil.DumpRequest(req, true)
-	if err != nil {
-		fmt.Println(err)
-	}
+
 	//fmt.Println(string(requestDump))
 	resp, err := client.Do(req)
 
