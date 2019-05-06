@@ -756,6 +756,11 @@ func main() {
   ]
 }
 `
+	type snowlinkobj struct {
+		Link  string `json:"link"`
+		Value string `json:"value"`
+	}
+
 	type ServiceNowResponse struct {
 		Parent                    string      `json:"parent"`
 		UAssetBarCode             string      `json:"u_asset_bar_code"`
@@ -874,11 +879,6 @@ func main() {
 		UMvRtNotes                string      `json:"u_mv_rt_notes"`
 		Location                  string      `json:"location"`
 		UAssetModel               string      `json:"u_asset_model"`
-	}
-
-	type snowlinkobj struct {
-		Link  string `json:"link"`
-		Value string `json:"value"`
 	}
 
 	//SnowResultArray when you have multiple responses
