@@ -887,7 +887,7 @@ func main() {
 	}
 
 	var sobj SnowResultArray
-	err := json.Unmarshal(sop, sobj)
+	err := json.Unmarshal([]byte(sop), sobj)
 	if err != nil {
 		fmt.Printf("Did not work %s\n", err.String())
 
