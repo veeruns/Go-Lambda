@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+//Event Structure
 type Event struct {
 	Username string
 }
