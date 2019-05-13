@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"k8s.io/api/apps/v1beta2"
+	v1 "k8s.io/api/apps/v1"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
@@ -33,7 +33,9 @@ func main() {
 	//Create informer factory
 	factory := informers.NewSharedInformerFactory(clientset, 0)
 	//Pod Creating informer
-	informer := factory.Apps().V1beta2().Deployments().Informer()
+	informer := factory.Apps().V1().Deployments().Informer()
+	informer = factory.Core().V1().Pods().Informer()
+	//	informer := factory.Apps().V1beta2().Deployments().Informer()
 	//	informer := factory.Apps().V1().Deployments().Informer()
 	stopper := make(chan struct{})
 	defer close(stopper)
@@ -41,7 +43,7 @@ func main() {
 		AddFunc: func(obj interface{}) {
 			// "k8s.io/apimachinery/pkg/apis/meta/v1" provides an Object
 			// interface that allows us to get metadata easily
-			mObj := obj.(*v1beta2.Deployment)
+			mObj := obj.(*v1.Deployment)
 			labels := mObj.GetObjectMeta().GetLabels()
 			var op string
 			for k, v := range labels {
@@ -51,8 +53,8 @@ func main() {
 			log.Printf("New Deployment Added to Store: %s (labels=%s)", mObj.GetObjectMeta().GetName(), op)
 		},
 		UpdateFunc: func(old interface{}, obj interface{}) {
-			mObj := obj.(*v1beta2.Deployment)
-			oObj := old.(*v1beta2.Deployment)
+			mObj := obj.(*v1.Deployment)
+			oObj := old.(*v1.Deployment)
 			labels := mObj.GetObjectMeta().GetLabels()
 			var op string
 			for k, v := range labels {
@@ -63,13 +65,14 @@ func main() {
 
 		},
 		DeleteFunc: func(obj interface{}) {
-			mObj := obj.(*v1beta2.Deployment)
+			mObj := obj.(*v1.Deployment)
 			labels := mObj.GetObjectMeta().GetLabels()
 			var op string
 			for k, v := range labels {
 				op = op + k + "=" + v + ","
 
 			}
+
 			log.Printf("Pod was deleted %s with labels %v\n", mObj.GetName(), op)
 		},
 	})
