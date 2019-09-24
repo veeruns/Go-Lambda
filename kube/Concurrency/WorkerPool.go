@@ -1,12 +1,12 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"sync"
+	"time"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
@@ -49,13 +49,13 @@ func worker(id int, wg *sync.WaitGroup, jobs <-chan job, results chan<- result, 
 		configOverrides := clientcmd.ConfigOverrides{}
 		configOverrides.CurrentContext = j.context
 		cfg, _ := clientcmd.LoadFromFile(kubeconfig)
-		fmt.Printf("Contexts in kubeconfig worker %s\n", j.context)
+		//fmt.Printf("Contexts in kubeconfig worker %s\n", j.context)
 		//config, _ := clientcmd.NewNonInteractiveClientConfig(&clientcmd.ClientConfigLoadingRules{ExplicitPath: kubeconfig}, &cfgoverrides, "").ClientConfig()
 		config, err := clientcmd.NewNonInteractiveClientConfig(*cfg, j.context, &configOverrides, nil).ClientConfig()
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("From Config %s\n", config.CertFile)
+		//fmt.Printf("From Config %s\n", config.CertFile)
 		clientset, err := kubernetes.NewForConfig(config)
 		var errflag bool
 		errflag = false
@@ -64,6 +64,7 @@ func worker(id int, wg *sync.WaitGroup, jobs <-chan job, results chan<- result, 
 			er.id = id
 			er.err = err
 			errors <- er
+			fmt.Printf("Creating client set error %v\n", err)
 			errflag = true
 
 		}
@@ -90,18 +91,35 @@ func worker(id int, wg *sync.WaitGroup, jobs <-chan job, results chan<- result, 
 
 			results <- emit
 			fmt.Println("Done sending result from  worker", id, " and ", j.context)
+		} else {
+			var op []string
+			emit.id = id
+			emit.context = j.context
+			emit.Output = op
+			fmt.Printf("Empty result because %v\n", errflag)
+			results <- emit
 		}
 		wg.Done()
 	}
 }
 func main() {
-	var ns string
+	//	var ns string
 	//	var result = make(chan K8sResult)
 
-	flag.StringVar(&ns, "namespace", "", "namespace for listing pods")
-	flag.Parse()
-	//results := make(chan string)
-	// Bootstrap k8s configuration from local 	Kubernetes config file
+	/*
+		import (
+			"fmt"
+			"time"
+		)
+
+		func statusUpdate() string { return "" }
+
+		func main() {
+			c := time.Tick(5 * time.Second)
+			for now := range c {
+				fmt.Printf("%v %s\n", now, statusUpdate())
+			}
+		}*/
 	kubeconfig := filepath.Join(os.Getenv("HOME"), ".kube", "config")
 
 	cfg, err := clientcmd.LoadFromFile(kubeconfig)
@@ -112,35 +130,36 @@ func main() {
 	var numcontexts int
 	numcontexts = len(cfg.Contexts)
 	fmt.Printf("Number of contexts is %d\n", numcontexts)
-	jobs := make(chan job, numcontexts)
-	result := make(chan result, numcontexts)
-	jerrors := make(chan joberror, numcontexts)
-	for w := 1; w <= numcontexts; w++ {
-		go worker(w, &wg, jobs, result, jerrors)
-	}
-	var jid int
-	for key := range cfg.Contexts {
-		jid++
-		var l job
-		l.id = jid
-		l.context = key
-		jobs <- l
-		wg.Add(1)
-		fmt.Println("Adding job to worker ", jid)
-	}
-	close(jobs)
-	wg.Wait()
-	close(result)
-	fmt.Println("Size of channel is ", len(result))
-	for i := range result {
-		fmt.Printf("Result %d \n", i.id)
-		//fmt.Printf("Return from chan is %v\n", m)
-	}
 
-	/*	select {
-		case err := <-jerrors:
-			fmt.Println("Error ", err.err.Error(), "Job id ", err.id)
-		default:
-		}*/
+	timetick := time.Tick(10 * time.Second)
+	for now := range timetick {
+		fmt.Printf("Running for time %v\n", now)
+		jobs := make(chan job, numcontexts)
+		result := make(chan result, numcontexts)
+		jerrors := make(chan joberror, numcontexts)
+		for w := 1; w <= numcontexts; w++ {
+			go worker(w, &wg, jobs, result, jerrors)
+		}
+		var jid int
+		for key := range cfg.Contexts {
+			jid++
+			var l job
+			l.id = jid
+			l.context = key
+			jobs <- l
+			wg.Add(1)
+			fmt.Println("Adding job to worker ", jid)
+		}
+		close(jobs)
+		wg.Wait()
+		close(result)
+		fmt.Println("Size of channel is ", len(result))
+		for i := range result {
+			fmt.Printf("Result %d %s \n", i.id, i.context)
+			//fmt.Printf("Return from chan is %v\n", m)
+		}
+		close(jerrors)
+
+	}
 
 }
