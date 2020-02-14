@@ -1,0 +1,33 @@
+//syntax is protocol 3, semi-colon is important
+syntax = "proto3";
+
+/* 1-15 fields are most used field uses 1 byte
+2-2047 is not so used fields 2 bytes
+*/
+message Person {
+    //Auto-populated field
+    int32 id = 1;
+    // Firstname of the person
+    string Firstname = 2;
+    // Last name of the person
+    string Lastname = 3;
+    // Age of the person
+    int32 age = 4;
+    // Is his name verified
+    bool is_verified = 5;
+    //profile image of the picture
+    bytes picture = 6;
+
+    repeated string phone_number = 7;
+
+    enum EyeColor {
+        UNKNOWN_EYE_COLOR=0;
+        BLUE_COLOR=1;
+        GREEN_COLOR=2;
+        BROWN_COLOR=3;
+        BLACK_COLOR=4;
+
+    }
+    EyeColor eye_color = 8;
+
+}
