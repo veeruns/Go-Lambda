@@ -17,7 +17,7 @@ func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.G
 	firstname := req.GetGreeting().GetFirstName()
 	lastname := req.GetGreeting().GetLastName()
 
-	result := "Hello" + firstname + " " + lastname
+	result := "Hello " + firstname + " " + lastname
 
 	res := greetpb.GreetResponse{
 		Result: result,
