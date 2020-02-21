@@ -4,13 +4,18 @@ package calculator;
 
 option go_package="calculatorpb";
 
-message Operation {
+message Operands {
     int32 first_number = 1;
     int32 second_number = 2;
 }
 
+message Operation {
+    string operation = 1;
+}
+
 message OpRequest{
-    Operation ops = 1;
+    Operands operands = 1;
+    Operation operation = 2;
 }
 
 message OpResponse {
@@ -20,4 +25,8 @@ service SumService{
     //Unary api
     //Always in rpc request is a somethingRequest and output is a somethingResponse
     rpc Sum(OpRequest) returns (OpResponse) {};
+}
+
+service GenericService {
+    rpc Generic(OpRequest) returns (OpResponse) {};
 }
