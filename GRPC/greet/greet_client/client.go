@@ -9,15 +9,14 @@ import (
 )
 
 func main() {
-
-	fmt.Println("Hello from client")
+	fmt.Println("Mello")
 
 	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 	if err != nil {
+
 		log.Fatalf("Could not connect to server %v\n", err)
 	}
 	defer conn.Close()
+	greetclient := greetpb.GreetServiceClient(conn)
 
-	c := greetpb.GreetServiceClient(conn)
-	fmt.Printf("Created client: %f", c)
 }
